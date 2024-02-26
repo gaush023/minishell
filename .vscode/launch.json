@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/shuga/Desktop/42/minishell/tool",
+      "program": "/Users/shuga/Desktop/42/minishell/tool/build/Debug/outDebug"
+    }
+  ]
+}
