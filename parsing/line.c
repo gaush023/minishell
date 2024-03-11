@@ -90,7 +90,7 @@ void parse(t_mini *mini)
 	if(((line = readline("")) == NULL) && (mini->flag = 1))
 		ft_putstr_fd("exit\n", STDERR);
 	add_history(line);
-        if(g_sig.sigint	== 1)
+    if(g_sig.sigint	== 1)
 		mini->ret = g_sig.sig_flag;
 	if(quote_check(mini, line) == 1)
 		return ;
@@ -101,7 +101,14 @@ void parse(t_mini *mini)
 	ft_free(line);
 	squish_content(mini);
 	token = mini->start;
+	while(token)
+	{
+		if(is_type(token, ARG))
+			type_token(token, 0);
+		token = token->next;
+	}
 }
+
 
 //int main(void)
 //{

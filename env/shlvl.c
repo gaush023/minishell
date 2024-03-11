@@ -2,11 +2,9 @@
 
 int  get_shlvl_plus(t_env *env) 
 {
-	size_t i;
 	int shell_lvl;	
 	char *tmp;
 
-	i = 0;
 	while(env && env->next)
 	{
 		if (ft_strncmp(env->value, "SHLVL=", 5) == 0)

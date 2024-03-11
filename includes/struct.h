@@ -38,6 +38,10 @@ typedef struct s_mini
 	int pipein;
 	int pipeout;
 	int m_pid;
+	int	charge;
+	int parent;
+	int last;
+	int no_exec;
 	t_env *env;
 	t_env *secret_env;
 	t_token *start;

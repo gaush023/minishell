@@ -24,7 +24,7 @@ char *ft_itoa(int n)
 {
 	char *res;
 	size_t len;
-	int is_negative;
+	size_t is_negative;
 	long long num;
 
 	len = get_num_len(n);
