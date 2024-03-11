@@ -28,10 +28,10 @@ int	check_line(t_mini *mini, t_token *token)
 {
 	while (token)
 	{
-		if (is_types(token, "TAI") && (!token->next || is_types(token->next,
-					"TAIPE")))
+		if (is_types(token, "RAI") && (!token->next || is_types(token->next,
+					"RAIPE")))
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `",
+			ft_putstr_fd(" minishell: syntax error near unexpected token `",
 					STDERR);
 			if (token)
 				ft_putstr_fd(token->content, STDERR);
@@ -41,10 +41,10 @@ int	check_line(t_mini *mini, t_token *token)
 			mini->ret = 258;
 			return (0);
 		}
-		if (is_types(token, "PE") && (!token->next || is_types(token->next,
-					"TAIPE")))
+		if (is_types(token, "PE") && (!token->next || !token->prev || s_types(token->next,
+					"RAIPE")))
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `",
+			ft_putstr_fd(" minishell: syntax error near unexpected token `",
 					STDERR);
 			ft_putstr_fd(token->content, STDERR);
 			write(STDERR, "\n", 1);

@@ -8,7 +8,7 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
-# define M_PROMPT "\033[0;36m\033[1mminishell> \033[0m"
+# define M_PROMPT "\033[0;36m\033[1m minishell> \033[0m"
 
 # define EMPTY 0
 # define CMD 1

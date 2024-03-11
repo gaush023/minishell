@@ -6,7 +6,7 @@
 #    By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 16:39:35 by sagemura          #+#    #+#              #
-#    Updated: 2024/03/08 00:00:00 by sagemura         ###   ########.fr        #
+#    Updated: 2024/03/11 14:41:41 by sagemura         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,14 +17,14 @@ PARSING = parsing.a
 ENV = env.a
 
 SRCS = $(wildcard *.c)
-LIBFT_DIR = ../helperfunc/libft
-HELPERFUNC_DIR = ../helperfunc
-PARSING_DIR = ../parsing
-ENV_DIR = ../env
+LIBFT_DIR = ./helperfunc/libft
+HELPERFUNC_DIR = ./helperfunc
+PARSING_DIR = ./parsing
+ENV_DIR = ./env
 
 
-CC = cc 
-CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR) -I$(HELPERFUNC_DIR) -I$(PARSING_DIR) -I$(ENV_DIR) 
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR) -I$(HELPERFUNC_DIR) -I$(PARSING_DIR) -I$(ENV_DIR)
 
 OBJS = $(SRCS:.c=.o)
 

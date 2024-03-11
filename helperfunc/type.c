@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 22:42:37 by sagemura          #+#    #+#             */
-/*   Updated: 2024/03/02 22:44:17 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:28:52 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int is_type(t_token *token, int type)
 {
 	if(token && token->type == type)
 		return(1);
-	else	
+	else
 		return(0);
 }
 

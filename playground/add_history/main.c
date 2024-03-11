@@ -1,18 +1,20 @@
 #include "../playground.h"
 
-int main(void)
+int	main(void)
 {
-	char *input;
+	char	*input;
 
-	while(1)
+	while (1)
 	{
 		input = readline("Enter command> ");
-		if(input == NULL)
+		printf("input: %s\n", input);
+		printf("input[0]: %c\n", input[0]);
+		if (input == NULL)
 		{
 			printf("\nExiting. Bye!\n");
-			break;
+			break ;
 		}
-		if(input[0] != '\0')
+		if (input[0] != '\0')
 		{
 			printf("Executing comman: %s\n", input);
 			add_history(input);
@@ -21,5 +23,3 @@ int main(void)
 	}
 	return (0);
 }
-
-	
