@@ -3,6 +3,11 @@
 
 #include "library.h"
 
+enum e_err{
+	ini_set = 1,
+	env_set = 2,
+};
+
 typedef struct s_env
 {
 	char *value;
@@ -20,7 +25,7 @@ typedef struct s_token
 typedef struct s_sig
 {
 	int sigint;
-	int sigquit;	
+	int sigquit;
 	int sig_flag;
 	pid_t pid;
 }	 t_sig;

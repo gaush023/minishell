@@ -1,7 +1,5 @@
 #include "../includes/minishell.h"
 
-t_sig		g_sig;
-
 int	is_sep(char *line, int i)
 {
 	if (i > 0 && line[i - 1] == '\\' && ft_strchr("><|;", line[i]))
@@ -88,7 +86,6 @@ void	parse(t_mini *mini)
 	ft_putstr_fd(M_PROMPT, STDERR);
 	if (((line = readline("")) == NULL) && (mini->flag = 1))
 		ft_putstr_fd("\nexit: Thank youn, bye;)\n", STDERR);
-	add_history(line);
 	if (g_sig.sigint == 1)
 		mini->ret = g_sig.sig_flag;
 	if (line == NULL || quote_check(mini, line) == 1)
@@ -97,6 +94,7 @@ void	parse(t_mini *mini)
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
 	mini->start = get_tokens(line);
+	add_history(line);
 	ft_free(line);
 	squish_content(mini);
 	token = mini->start;

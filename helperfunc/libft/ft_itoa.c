@@ -32,7 +32,7 @@ char *ft_itoa(int n)
 	res = (char *)malloc(sizeof(char) * (len + 1));
 	if (!res)
 		return (NULL);
-	res[len] = '\0';	
+	res[len] = '\0';
 	is_negative = 0;
 	if(n < 0)
 	{

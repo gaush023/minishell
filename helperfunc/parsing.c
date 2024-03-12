@@ -41,7 +41,7 @@ int	check_line(t_mini *mini, t_token *token)
 			mini->ret = 258;
 			return (0);
 		}
-		if (is_types(token, "PE") && (!token->next || !token->prev || s_types(token->next,
+		if (is_types(token, "PE") && (!token->next || !token->prev || is_types(token->next,
 					"RAIPE")))
 		{
 			ft_putstr_fd(" minishell: syntax error near unexpected token `",

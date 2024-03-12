@@ -5,20 +5,19 @@ int  env_init(t_mini *mini, char **evn_ar)
 	t_env	*env;
 	t_env	*new;
 	int		i;
-	
-	env = malloc(sizeof(t_env));
-	if (!env)
-		return(ft_panic("Malloc failed"));
+
+	if(!(env = malloc(sizeof(t_env))))
+		ft_panic(NULL, "Malloc failed at env_init", env_set);
 	env->value = ft_strdup(evn_ar[0]);
 	env->next = NULL;
 	mini->env = env;
 	i = 1;
-	while(evn_ar && evn_ar[i] && evn_ar[i])
+	while(evn_ar && evn_ar[0] && evn_ar[i])
 	{
-		new = malloc(sizeof(t_env));
-		if (!new)
-			return(ft_panic("Malloc failed"));
-		new->value = ft_strdup(evn_ar[i]);
+		if(!(new = malloc(sizeof(t_env))))
+			ft_panic(mini, "Malloc failed at env_init", env_set);
+		if(!(new->value = ft_strdup(evn_ar[i])))
+			ft_panic(mini, "Malloc failed at env_init(ft_strdup)", env_set);
 		new->next = NULL;
 		env->next = new;
 		env = new;
@@ -35,17 +34,17 @@ int secret_env_init(t_mini *mini, char **env_ar)
 
 	env = malloc(sizeof(t_env));
 	if (!env)
-		return(ft_panic("Malloc failed"));
+		return(0);
 	env->value = ft_strdup(env_ar[0]);
 	env->next = NULL;
 	mini->secret_env = env;
 	i = 1;
 	while(env_ar && env_ar[0] && env_ar[i])
 	{
-		new = malloc(sizeof(t_env));
-		if (!new)
-			return(ft_panic("Malloc failed"));
-		new->value = ft_strdup(env_ar[i]);
+		if(!(new = malloc(sizeof(t_env))))
+			ft_panic(mini, "Malloc failed at secret_env_init", env_set);
+		if(!(new->value = ft_strdup(env_ar[i])))
+			ft_panic(mini, "Malloc failed at secret_env_init(ft_strdup)", env_set);
 		new->next = NULL;
 		env->next = new;
 		env = new;

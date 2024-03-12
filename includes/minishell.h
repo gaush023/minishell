@@ -22,31 +22,35 @@
 # define NOSKIP 0
 # define SKIP 1
 
-//main
+// main
 void	sig_int(int code);
 void	sig_quit(int code);
 void	ini_sig(void);
 
-//env
+// finish
+void free_all(t_mini *mini, int ret);
+void	ft_panic(t_mini *mini, char *str, enum e_err err_type);
+
+// env
 int		env_init(t_mini *mini, char **env_ar);
 int		secret_env_init(t_mini *mini, char **env_ar);
 int		get_shlvl_plus(t_env *env);
 
-//parsing
+// parsing
 t_token	*get_tokens(char *line);
 void	squish_content(t_mini *mini);
 void	parse(t_mini *mini);
 void	type_token(t_token *token, int sep);
-	//helper_func
-void reset_fds(t_mini *mini);
-int		ft_panic(char *msg);
+
+// helper_func
+void	reset_fds(t_mini *mini);
 int		quotes(char *line, int index);
 void	ft_free(void *ptr);
 int		is_type(t_token *token, int type);
 int		is_types(t_token *token, char *types);
 int		check_line(t_mini *mini, t_token *token);
 
-//helper_func/libft
+// helper_func/libft
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
 int		ft_atoi(const char *s);
