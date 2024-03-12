@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:41:34 by sagemura          #+#    #+#             */
-/*   Updated: 2024/03/12 17:41:32 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:00:24 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	free_stack(t_mini *mini);
 static void	free_env(t_mini *mini);
-static void	free_token(t_token *token);
 
 void	free_all(t_mini *mini, int ret)
 {
@@ -33,19 +32,6 @@ static void	free_stack(t_mini *mini)
 		tmp = mini->start->next;
 		free(mini->start->content);
 		mini->start = tmp;
-	}
-}
-
-static void	free_token(t_token *token)
-{
-	t_token	*tmp;
-
-	while (token)
-	{
-		tmp = token->next;
-		free(token->content);
-		free(token);
-		token = tmp;
 	}
 }
 

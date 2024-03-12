@@ -53,4 +53,4 @@ typedef struct s_mini
 }	 t_mini;
 
 
-#endif 
+#endif

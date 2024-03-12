@@ -111,9 +111,11 @@ void	mini_init(t_mini *mini)
 	mini->ret = 0;
 }
 
+
 int	main(int ac, char **av, char **ev)
 {
 	t_mini	mini;
+	t_token *tmp;
 
 	(void)ac;
 	(void)av;
@@ -128,6 +130,15 @@ int	main(int ac, char **av, char **ev)
 		parse(&mini);
 		// if (mini.start != NULL && check_line(&mini, mini.start))
 		// 	minishell(&mini);
+		while(mini.start)
+		{
+			printf("content: %s\n", mini.start->content);
+			free(mini.start->content);
+			tmp = mini.start->next;
+			free(mini.start);
+			mini.start = tmp;	
+		}
 	}
 	free_all(&mini, 0);
+	sleep(1);
 }

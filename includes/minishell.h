@@ -46,9 +46,11 @@ void	type_token(t_token *token, int sep);
 void	reset_fds(t_mini *mini);
 int		quotes(char *line, int index);
 void	ft_free(void *ptr);
+void free_token(t_token *token);
 int		is_type(t_token *token, int type);
 int		is_types(t_token *token, char *types);
 int		check_line(t_mini *mini, t_token *token);
+
 
 // helper_func/libft
 char	*ft_strdup(const char *s1);
