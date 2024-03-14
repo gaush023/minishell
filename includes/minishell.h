@@ -37,7 +37,7 @@ int		secret_env_init(t_mini *mini, char **env_ar);
 int		get_shlvl_plus(t_env *env);
 
 // parsing
-t_token	*get_tokens(char *line);
+t_token	*get_tokens(char *line, t_mini *mini);
 void	squish_content(t_mini *mini);
 void	parse(t_mini *mini);
 void	type_token(t_token *token, int sep);

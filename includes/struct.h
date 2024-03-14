@@ -6,6 +6,7 @@
 enum e_err{
 	ini_set = 1,
 	env_set = 2,
+	err_token = 3,
 };
 
 typedef struct s_env

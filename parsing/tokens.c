@@ -15,7 +15,7 @@ int	ignore_sep(char *line, int i)
 	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '>')
 		return (1);
 	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '>'
-			&& line[i + 2] && line[i + 2] == '>')
+		&& line[i + 2] && line[i + 2] == '>')
 		return (1);
 	return (0);
 }
@@ -48,7 +48,7 @@ int	count_next(char *line, int *i)
 }
 
 //見直す必要があり。
-//echo "hello world" > file.txt で最後のトークンをコマンドして捉えているため。
+// echo "hello world" > file.txt で最後のトークンをコマンドして捉えているため。
 void	type_token(t_token *token, int sep)
 {
 	if (ft_strcmp(token->content, "") == 0)
@@ -69,7 +69,7 @@ void	type_token(t_token *token, int sep)
 		token->type = ARG;
 }
 
-t_token	*next_token(char *line, int *i)
+t_token	*next_token(char *line, int *i, t_mini *mini)
 {
 	t_token	*token;
 	int		j;
@@ -77,12 +77,16 @@ t_token	*next_token(char *line, int *i)
 
 	j = 0;
 	c = ' ';
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->content = malloc(sizeof(char) * count_next(line, i));
-	if (!token->content)
-		return (NULL);
+	if (!(token = malloc(sizeof(t_token))) || ft_strlen(line) == 5)
+		ft_panic(mini, "Malloc failed at next_token: token", err_token);
+	if (!(token->content = malloc(sizeof(char) * count_next(line, i)))
+		|| ft_strlen(line) == 6)
+	{
+		free(token);
+		free(line);
+		ft_panic(mini, "Malloc failed at next_token: token->content",
+			err_token);
+	}
 	while (line[*i] && (line[*i] != ' ' || c != ' '))
 	{
 		if ((c == ' ' && line[*i] == '\'') || line[*i] == '\"')
@@ -101,7 +105,7 @@ t_token	*next_token(char *line, int *i)
 	return (token);
 }
 
-t_token	*get_tokens(char *line)
+t_token	*get_tokens(char *line, t_mini *mimi)
 {
 	t_token	*prev;
 	t_token	*next;
@@ -115,7 +119,7 @@ t_token	*get_tokens(char *line)
 	while (line[i])
 	{
 		sep = ignore_sep(line, i);
-		next = next_token(line, &i);
+		next = next_token(line, &i, mimi);
 		next->prev = prev;
 		if (prev)
 			prev->next = next;

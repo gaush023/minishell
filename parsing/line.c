@@ -93,7 +93,7 @@ void	parse(t_mini *mini)
 	line = transform_line(line);
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
-	mini->start = get_tokens(line);
+	mini->start = get_tokens(line, mini);
 	add_history(line);
 	ft_free(line);
 	squish_content(mini);
