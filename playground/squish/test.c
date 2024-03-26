@@ -5,7 +5,7 @@ void	type_contet(t_token *token, int sep)
 	if (ft_strcmp(token->content, "") == 0)
 		token->type = EMPTY;
 	else if (ft_strcmp(token->content, ";") == 0 && sep == 0)
-		token->type = SEMICOLON;
+		token->type = END;
 	else if (ft_strcmp(token->content, "<") == 0 && sep == 0)
 		token->type = INPUT;
 	else if (ft_strcmp(token->content, "|") == 0 && sep == 0)

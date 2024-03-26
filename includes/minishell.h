@@ -17,10 +17,12 @@
 # define APPEND 4
 # define INPUT 5
 # define PIPE 6
-# define SEMICOLON 7
+# define END 7
 
 # define NOSKIP 0
 # define SKIP 1
+
+# define EXPANSION -36
 
 // main
 void	sig_int(int code);
@@ -28,7 +30,7 @@ void	sig_quit(int code);
 void	ini_sig(void);
 
 // finish
-void free_all(t_mini *mini, int ret);
+void	free_all(t_mini *mini, int ret);
 void	ft_panic(t_mini *mini, char *str, enum e_err err_type);
 
 // env
@@ -41,16 +43,16 @@ t_token	*get_tokens(char *line, t_mini *mini);
 void	squish_content(t_mini *mini);
 void	parse(t_mini *mini);
 void	type_token(t_token *token, int sep);
+char	*expasions(char *arg, t_env *env, int ret);
 
 // helper_func
 void	reset_fds(t_mini *mini);
 int		quotes(char *line, int index);
 void	ft_free(void *ptr);
-void free_token(t_token *token);
+void	free_token(t_token *token);
 int		is_type(t_token *token, int type);
 int		is_types(t_token *token, char *types);
 int		check_line(t_mini *mini, t_token *token);
-
 
 // helper_func/libft
 char	*ft_strdup(const char *s1);
@@ -64,5 +66,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 void	ft_putstr_fd(char *s, int fd);
+int	ft_isalnum(int c);
+int	ft_isdigit(int c);
 
 #endif

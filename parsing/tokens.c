@@ -54,7 +54,7 @@ void	type_token(t_token *token, int sep)
 	if (ft_strcmp(token->content, "") == 0)
 		token->type = EMPTY;
 	else if (ft_strcmp(token->content, ";") == 0 && sep == 0)
-		token->type = SEMICOLON;
+		token->type = END;
 	else if (ft_strcmp(token->content, "<") == 0 && sep == 0)
 		token->type = INPUT;
 	else if (ft_strcmp(token->content, "|") == 0 && sep == 0)
@@ -150,7 +150,7 @@ int	is_last_valid_arg(t_token *token)
 	if (!token || is_type(token, CMD) || is_type(token, ARG))
 	{
 		prev = prev_sep(token, NOSKIP);
-		if (prev && is_type(prev, SEMICOLON) && is_type(prev->prev, PIPE))
+		if (prev && is_type(prev, END) && is_type(prev->prev, PIPE))
 			return (1);
 		return (0);
 	}
