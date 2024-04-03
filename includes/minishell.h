@@ -38,8 +38,11 @@ int		env_init(t_mini *mini, char **env_ar);
 int		secret_env_init(t_mini *mini, char **env_ar);
 int		get_shlvl_plus(t_env *env);
 
+// exec
+void	exec_cmd(t_mini *mini, t_token *token);
+
 // parsing
-t_token	*get_tokens(char *line, t_mini *mini);
+t_token *get_tokens(char *line, t_mini *mini);
 void	squish_content(t_mini *mini);
 void	parse(t_mini *mini);
 void	type_token(t_token *token, int sep);
@@ -66,7 +69,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 void	ft_putstr_fd(char *s, int fd);
-int	ft_isalnum(int c);
-int	ft_isdigit(int c);
+int		ft_isalnum(int c);
+int		ft_isdigit(int c);
 
 #endif

@@ -25,6 +25,13 @@ typedef struct s_token
 	struct s_token *prev;
 }	 t_token;
 
+typedef struct s_expasion
+{
+	char *str;
+	int i;
+	int j;
+}	 t_expasion;
+
 typedef struct s_sig
 {
 	int sigint;
