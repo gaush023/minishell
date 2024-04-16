@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:39:43 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/02 03:33:16 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:47:22 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,7 @@ void insert_var(t_expasion *ex, char *arg, t_env *env, int ret)
         while (is_env_char(arg[ex->j]) == 1)
             ex->j++;
     }
-    else 
+    else \
     {
         if(arg[ex->j] != EXPANSION)
             ex->j++;
