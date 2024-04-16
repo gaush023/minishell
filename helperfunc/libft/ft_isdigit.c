@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 05:15:07 by sagemura          #+#    #+#             */
-/*   Updated: 2024/03/25 05:15:26 by sagemura         ###   ########.fr       */
+/*   Created: 2023/06/13 16:16:19 by sagemura          #+#    #+#             */
+/*   Updated: 2023/06/26 20:26:12 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-int ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
-    return (c >= '0' && c <= '9');
+	return ((c >= '0') && (c <= '9'));
 }

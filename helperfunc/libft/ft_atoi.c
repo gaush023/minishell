@@ -1,32 +1,58 @@
-#include "../../includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/15 11:32:41 by sagemura          #+#    #+#             */
+/*   Updated: 2023/06/30 18:43:38 by sagemura         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int ft_atoi(const char *s)
+#include "libft.h"
+
+static long	add_numbers(long res, int digit, int sign, int *flg)
 {
-	long long int res;
-	int sign;
-	size_t i;
-
-	res = 0;
-	sign = 1;
-	i = 0;
-	while(s[i] == ' ' || (s[i] >= 9 && s[i] <= 13))
-		i++;
-	if(s[i] == '-' || s[i] == '+')
+	if (sign == 1 && res > (LONG_MAX - digit) / 10)
 	{
-		if(s[i] == '-')
+		*flg = 1;
+		return (LONG_MAX);
+	}
+	else if (sign == -1 && res * -1 < (LONG_MIN + digit) / 10)
+	{
+		*flg = 1;
+		return (LONG_MIN);
+	}
+	else
+		return (res * 10 + digit);
+}
+
+int	ft_atoi(const char *str)
+{
+	size_t	i;
+	int		sign;
+	long	res;
+	int		flg;
+
+	flg = 0;
+	i = 0;
+	sign = 1;
+	res = 0;
+	while (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r'))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
 			sign = -1;
 		i++;
 	}
-	while(s[i] >= '0' && s[i] <= '9')
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		res = res * 10 + (s[i] - '0');
-		if(res > INT_MAX && sign == 1)
-			return (INT_MAX);
-		if(res > INT_MIN && sign == -1)
-			return (INT_MIN);
+		res = add_numbers(res, str[i] - '0', sign, &flg);
+		if (flg == 1)
+			return (res);
 		i++;
 	}
-	return (res * sign);
+	return (sign * res);
 }
-
-

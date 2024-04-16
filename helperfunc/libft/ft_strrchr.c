@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 17:01:02 by sagemura          #+#    #+#             */
-/*   Updated: 2023/06/30 16:42:07 by sagemura         ###   ########.fr       */
+/*   Created: 2023/06/13 17:15:01 by sagemura          #+#    #+#             */
+/*   Updated: 2023/07/03 20:09:50 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_strrchr(const char *str, int c)
 {
-	size_t	len;
-	size_t	i;
-	char	*s2;
+	ssize_t	len;
 
-	i = 0;
-	len = ft_strlen(s1);
-	s2 = malloc(len + 1);
-	if (s2 == NULL)
-		return (NULL);
-	while (i < len)
+	len = (ssize_t)ft_strlen(str);
+	while (len >= 0)
 	{
-		s2[i] = s1[i];
-		i++;
+		if ((unsigned char)str[len] == (unsigned char)c)
+		{
+			return ((char *)&str[len]);
+		}
+		len--;
 	}
-	s2[i] = '\0';
-	return (s2);
+	return (NULL);
 }

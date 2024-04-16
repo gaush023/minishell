@@ -1,50 +1,61 @@
-#include "../../includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/18 13:15:05 by sagemura          #+#    #+#             */
+/*   Updated: 2023/06/30 16:18:46 by sagemura         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-size_t get_num_len(int n)
+#include "libft.h"
+
+static size_t	get_digit_count(int n)
 {
-	size_t len;
-	long long num;
+	long long	ln;
+	size_t		i;
 
-	num = (long long)n;
-	len = 0;
-	if (num < 0)
+	ln = (long)n;
+	i = 0;
+	if (n < 0)
 	{
-		len++;
-		num *= -1;
+		ln = -ln;
+		i++;
 	}
-	while (num >= 10)
+	while (ln >= 10)
 	{
-		num /= 10;
-		len++;
+		ln = ln / 10;
+		i++;
 	}
-	return (len + 1);
+	return (i + 1);
 }
 
-char *ft_itoa(int n)
+char	*ft_itoa(int n)
 {
-	char *res;
-	size_t len;
-	size_t is_negative;
-	long long num;
+	char	*ptr;
+	size_t	length;
+	size_t	is_negative;
+	long	ln;
 
-	len = get_num_len(n);
-	num = (long long)n;
-	res = (char *)malloc(sizeof(char) * (len + 1));
-	if (!res)
-		return (NULL);
-	res[len] = '\0';
+	ln = (long)n;
 	is_negative = 0;
-	if(n < 0)
+	length = get_digit_count(n);
+	ptr = (char *)malloc(sizeof(char) * (length + 1));
+	if (ptr == NULL)
+		return (NULL);
+	ptr[length] = '\0';
+	if (ln < 0)
 	{
-		res[0] = '-';
-		num = -num;
+		ptr[0] = '-';
+		ln = -ln;
 		is_negative = 1;
 	}
-	while (len-- > is_negative)
+	while (length-- > is_negative)
 	{
-		res[len] = (num % 10) + '0';
-		num /= 10;
+		ptr[length] = (ln % 10) + '0';
+		ln /= 10;
 	}
-	return (res);
+	return (ptr);
 }
-

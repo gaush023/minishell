@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 17:01:02 by sagemura          #+#    #+#             */
-/*   Updated: 2023/06/30 16:42:07 by sagemura         ###   ########.fr       */
+/*   Created: 2023/06/16 16:26:51 by sagemura          #+#    #+#             */
+/*   Updated: 2023/07/03 20:32:49 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+void	*ft_calloc(size_t nitems, size_t size)
 {
-	size_t	len;
-	size_t	i;
-	char	*s2;
+	void	*ptr;
 
-	i = 0;
-	len = ft_strlen(s1);
-	s2 = malloc(len + 1);
-	if (s2 == NULL)
+	if (nitems && size > SIZE_MAX / nitems)
 		return (NULL);
-	while (i < len)
+	if (size * nitems == 0)
 	{
-		s2[i] = s1[i];
-		i++;
+		size = 1;
+		nitems = 1;
 	}
-	s2[i] = '\0';
-	return (s2);
+	ptr = malloc(nitems * size);
+	if (ptr == NULL)
+		return (NULL);
+	ft_bzero(ptr, size * nitems);
+	return (ptr);
 }
