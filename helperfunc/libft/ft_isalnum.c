@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 04:14:11 by sagemura          #+#    #+#             */
-/*   Updated: 2024/03/25 04:14:52 by sagemura         ###   ########.fr       */
+/*   Created: 2023/06/13 16:14:48 by sagemura          #+#    #+#             */
+/*   Updated: 2023/07/10 09:15:23 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-int ft_isalnum(int c)
+int	ft_isalnum(int argument)
 {
-    if((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-        return (1);
+	return (((argument >= 'a') && (argument <= 'z')) || ((argument >= '0')
+			&& (argument <= '9')) || ((argument >= 'A') && (argument <= 'Z')));
 }

@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 17:01:02 by sagemura          #+#    #+#             */
-/*   Updated: 2023/06/30 16:42:07 by sagemura         ###   ########.fr       */
+/*   Created: 2023/06/16 17:26:59 by sagemura          #+#    #+#             */
+/*   Updated: 2023/06/30 20:11:39 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	len;
+	char	*ptr;
 	size_t	i;
-	char	*s2;
+	size_t	str_len;
 
-	i = 0;
-	len = ft_strlen(s1);
-	s2 = malloc(len + 1);
-	if (s2 == NULL)
+	if (!s)
 		return (NULL);
-	while (i < len)
+	str_len = ft_strlen(s);
+	if (start >= str_len)
+		return (ft_strdup(""));
+	if (start + len > str_len)
+		len = str_len - start;
+	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	if (ptr == NULL)
+		return (NULL);
+	i = 0;
+	while (i < len && s[start + i])
 	{
-		s2[i] = s1[i];
+		ptr[i] = s[start + i];
 		i++;
 	}
-	s2[i] = '\0';
-	return (s2);
+	ptr[i] = '\0';
+	return (ptr);
 }
