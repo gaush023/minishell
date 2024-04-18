@@ -57,6 +57,7 @@ typedef struct s_mini
 	int parent;
 	int last;
 	int no_exec;
+	int exit;
 	t_env *env;
 	t_env *secret_env;
 	t_token *start;

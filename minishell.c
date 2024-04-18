@@ -111,12 +111,14 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 		redir_and_exec(mini, next->next);
 	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1
 		&& mini->no_exec == 0)
-		exc_cmd(mini, token);
+		exec_cmd(mini, token);
 }
 
 void	minishell(t_mini *mini)
 {
 	t_token	*token;
+
+	
 	int		status;
 
 	token = next_run(mini->start, NOSKIP);

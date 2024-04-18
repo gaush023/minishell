@@ -7,6 +7,7 @@
 #include <limits.h>
 #include <signal.h>
 #include <string.h>
+#include <stdbool.h>
 #include <fcntl.h>
 #include <readline/readline.h>
 #include <readline/history.h>
