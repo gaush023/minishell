@@ -1,9 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -C ../../libft
-make[1]: Nothing to be done for `all'.
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -C ../helperfunc
-make[1]: Nothing to be done for `all'.
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -C ../parsing
-make[1]: Nothing to be done for `all'.
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -C ../env
-make[1]: Nothing to be done for `all'.
-cc  -Wall -Wextra -Werror -I../../libft -I../helperfunc -I../parsing -I../env minishell.o signal.o -o minishell

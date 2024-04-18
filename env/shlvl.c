@@ -1,5 +1,10 @@
 #include "../includes/minishell.h"
 
+/*
+** Function: get_shlvl_plus
+** -------------------
+** shlvlの値を取得し、1を足す
+*/
 int	get_shlvl_plus(t_env *env)
 {
 	int		shell_lvl;

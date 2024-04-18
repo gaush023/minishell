@@ -1,5 +1,10 @@
 #include "../includes/minishell.h"
 
+/*
+** Function: env_init
+** -------------------
+環境変数をコピーする
+*/
 int  env_init(t_mini *mini, char **evn_ar)
 {
 	t_env	*env;
@@ -26,6 +31,11 @@ int  env_init(t_mini *mini, char **evn_ar)
 	return (0);
 }
 
+/*
+** Function: secret_env_init
+** -------------------
+環境変数をコピーする
+*/
 int secret_env_init(t_mini *mini, char **env_ar)
 {
 	t_env	*env;

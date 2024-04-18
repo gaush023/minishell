@@ -24,6 +24,11 @@ int	quotes(char *line, int index)
 	return (open);
 }
 
+/*
+** Function: check_line
+** -------------------
+** トークのタイプをチェックし、エラーがあればエラーメッセージを表示する
+*/
 int	check_line(t_mini *mini, t_token *token)
 {
 	while (token)

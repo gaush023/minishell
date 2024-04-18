@@ -136,13 +136,14 @@ __attribute__((destructor)) static void destructor()
 	system("leaks -q minishell");
 }
 
+// copy STDIN and STDOUT to mini->in and mini->out, and set mini->flag & mini->ret to 0
 void	mini_init(t_mini *mini)
 {
 	mini->in = dup(STDIN);
 	mini->out = dup(STDOUT);
 	if (!mini->in || !mini->out)
 		ft_panic(NULL, "dup", 1);
-	reset_fds(mini);
+	reset_fds(mini);// reset file descriptors
 	mini->flag = 0;
 	mini->ret = 0;
 }
@@ -154,14 +155,14 @@ int	main(int ac, char **av, char **ev)
 
 	(void)ac;
 	(void)av;
-	mini_init(&mini);
-	env_init(&mini, ev);
-	secret_env_init(&mini, ev);
-	get_shlvl_plus(mini.env);
+	mini_init(&mini);// STDIN と STDOUT のデフォルトのファイルディスクリプタを保存
+	env_init(&mini, ev);// 環境変数を初期化
+	secret_env_init(&mini, ev);// 環境変数を初期化
+	get_shlvl_plus(mini.env);//shlvlの値を取得し、1を足す
 	while (mini.flag == 0)
 	{
-		ini_sig();
-		parse(&mini);
+		ini_sig();// シグナルの初期化
+		parse(&mini);// command lineをparse
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
 		while (mini.start)

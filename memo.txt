@@ -1,0 +1,14 @@
+
+main
+    mini_init(&mini);// STDIN と STDOUT のデフォルトのファイルディスクリプタを保存
+
+    env_init(&mini, ev);// 環境変数を初期化
+    secret_env_init(&mini, ev);// 環境変数を初期化
+
+    get_shlvl_plus(mini.env);//shlvlの値を取得し、1を足す
+
+
+クォーテーションが閉じられていない場合は対応しない。
+**Not interpret unclosed quotes or special characters** which are not required by the
+subject such as \ (backslash) or ; (semicolon).
+閉じられていない**クォーテーション**やバックスラッシュやセミコロンのような**特殊文字**は解釈しなくていよい。

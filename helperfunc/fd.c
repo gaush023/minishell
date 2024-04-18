@@ -1,5 +1,10 @@
 #include "../includes/minishell.h"
 
+/*
+** Function: reset_fds
+** -------------------
+** ファイルディスクリプタをリセットする
+*/
 void reset_fds(t_mini *mini)
 {
   mini->fdin = -1;
