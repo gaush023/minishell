@@ -22,8 +22,11 @@
 # define NOSKIP 0
 # define SKIP 1
 
+# define ERR 1
+
 # define EXPANSION -36
 # define SUCCESS 0
+# define IS_DIR 126
 # define UK_CMD 127
 
 // main
