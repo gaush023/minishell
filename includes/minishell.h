@@ -23,6 +23,8 @@
 # define SKIP 1
 
 # define EXPANSION -36
+# define SUCCESS 0
+# define UK_CMD 127
 
 // main
 void	sig_int(int code);
@@ -42,7 +44,7 @@ int		get_shlvl_plus(t_env *env);
 void	exec_cmd(t_mini *mini, t_token *token);
 
 // parsing
-t_token *get_tokens(char *line, t_mini *mini);
+t_token	*get_tokens(char *line, t_mini *mini);
 void	squish_content(t_mini *mini);
 void	parse(t_mini *mini);
 void	type_token(t_token *token, int sep);

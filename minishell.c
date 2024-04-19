@@ -118,7 +118,6 @@ void	minishell(t_mini *mini)
 {
 	t_token	*token;
 
-	
 	int		status;
 
 	token = next_run(mini->start, NOSKIP);
