@@ -1,6 +1,5 @@
 #include "../includes/minishell.h"
 
-// check if there is any separator
 int	is_sep(char *line, int i)
 {
 	if (i > 0 && line[i - 1] == '\\' && ft_strchr("><|;", line[i]))
@@ -11,8 +10,6 @@ int	is_sep(char *line, int i)
 		return (0);
 }
 
-
-// allocate memory for new line
 static char	*allo_new(char *line)
 {
 	char	*new;
@@ -23,16 +20,16 @@ static char	*allo_new(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (is_sep(line, i))// check if there is any separator
+		if (is_sep(line, i))
 			count++;
 		i++;
 	}
-	if(!(new = (char *)malloc(sizeof(char) * (i + 2 * count + 1))))
+	new = (char *)malloc(sizeof(char) * (i + 2 * count + 1));
+	if (!new)
 		return (NULL);
 	return (new);
 }
 
-//transform command line for preparation of makig tokens from command lines, and if there is $, change it to -$
 char	*transform_line(char *line)
 {
 	char	*new;
@@ -41,7 +38,7 @@ char	*transform_line(char *line)
 
 	i = 0;
 	j = 0;
-	new = allo_new(line);// allocate memory for new line
+	new = allo_new(line);
 	while (new &&line[i])
 	{
 		if (quotes(line, i) != 2 && line[i] == '$' && i && line[i - 1] != '\\')
@@ -62,7 +59,6 @@ char	*transform_line(char *line)
 	return (new);
 }
 
-// check if there is any quote error
 int	quote_check(t_mini *mini, char *line)
 {
 	if (quotes(line, INT_MAX) != 0)
@@ -81,20 +77,20 @@ void	parse(t_mini *mini)
 	char	*line;
 	t_token	*token;
 
-	signal(SIGINT, &sig_int);// set signal handler for Ctrl + C
-	signal(SIGQUIT, &sig_quit);// set signal handler for Ctrl + D
+	signal(SIGINT, &sig_int);
+	signal(SIGQUIT, &sig_quit);
 	if (mini->ret == 0)
 		ft_putstr_fd(" 🥳 ", STDERR);
 	else
 		ft_putstr_fd(" 🤯 ", STDERR);
-	ft_putstr_fd(M_PROMPT, STDERR);
-	if (((line = readline("")) == NULL) && (mini->flag = 1))// read command line
+	line = readline(M_PROMPT);
+	if ((line == NULL) && (mini->flag = 1))
 		ft_putstr_fd("\nexit: Thank youn, bye;)\n", STDERR);
-	if (g_sig.sigint == 1)// for dealing with Ctrl + D
+	if (g_sig.sigint == 1)
 		mini->ret = g_sig.sig_flag;
 	if (line == NULL || quote_check(mini, line) == 1)
 		return ;
-	line = transform_line(line);// transform command line to remove spaces
+	line = transform_line(line);
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
 	mini->start = get_tokens(line, mini);
@@ -109,6 +105,8 @@ void	parse(t_mini *mini)
 		token = token->next;
 	}
 }
+
+
 
 // int main(void)
 //{

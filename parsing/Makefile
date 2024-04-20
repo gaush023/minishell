@@ -6,7 +6,7 @@
 #    By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 16:39:35 by sagemura          #+#    #+#              #
-#    Updated: 2024/03/07 19:38:26 by sagemura         ###   ########.fr        #
+#    Updated: 2024/04/20 22:12:26 by sagemura         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR) -I$(HELPERFUNC_DIR)
 
 OBJS = $(SRCS:.c=.o)
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) -c $< -o $@
 
 all: $(NAME)
 

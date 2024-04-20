@@ -191,5 +191,4 @@ int	main(int ac, char **av, char **ev)
 		}
 	}
 	free_all(&mini, 0);
-	sleep(1);
 }

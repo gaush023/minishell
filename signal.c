@@ -1,10 +1,5 @@
 #include "../includes/minishell.h"
 
-/*
-** Function: sig_int
-** -------------------
-** Ctrl + C が押された時の処理
-*/
 void	sig_int(int code)
 {
 	(void)code;
@@ -22,11 +17,6 @@ void	sig_int(int code)
 	g_sig.sigint = 1;
 }
 
-/*
-** Function: sig_quit
-** -------------------
-** Ctrl + \ が押された時の処理
-*/
 void	sig_quit(int code)
 {
 	char	*nbr;
@@ -44,11 +34,6 @@ void	sig_quit(int code)
 	ft_free(nbr);
 }
 
-/*
-** Function: ini_sig
-** -------------------
-** シグナルの初期化
-*/
 void	ini_sig(void)
 {
 	g_sig.sigint = 0;
