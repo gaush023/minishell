@@ -22,6 +22,8 @@
 # define NOSKIP 0
 # define SKIP 1
 
+# define BUF_SIZE 1024
+
 # define EXPANSION -36
 
 // main
@@ -71,5 +73,9 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_isalnum(int c);
 int		ft_isdigit(int c);
+
+// commands
+void	echo(char **tokens);
+void	cd(char **tokens);
 
 #endif

@@ -25,7 +25,11 @@ void	*ft_calloc(size_t nitems, size_t size)
 	}
 	ptr = malloc(nitems * size);
 	if (ptr == NULL)
+<<<<<<< HEAD
 		return (NULL);
+=======
+		exit(1);
+>>>>>>> etakaham-dev
 	ft_bzero(ptr, size * nitems);
 	return (ptr);
 }

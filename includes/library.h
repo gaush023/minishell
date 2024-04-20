@@ -10,5 +10,6 @@
 #include <fcntl.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include "../helperfunc/libft/libft.h"
 
 #endif
