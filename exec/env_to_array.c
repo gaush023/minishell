@@ -1,27 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_token.c                                       :+:      :+:    :+:   */
+/*   env_to_array.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 19:45:56 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/20 18:21:37 by sagemura         ###   ########.fr       */
+/*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
+/*   Updated: 2024/04/20 18:16:15 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_token(t_token *token)
+int	count_env(t_env *env)
 {
-	t_token	*tmp;
+	int	count;
 
-	while (token && token->next)
+	count = 0;
+	while (env)
 	{
-		tmp = token->next;
-		ft_free(token->content);
-		ft_free(token->prev);
-		token = tmp;
+		count++;
+		env = env->next;
 	}
-	ft_free(token->content);
+	return (count);
+}
+
+char	**env_to_array(t_env *env)
+{
+	int		count;
+	int		i;
+	char	**env_array;
+
+	i = 0;
+	count = count_env(env);
+	env_array = (char **)malloc(sizeof(char *) * (count + 1));
+	while (env)
+	{
+		env_array[i] = ft_strdup(env->value);
+		env = env->next;
+		i++;
+	}
+	env_array[i] = NULL;
+	return (env_array);
 }

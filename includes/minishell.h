@@ -45,6 +45,11 @@ int		get_shlvl_plus(t_env *env);
 
 // exec
 void	exec_cmd(t_mini *mini, t_token *token);
+int		exec_bin(char **args, t_env *env, t_mini *mini);
+char	**env_to_array(t_env *env);
+int		error_msg(char *path);
+bool	is_builtin(char *cmd);
+int		exec_builtin(char **arg, t_mini *mini);
 
 // parsing
 t_token	*get_tokens(char *line, t_mini *mini);
