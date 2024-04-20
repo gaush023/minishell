@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 04:14:11 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/20 20:22:52 by sagemura         ###   ########.fr       */
+/*   Created: 2024/04/20 18:38:44 by etakaham          #+#    #+#             */
+/*   Updated: 2024/04/20 18:42:41 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+# include "../../includes/minishell.h"
 
-int	ft_isalnum(int c)
+void	env(char **tokens, t_env *env)
 {
-	if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a'
-			&& c <= 'z'))
-		return (1);
-	return (0);
+	while (env->next != NULL)
+	{
+		ft_putendl_fd(env->value, 1);
+		env = env->next;
+	}
 }

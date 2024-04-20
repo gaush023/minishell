@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/20 19:29:03 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/04/20 20:16:09 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		exec_builtin(char **arg, t_mini *mini);
 
 // parsing
 t_token	*get_tokens(char *line, t_mini *mini);
+t_token	*prev_sep(t_token *token, int skip);
 void	squish_content(t_mini *mini);
 void	parse(t_mini *mini);
 void	type_token(t_token *token, int sep);
@@ -50,6 +51,7 @@ char	*expasions(char *arg, t_env *env, int ret);
 void	reset_fds(t_mini *mini);
 void	ft_free(void *ptr);
 void	close_fds(t_mini *mini);
+void	ft_close(int fd);
 void	reset_std(t_mini *mini);
 int		quotes(char *line, int index);
 void	ft_free(void *ptr);
@@ -72,5 +74,13 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_isalnum(int c);
 int		ft_isdigit(int c);
+
+// ft_commands
+void	cd(char **tokens);
+void	echo(char **tokens);
+void	unset(char **tokens, t_env *env);
+void	env(char **tokens, t_env *env);
+void	export(char **tokens, t_env *env);
+void	pwd(char **tokens);
 
 #endif

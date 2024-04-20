@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/20 19:35:17 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/04/20 20:05:17 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,17 @@ bool	is_builtin(char *cmd)
 
 int	exec_builtin(char **arg, t_mini *mini)
 {
-	int	result;
-
-	result = 0;
 	if (ft_strcmp(arg[0], "echo") == 0)
-		result = ft_echo(arg);
+		echo(arg);
 	else if (ft_strcmp(arg[0], "cd") == 0)
-		result = ft_cd(arg, mini->env);
+		cd(arg);
 	else if (ft_strcmp(arg[0], "pwd") == 0)
-		result = ft_pwd();
+		pwd(arg);
 	else if (ft_strcmp(arg[0], "export") == 0)
-		result = ft_export(arg, mini);
+		export(arg, mini->env);
 	else if (ft_strcmp(arg[0], "unset") == 0)
-		result = ft_unset(arg, mini);
+		unset(arg, mini->env);
 	else if (ft_strcmp(arg[0], "env") == 0)
-		result = ft_env(mini->env);
-	return (result);
+		env(arg, mini->env);
+	return (0);
 }

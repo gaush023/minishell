@@ -19,7 +19,7 @@ t_token	*next_run(t_token *token, int skip)
 
 void	redirect(t_mini *mini, t_token *token, int type)
 {
-	is_close(mini->fdout);
+	ft_close(mini->fdout);
 	if (type == REDIR)
 		mini->fdout = open(token->next->content, O_WRONLY | O_CREAT | O_TRUNC,
 				S_IRWXU);
@@ -40,7 +40,7 @@ void	redirect(t_mini *mini, t_token *token, int type)
 
 void	input(t_mini *mini, t_token *token)
 {
-	is_close(mini->fdin);
+	ft_close(mini->fdin);
 	mini->fdin = open(token->next->content, O_RDONLY);
 	if (mini->fdin < 0)
 	{
@@ -84,6 +84,15 @@ int	minipipe(t_mini *mini)
 	}
 }
 
+t_token	*next_sep(t_token *token, int skip)
+{
+	if (token && skip)
+		token = token->next;
+	while (token && token->type < END)
+		token = token->next;
+	return (token);
+}
+
 void	redir_and_exec(t_mini *mini, t_token *token)
 {
 	t_token	*prev;
@@ -121,7 +130,7 @@ void	minishell(t_mini *mini)
 		mini->charge = 1;
 		mini->parent = 1;
 		mini->last = 1;
-		redir_and_exc(mini, token);
+		redir_and_exec(mini, token);
 		reset_std(mini);
 		close_fds(mini);
 		reset_fds(mini);
@@ -139,22 +148,19 @@ void	minishell(t_mini *mini)
 	}
 }
 
-<<<<<<< HEAD
 __attribute__((destructor)) static void destructor()
 {
 	system("leaks -q minishell");
 }
 
-// copy STDIN and STDOUT to mini->in and mini->out, and set mini->flag & mini->ret to 0
-=======
->>>>>>> main
+
 void	mini_init(t_mini *mini)
 {
 	mini->in = dup(STDIN);
 	mini->out = dup(STDOUT);
 	if (!mini->in || !mini->out)
 		ft_panic(NULL, "dup", 1);
-	reset_fds(mini);// reset file descriptors
+	reset_fds(mini); // reset file descriptors
 	mini->flag = 0;
 	mini->ret = 0;
 }
@@ -166,14 +172,14 @@ int	main(int ac, char **av, char **ev)
 
 	(void)ac;
 	(void)av;
-	mini_init(&mini);// STDIN と STDOUT のデフォルトのファイルディスクリプタを保存
-	env_init(&mini, ev);// 環境変数を初期化
-	secret_env_init(&mini, ev);// 環境変数を初期化
-	get_shlvl_plus(mini.env);//shlvlの値を取得し、1を足す
+	mini_init(&mini);           // STDIN と STDOUT のデフォルトのファイルディスクリプタを保存
+	env_init(&mini, ev);        // 環境変数を初期化
+	secret_env_init(&mini, ev); // 環境変数を初期化
+	get_shlvl_plus(mini.env);   // shlvlの値を取得し、1を足す
 	while (mini.flag == 0)
 	{
-		ini_sig();// シグナルの初期化
-		parse(&mini);// command lineをparse
+		ini_sig();    // シグナルの初期化
+		parse(&mini); // command lineをparse
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
 		while (mini.start)

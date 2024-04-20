@@ -6,7 +6,7 @@
 #    By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 16:39:35 by sagemura          #+#    #+#              #
-#    Updated: 2024/03/12 14:50:57 by sagemura         ###   ########.fr        #
+#    Updated: 2024/04/20 20:11:20 by sagemura         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ HELPERFUNC_DIR = ./helperfunc
 PARSING_DIR = ./parsing
 ENV_DIR = ./env
 FINISH_DIR = ./finish
-
+FT_CMD = ./ft_commands
+EXC = ./exec
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR) -I$(HELPERFUNC_DIR) -I$(PARSING_DIR) -I$(ENV_DIR) -I$(FINISH_DIR)
@@ -38,6 +39,8 @@ $(NAME): $(OBJS)
 	$(MAKE) -C $(PARSING_DIR)
 	$(MAKE) -C $(ENV_DIR)
 	$(MAKE) -C $(FINISH_DIR)
+	$(MAKE) -C $(FT_CMD)
+	$(MAKE) -C $(EXC)
 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFT_DIR)/$(LIBFT) $(HELPERFUNC_DIR)/$(HELPERFUNC) $(PARSING_DIR)/$(PARSING) $(ENV_DIR)/$(ENV) $(FINISH_DIR)/$(FINISH) -lreadline
 
 clean:	

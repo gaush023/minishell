@@ -6,22 +6,14 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:17 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/20 19:29:21 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/04/20 20:24:40 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-<<<<<<< HEAD
-/*
-** Function: reset_fds
-** -------------------
-** ファイルディスクリプタをリセットする
-*/
-void reset_fds(t_mini *mini)
-=======
-void	ft_close(int fd)
->>>>>>> main
+
+void ft_close(int fd)
 {
 	if (fd > 0)
 		close(fd);
