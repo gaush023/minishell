@@ -1,28 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
+/*   Updated: 2024/04/20 19:29:03 by sagemura         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "define.h"
 # include "library.h"
 # include "struct.h"
-
-# define BUFF_SIZE 4096
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
-# define M_PROMPT "\033[0;36m\033[1m minishell> \033[0m"
-
-# define EMPTY 0
-# define CMD 1
-# define ARG 2
-# define REDIR 3
-# define APPEND 4
-# define INPUT 5
-# define PIPE 6
-# define END 7
-
-# define NOSKIP 0
-# define SKIP 1
-
-# define EXPANSION -36
 
 // main
 void	sig_int(int code);
@@ -40,9 +33,14 @@ int		get_shlvl_plus(t_env *env);
 
 // exec
 void	exec_cmd(t_mini *mini, t_token *token);
+int		exec_bin(char **args, t_env *env, t_mini *mini);
+char	**env_to_array(t_env *env);
+int		error_msg(char *path);
+bool	is_builtin(char *cmd);
+int		exec_builtin(char **arg, t_mini *mini);
 
 // parsing
-t_token *get_tokens(char *line, t_mini *mini);
+t_token	*get_tokens(char *line, t_mini *mini);
 void	squish_content(t_mini *mini);
 void	parse(t_mini *mini);
 void	type_token(t_token *token, int sep);
@@ -50,6 +48,9 @@ char	*expasions(char *arg, t_env *env, int ret);
 
 // helper_func
 void	reset_fds(t_mini *mini);
+void	ft_free(void *ptr);
+void	close_fds(t_mini *mini);
+void	reset_std(t_mini *mini);
 int		quotes(char *line, int index);
 void	ft_free(void *ptr);
 void	free_token(t_token *token);

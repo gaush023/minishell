@@ -47,8 +47,6 @@ int	count_next(char *line, int *i)
 	return (j - count + 1);
 }
 
-//見直す必要があり。
-// echo "hello world" > file.txt で最後のトークンをコマンドして捉えているため。
 void	type_token(t_token *token, int sep)
 {
 	if (ft_strcmp(token->content, "") == 0)
