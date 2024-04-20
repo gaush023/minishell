@@ -19,5 +19,4 @@ void	env(char **tokens, t_env *env)
 		ft_putendl_fd(env->value, 1);
 		env = env->next;
 	}
-	return ;
 }
