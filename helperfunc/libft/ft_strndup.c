@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 17:01:02 by sagemura          #+#    #+#             */
-/*   Updated: 2023/06/30 16:42:07 by sagemura         ###   ########.fr       */
+/*   Created: 2023/06/19 04:21:11 by sagemura          #+#    #+#             */
+/*   Updated: 2023/06/30 16:46:53 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_strndup(const char *s1, size_t n)
 {
-	size_t	len;
-	size_t	i;
 	char	*s2;
+	size_t	len;
 
-	i = 0;
 	len = ft_strlen(s1);
-	s2 = malloc(len + 1);
-	if (s2 == NULL)
+	if (n < len)
+		len = n;
+	s2 = (char *)malloc(sizeof(char) * (len + 1));
+	if (!s2)
 		return (NULL);
-	while (i < len)
-	{
-		s2[i] = s1[i];
-		i++;
-	}
-	s2[i] = '\0';
+	s2 = ft_memcpy(s2, s1, len);
+	s2[len] = '\0';
 	return (s2);
 }

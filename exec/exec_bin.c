@@ -6,13 +6,13 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/20 18:44:06 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/04/20 20:39:09 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	magic_box(char *path, char *args, t_env *env, t_mini *mini)
+int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 {
 	char	**env_array;
 	int		ret;

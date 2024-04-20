@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 17:01:02 by sagemura          #+#    #+#             */
-/*   Updated: 2023/06/30 16:42:07 by sagemura         ###   ########.fr       */
+/*   Created: 2024/04/20 18:38:44 by etakaham          #+#    #+#             */
+/*   Updated: 2024/04/20 18:42:41 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# include "../../includes/minishell.h"
 
-char	*ft_strdup(const char *s1)
+void	env(char **tokens, t_env *env)
 {
-	size_t	len;
-	size_t	i;
-	char	*s2;
-
-	i = 0;
-	len = ft_strlen(s1);
-	s2 = malloc(len + 1);
-	if (s2 == NULL)
-		return (NULL);
-	while (i < len)
+	(void)tokens;
+	while (env->next != NULL)
 	{
-		s2[i] = s1[i];
-		i++;
+		ft_putendl_fd(env->value, 1);
+		env = env->next;
 	}
-	s2[i] = '\0';
-	return (s2);
 }

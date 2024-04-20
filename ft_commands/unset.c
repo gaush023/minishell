@@ -33,8 +33,6 @@ bool	ft_env_equals(char *value, char *token)
 
 void	unset(char **tokens, t_env *env)
 {
-	char	*tmp;
-
 	if (tokens[1] == NULL)
 	{
 		exit(1);

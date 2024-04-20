@@ -5,20 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/07 20:05:24 by sagemura          #+#    #+#             */
-/*   Updated: 2024/03/07 23:56:12 by sagemura         ###   ########.fr       */
+/*   Created: 2023/06/13 17:47:39 by sagemura          #+#    #+#             */
+/*   Updated: 2023/06/30 20:23:03 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-int ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {
-    while (n-- && *s1 && *s2 && *s1 == *s2)
-    {
-	s1++;
-	s2++;
-    }
-    return (*(unsigned char *)s1 - *(unsigned char *)s2);
-}
+	size_t	i;
 
+	i = 0;
+	while (i < n && (str1[i] || str2[i]))
+	{
+		if (str1[i] != str2[i])
+			return ((unsigned char)str1[i] - (unsigned char)str2[i]);
+		i++;
+	}
+	return (0);
+}

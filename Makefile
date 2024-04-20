@@ -41,7 +41,7 @@ $(NAME): $(OBJS)
 	$(MAKE) -C $(FINISH_DIR)
 	$(MAKE) -C $(FT_CMD)
 	$(MAKE) -C $(EXC)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFT_DIR)/$(LIBFT) $(HELPERFUNC_DIR)/$(HELPERFUNC) $(PARSING_DIR)/$(PARSING) $(ENV_DIR)/$(ENV) $(FINISH_DIR)/$(FINISH) -lreadline
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFT_DIR)/$(LIBFT) $(HELPERFUNC_DIR)/$(HELPERFUNC) $(PARSING_DIR)/$(PARSING) $(ENV_DIR)/$(ENV) $(FINISH_DIR)/$(FINISH) $(FT_CMD)/ft_commands.a $(EXC)/exec.a -lreadline
 
 clean:	
 	$(MAKE) clean -C $(LIBFT_DIR)

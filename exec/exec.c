@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/20 18:34:39 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/04/20 20:37:12 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,22 @@ char	**cmd_tab(t_token *start)
 	return (tab);
 }
 
+int ft_strisnum(char *str)
+{
+	int i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	mini_exit(t_mini *mini, char **cmd)
 {
 	mini->exit = 1;
@@ -77,9 +93,23 @@ void	mini_exit(t_mini *mini, char **cmd)
 		mini->ret = 0;
 }
 
+int has_pipe(t_token *token)
+{
+	t_token *tmp;
+
+	tmp = token;
+	while (tmp)
+	{
+		if (tmp->type == PIPE)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 void	exec_cmd(t_mini *mini, t_token *token)
 {
-	char	*cmd;
+	char	**cmd;
 	int		i;
 
 	if (mini->charge == 0)
@@ -94,7 +124,7 @@ void	exec_cmd(t_mini *mini, t_token *token)
 	if (cmd && ft_strcmp(cmd[0], "exit") == 0 && has_pipe(token) == 0)
 		mini_exit(mini, cmd);
 	else if (cmd && is_builtin(cmd[0]))
-		mini->ret = exec_builtin(mini, cmd);
+		mini->ret = exec_builtin(cmd, mini);
 	else if (cmd)
 		mini->ret = exec_bin(cmd, mini->env, mini);
 	free_tab(cmd);

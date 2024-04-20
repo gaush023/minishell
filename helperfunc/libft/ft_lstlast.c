@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 18:38:44 by etakaham          #+#    #+#             */
-/*   Updated: 2024/04/20 18:42:41 by etakaham         ###   ########.fr       */
+/*   Created: 2023/06/23 10:04:24 by sagemura          #+#    #+#             */
+/*   Updated: 2023/06/25 08:40:53 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "libft.h"
 
-void	env(char **tokens, t_env *env)
+t_list	*ft_lstlast(t_list *lst)
 {
-	while (env->next != NULL)
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next)
 	{
-		ft_putendl_fd(env->value, 1);
-		env = env->next;
+		lst = lst->next;
 	}
+	return (lst);
 }

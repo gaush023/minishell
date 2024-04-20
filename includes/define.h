@@ -36,6 +36,8 @@
 # define NOSKIP 0
 # define SKIP 1
 
+# define BUF_SIZE 1024
+
 # define ERR 1
 # define EXPANSION -36
 # define SUCCESS 0

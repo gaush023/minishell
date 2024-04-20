@@ -1,19 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expasions.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 03:39:43 by sagemura          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/04/16 19:47:22 by sagemura         ###   ########.fr       */
-=======
-/*   Updated: 2024/04/20 18:59:50 by sagemura         ###   ########.fr       */
->>>>>>> main
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/minishell.h"
 
 int	ret_size(int ret)
@@ -35,7 +19,7 @@ int	is_env_char(char c)
 	return (0);
 }
 
-void	copy_env_name(char *env_name, char *env_value)
+char	*copy_env_name(char *env_name, char *env_value)
 {
 	int	i;
 
@@ -95,14 +79,14 @@ char	*copy_env_val(char *env)
 
 char	*get_env_value(char *var_name, t_env *env)
 {
-	char	*env_name[BUFF_SIZE];
+	char	env_name[BUFF_SIZE];
 	char	*env_value;
  
 	env_value = ft_strdup("");
 	while (env && env->value)
 	{
 		copy_env_name(env_name, env->value);
-		if (ft_strcmp(env_name, var_name) == 0)
+		if (ft_strncmp(env_name, var_name, ft_strlen(env_name)) == 0)
 		{
 			if (env_value)
 				free(env_value);
@@ -135,14 +119,45 @@ int	get_var_len(const char *arg, int pos, t_env *env, int ret)
 	return (i);
 }
 
-int	malloc4expassion(char *arg, t_env *env, int ret)
+char *get_var_val(char *arg, int pos, t_env *env, int ret)
 {
-<<<<<<< HEAD
+	char	var_name[BUFF_SIZE];
+	char 	*var_value;
+	int	i;
+
+	i = 0;
+	if (arg[pos] == '?')
+		return (ft_itoa(ret));
+	if (ft_isdigit(arg[pos]))
+		return (NULL);
+	while (arg[pos] && is_env_char(arg[pos]) == 1 && i < BUFF_SIZE)
+	{
+		var_name[i] = arg[pos];
+		i++;
+		pos++;
+	}
+	var_name[i] = '\0';
+	var_value = get_env_value(var_name, env);
+	return (var_value);
+}
+
+size_t	var_cpy(char *dst, const char *src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (src[i])
+		dst[size++] = src[i++];
+	return (i);
+}
+
+int	malloc4expassion(char *arg, t_env *env, int ret, t_expasion *ex)
+{
     char *env_value;
 
     env_value = get_var_val(arg, ex->j, env, ret);   
     if(env_value)
-        ex->i += var_cpy(ex->str, env_value, ex->i);
+	ex->i += var_cpy(ex->str, env_value, ex->i);
     if(env_value)
         free(env_value);
     if(arg[ex->j] == '?')
@@ -152,12 +167,11 @@ int	malloc4expassion(char *arg, t_env *env, int ret)
         while (is_env_char(arg[ex->j]) == 1)
             ex->j++;
     }
-    else \
+    else
     {
         if(arg[ex->j] != EXPANSION)
             ex->j++;
     }
-=======
 	int	i;
 	int	size;
 
@@ -176,7 +190,29 @@ int	malloc4expassion(char *arg, t_env *env, int ret)
 		size++;
 	}
 	return (size);
->>>>>>> main
+}
+
+void	insert_var(t_expasion *ex, char *arg, t_env *env, int ret)
+{
+	char	*env_value;
+
+	env_value = get_var_val(arg, ex->j, env, ret);
+	if (env_value)
+		ex->i += var_cpy(ex->str, env_value, ex->i);
+	if (env_value)
+		free(env_value);
+	if (arg[ex->j] == '?')
+		ex->j++;
+	if (ft_isdigit(arg[ex->j] && arg[ex->j - 1] == '?'))
+	{
+		while (is_env_char(arg[ex->j]) == 1)
+			ex->j++;
+	}
+	else
+	{
+		if(arg[ex->j] != EXPANSION)
+			ex->j++;
+	}
 }
 
 char	*expasions(char *arg, t_env *env, int ret)
@@ -184,7 +220,7 @@ char	*expasions(char *arg, t_env *env, int ret)
 	t_expasion ex;
 	int len;
 
-	len = malloc4expasion(arg, env, ret);
+	len = malloc4expassion(arg, env, ret, &ex);
 	ex.str = (char *)malloc(sizeof(char) * (len + 1));
 	if (ex.str == NULL)
 		return (NULL);
