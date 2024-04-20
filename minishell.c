@@ -17,12 +17,6 @@ t_token	*next_run(t_token *token, int skip)
 	return (token);
 }
 
-void	is_close(int fd)
-{
-	if (fd > 0)
-		close(fd);
-}
-
 void	redirect(t_mini *mini, t_token *token, int type)
 {
 	is_close(mini->fdout);
@@ -114,29 +108,6 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 		exec_cmd(mini, token);
 }
 
-void reset_std(t_mini *mini)
-{
-	dup2(mini->in, STDIN);
-	dup2(mini->out, STDOUT);
-}
-
-void close_fds(t_mini *mini)
-{
-	ft_close(mini->fdin);
-	ft_close(mini->fdout);
-	ft_close(mini->pipein);
-	ft_close(mini->pipeout);
-}
-
-void reset_fds(t_mini *mini)
-{
-	mini->fdin = dup(STDIN);
-	mini->fdout = dup(STDOUT);
-	mini->pipein = -1;
-	mini->pipeout = -1;
-	mini->m_pid = -1;
-}
-
 void	minishell(t_mini *mini)
 {
 	t_token	*token;
@@ -156,9 +127,9 @@ void	minishell(t_mini *mini)
 		reset_fds(mini);
 		waitpid(-1, &status, 0);
 		status = WEXITSTATUS(status);
-		if(mini->last == 0)
+		if (mini->last == 0)
 			mini->ret = status;
-		if(mini->parent == 0)
+		if (mini->parent == 0)
 		{
 			free_token(mini->start);
 			exit(status);
@@ -166,11 +137,6 @@ void	minishell(t_mini *mini)
 		mini->no_exec = 0;
 		token = next_run(token, SKIP);
 	}
-}
-
-__attribute__((destructor)) static void destructor()
-{
-	system("leaks -q minishell");
 }
 
 void	mini_init(t_mini *mini)

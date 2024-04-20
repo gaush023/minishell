@@ -1,42 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fd.c                                               :+:      :+:    :+:   */
+/*   env_to_array.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 19:29:17 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/20 19:29:21 by sagemura         ###   ########.fr       */
+/*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
+/*   Updated: 2024/04/20 18:16:15 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_close(int fd)
+int	count_env(t_env *env)
 {
-	if (fd > 0)
-		close(fd);
+	int	count;
+
+	count = 0;
+	while (env)
+	{
+		count++;
+		env = env->next;
+	}
+	return (count);
 }
 
-void	reset_fds(t_mini *mini)
+char	**env_to_array(t_env *env)
 {
-	mini->fdin = -1;
-	mini->fdout = -1;
-	mini->pipein = -1;
-	mini->pipeout = -1;
-	mini->m_pid = -1;
-}
+	int		count;
+	int		i;
+	char	**env_array;
 
-void	close_fds(t_mini *mini)
-{
-	ft_close(mini->fdin);
-	ft_close(mini->fdout);
-	ft_close(mini->pipein);
-	ft_close(mini->pipeout);
-}
-
-void	reset_std(t_mini *mini)
-{
-	dup2(mini->in, STDIN);
-	dup2(mini->out, STDOUT);
+	i = 0;
+	count = count_env(env);
+	env_array = (char **)malloc(sizeof(char *) * (count + 1));
+	while (env)
+	{
+		env_array[i] = ft_strdup(env->value);
+		env = env->next;
+		i++;
+	}
+	env_array[i] = NULL;
+	return (env_array);
 }
