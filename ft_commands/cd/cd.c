@@ -1,50 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/16 20:31:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/04/16 20:31:21 by etakaham         ###   ########.fr       */
+/*   Created: 2024/04/20 18:21:07 by etakaham          #+#    #+#             */
+/*   Updated: 2024/04/20 18:42:39 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
 
-static void	non_endl_echo(char **tokens)
+void	cd(char **tokens)
 {
-	size_t	i;
+	char	*work_dir;
+	char	*new_work_dir;
 
-	i = 0;
-	while (tokens[i] != NULL)
-	{
-		ft_putstr_fd(tokens[i], 1);
-		i++;
-	}
-	return ;
-}
-
-void	echo(char **tokens)
-{
-	size_t	i;
-
-	if (!ft_equals(tokens[0], "echo"))
+	if (!ft_equals(tokens[0], "cd") || tokens[1] == NULL)
 	{
 		exit(1);
 	}
-	else if (ft_equals(tokens[1], "-n"))
-	{
-		non_endl_echo(tokens);
-	}
-	else
-	{
-		i = 0;
-		while (tokens[i] != NULL)
-		{
-			ft_putendl_fd(tokens[i], 1);
-			i++;
-		}
-	}
+	work_dir = ft_calloc(BUF_SIZE, sizeof(char));
+	getcwd(work_dir, BUF_SIZE);
+	new_work_dir = ft_strjoin(work_dir, tokens[1]);
+	chdir(new_work_dir);
+	free(work_dir);
+	free(new_work_dir);
 	return ;
 }
