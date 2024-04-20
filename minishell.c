@@ -114,10 +114,32 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 		exec_cmd(mini, token);
 }
 
+void reset_std(t_mini *mini)
+{
+	dup2(mini->in, STDIN);
+	dup2(mini->out, STDOUT);
+}
+
+void close_fds(t_mini *mini)
+{
+	ft_close(mini->fdin);
+	ft_close(mini->fdout);
+	ft_close(mini->pipein);
+	ft_close(mini->pipeout);
+}
+
+void reset_fds(t_mini *mini)
+{
+	mini->fdin = dup(STDIN);
+	mini->fdout = dup(STDOUT);
+	mini->pipein = -1;
+	mini->pipeout = -1;
+	mini->m_pid = -1;
+}
+
 void	minishell(t_mini *mini)
 {
 	t_token	*token;
-
 	int		status;
 
 	token = next_run(mini->start, NOSKIP);
@@ -129,6 +151,20 @@ void	minishell(t_mini *mini)
 		mini->parent = 1;
 		mini->last = 1;
 		redir_and_exc(mini, token);
+		reset_std(mini);
+		close_fds(mini);
+		reset_fds(mini);
+		waitpid(-1, &status, 0);
+		status = WEXITSTATUS(status);
+		if(mini->last == 0)
+			mini->ret = status;
+		if(mini->parent == 0)
+		{
+			free_token(mini->start);
+			exit(status);
+		}
+		mini->no_exec = 0;
+		token = next_run(token, SKIP);
 	}
 }
 
