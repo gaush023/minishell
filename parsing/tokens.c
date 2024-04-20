@@ -75,10 +75,9 @@ t_token	*next_token(char *line, int *i, t_mini *mini)
 
 	j = 0;
 	c = ' ';
-	if (!(token = malloc(sizeof(t_token))) || ft_strlen(line) == 5)
+	if (!(token = malloc(sizeof(t_token))))
 		ft_panic(mini, "Malloc failed at next_token: token", err_token);
-	if (!(token->content = malloc(sizeof(char) * count_next(line, i)))
-		|| ft_strlen(line) == 6)
+	if (!(token->content = malloc(sizeof(char) * count_next(line, i))))
 	{
 		free(token);
 		free(line);
