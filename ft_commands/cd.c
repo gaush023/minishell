@@ -16,14 +16,16 @@ void	cd(char **tokens)
 {
 	char	*work_dir;
 	char	*new_work_dir;
+	char	*tmp;
 
-	if (!ft_equals(tokens[0], "cd") || tokens[1] == NULL)
-	{
+	if (tokens[1] == NULL)
 		exit(1);
-	}
+	if (tokens[2] != NULL)
+		exit(1);
 	work_dir = ft_calloc(BUF_SIZE, sizeof(char));
 	getcwd(work_dir, BUF_SIZE);
-	new_work_dir = ft_strjoin(work_dir, tokens[1]);
+	tmp = ft_strjoin(work_dir, "/");
+	new_work_dir = ft_strjoin(tmp, tokens[1]);
 	chdir(new_work_dir);
 	free(work_dir);
 	free(new_work_dir);
