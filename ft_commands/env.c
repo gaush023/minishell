@@ -15,7 +15,7 @@
 void	env(char **tokens, t_env *env)
 {
 	(void)tokens;
-	while (env->next != NULL)
+	while (env != NULL)
 	{
 		ft_putendl_fd(env->value, 1);
 		env = env->next;
