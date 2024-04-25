@@ -58,10 +58,10 @@ void	type_token(t_token *token, int sep)
 	else if (ft_strcmp(token->content, "|") == 0 && sep == 0)
 		token->type = PIPE;
 	else if (ft_strcmp(token->content, ">") == 0 && sep == 0)
-		token->type = REDIR;
+		token->type = TRUNC;
 	else if (ft_strcmp(token->content, ">>") == 0 && sep == 0)
 		token->type = APPEND;
-	else if (token->prev == NULL || token->prev->type == REDIR)
+	else if (token->prev == NULL || token->prev->type == TRUNC)
 		token->type = CMD;
 	else
 		token->type = ARG;
@@ -134,9 +134,9 @@ t_token	*get_tokens(char *line, t_mini *mimi)
 t_token	*prev_sep(t_token *token, int skip)
 {
 	if (token && skip)
-		token = token->next;
-	while (token && token->type < REDIR)
-		token = token->next;
+		token = token->prev;
+	while (token && token->type < TRUNC)
+		token = token->prev;
 	return (token);
 }
 
@@ -164,7 +164,7 @@ void	squish_content(t_mini *mini)
 	while (token)
 	{
 		prev = prev_sep(token, NOSKIP);
-		if (is_type(token, ARG) && is_types(token, "RAI"))
+		if (is_type(token, ARG) && is_types(token, "TAI"))
 		{
 			while (is_last_valid_arg(prev) == 0)
 				prev = prev->prev;
@@ -173,16 +173,22 @@ void	squish_content(t_mini *mini)
 				token->next->prev = token->prev;
 			token->prev = prev;
 			if (prev)
-				prev->next = prev->next;
+				token->next = prev->next;
 			else
 				token->next = mini->start;
-			if (!prev)
+			if (prev)
+				prev = prev;
+			else
 				prev = token;
 			prev->next->prev = token;
 			if (mini->start->prev)
+				prev->next = prev->next;
+			else
+				prev->next = token;
+			if (mini->start->prev)
 				mini->start = mini->start->prev;
 			else
-				mini->start = token;
+				mini->start = mini->start;
 		}
 		token = token->next;
 	}

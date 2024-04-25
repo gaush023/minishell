@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/21 01:44:37 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:04:12 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 bool	is_builtin(char *cmd)
 {
-	// if (ft_strcmp(cmd, "echo") == 0)
-	// 	return (true);
+	if (ft_strcmp(cmd, "echo") == 0)
+		return (true);
 	if (ft_strcmp(cmd, "cd") == 0)
 		return (true);
 	if (ft_strcmp(cmd, "pwd") == 0)
@@ -31,10 +31,9 @@ bool	is_builtin(char *cmd)
 
 int	exec_builtin(char **arg, t_mini *mini)
 {
-	// if (ft_strcmp(arg[0], "echo") == 0)
-	// 	echo(arg);
-	// else
-	if (ft_strcmp(arg[0], "cd") == 0)
+	if (ft_strcmp(arg[0], "echo") == 0)
+		echo(arg);
+	else if (ft_strcmp(arg[0], "cd") == 0)
 		cd(arg);
 	else if (ft_strcmp(arg[0], "pwd") == 0)
 		pwd(arg);

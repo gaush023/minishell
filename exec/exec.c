@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/20 20:37:12 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:43:46 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	count_tab(t_token *start)
 
 	token = start->next;
 	i = 2;
-	while (token && token->type < REDIR)
+	while (token && token->type < TRUNC)
 	{
 		token = token->next;
 		i++;
@@ -42,7 +42,7 @@ char	**cmd_tab(t_token *start)
 	token = start->next;
 	tab[0] = start->content;
 	i = 1;
-	while (token && token->type < REDIR)
+	while (token && token->type < TRUNC)
 	{
 		tab[i++] = token->content;
 		token = token->next;
@@ -69,7 +69,7 @@ int ft_strisnum(char *str)
 
 void	mini_exit(t_mini *mini, char **cmd)
 {
-	mini->exit = 1;
+	mini->flag = 1;
 	ft_putstr_fd("exit", STDERR);
 	if (cmd[1])
 		ft_putstr_fd("☻\n", STDERR);

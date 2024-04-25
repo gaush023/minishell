@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:27:15 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/20 19:28:24 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:43:46 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define EMPTY 0
 # define CMD 1
 # define ARG 2
-# define REDIR 3
+# define TRUNC 3
 # define APPEND 4
 # define INPUT 5
 # define PIPE 6

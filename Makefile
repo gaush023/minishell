@@ -6,7 +6,7 @@
 #    By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 16:39:35 by sagemura          #+#    #+#              #
-#    Updated: 2024/04/20 20:11:20 by sagemura         ###   ########.fr        #
+#    Updated: 2024/04/23 16:31:38 by sagemura         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,8 @@ clean:
 	$(MAKE) clean -C $(PARSING_DIR)
 	$(MAKE) clean -C $(ENV_DIR)
 	$(MAKE) clean -C $(FINISH_DIR)
+	$(MAKE) clean -C $(FT_CMD)
+	$(MAKE) clean -C $(EXC)
 	rm -f $(OBJS)
 
 fclean: clean
@@ -57,6 +59,8 @@ fclean: clean
 	$(MAKE) fclean -C $(PARSING_DIR)
 	$(MAKE) fclean -C $(ENV_DIR)
 	$(MAKE) fclean -C $(FINISH_DIR)
+	$(MAKE) fclean -C $(FT_CMD)
+	$(MAKE) fclean -C $(EXC)
 	rm -f $(NAME)
 	
 re: fclean all

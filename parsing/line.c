@@ -4,7 +4,7 @@ int	is_sep(char *line, int i)
 {
 	if (i > 0 && line[i - 1] == '\\' && ft_strchr("><|;", line[i]))
 		return (0);
-	else if (ft_strchr("><|;", line[i]))
+	else if (ft_strchr("><|;", line[i]) && quotes(line, i) == 0)
 		return (1);
 	else
 		return (0);
@@ -84,6 +84,7 @@ void	parse(t_mini *mini)
 	else
 		ft_putstr_fd(" 🤯 ", STDERR);
 	line = readline(M_PROMPT);
+	add_history(line);
 	if ((line == NULL) && (mini->flag = 1))
 		ft_putstr_fd("\nexit: Thank youn, bye;)\n", STDERR);
 	if (g_sig.sigint == 1)
@@ -94,7 +95,6 @@ void	parse(t_mini *mini)
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
 	mini->start = get_tokens(line, mini);
-	add_history(line);
 	ft_free(line);
 	squish_content(mini);
 	token = mini->start;
@@ -105,8 +105,6 @@ void	parse(t_mini *mini)
 		token = token->next;
 	}
 }
-
-
 
 // int main(void)
 //{

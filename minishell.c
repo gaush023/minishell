@@ -17,16 +17,16 @@ t_token	*next_run(t_token *token, int skip)
 	return (token);
 }
 
-void	redirect(t_mini *mini, t_token *token, int type)
+void	redir(t_mini *mini, t_token *token, int type)
 {
 	ft_close(mini->fdout);
-	if (type == REDIR)
+	if (type == TRUNC)
 		mini->fdout = open(token->next->content, O_WRONLY | O_CREAT | O_TRUNC,
 				S_IRWXU);
-	else if (type == APPEND)
+	else
 		mini->fdout = open(token->next->content, O_WRONLY | O_CREAT | O_APPEND,
 				S_IRWXU);
-	if (mini->fdout < 0)
+	if (mini->fdout == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR);
 		ft_putstr_fd(token->content, STDERR);
@@ -41,7 +41,7 @@ void	redirect(t_mini *mini, t_token *token, int type)
 void	input(t_mini *mini, t_token *token)
 {
 	ft_close(mini->fdin);
-	mini->fdin = open(token->next->content, O_RDONLY);
+	mini->fdin = open(token->content, O_RDONLY, S_IRUSR);
 	if (mini->fdin < 0)
 	{
 		ft_putstr_fd("minishell: ", STDERR);
@@ -88,7 +88,7 @@ t_token	*next_sep(t_token *token, int skip)
 {
 	if (token && skip)
 		token = token->next;
-	while (token && token->type < END)
+	while (token && token->type < TRUNC)
 		token = token->next;
 	return (token);
 }
@@ -102,13 +102,13 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 	prev = prev_sep(token, SKIP);
 	next = next_sep(token, SKIP);
 	pipe = 0;
-	if (is_type(token, REDIR))
-		redirect(mini, token, REDIR);
+	if (is_type(prev, TRUNC))
+		redir(mini, token, TRUNC);
 	else if (is_type(token, APPEND))
-		redirect(mini, token, APPEND);
-	else if (is_type(token, INPUT))
-		input(mini, token);
-	else if (is_type(token, PIPE))
+		redir(mini, token, APPEND);
+	else if (is_type(prev, INPUT))
+		input(mini	, token);
+	else if (is_type(prev, PIPE))
 		pipe = minipipe(mini);
 	if (next && is_type(next, END) == 0 && pipe != 1)
 		redir_and_exec(mini, next->next);
@@ -153,14 +153,12 @@ __attribute__((destructor)) static void destructor()
 	system("leaks -q minishell");
 }
 
-
 void	mini_init(t_mini *mini)
 {
 	mini->in = dup(STDIN);
 	mini->out = dup(STDOUT);
 	if (!mini->in || !mini->out)
 		ft_panic(NULL, "dup", 1);
-	reset_fds(mini); // reset file descriptors
 	mini->flag = 0;
 	mini->ret = 0;
 }
@@ -172,21 +170,21 @@ int	main(int ac, char **av, char **ev)
 
 	(void)ac;
 	(void)av;
-	mini_init(&mini);           // STDIN と STDOUT のデフォルトのファイルディスクリプタを保存
-	env_init(&mini, ev);        // 環境変数を初期化
-	secret_env_init(&mini, ev); // 環境変数を初期化
-	get_shlvl_plus(mini.env);   // shlvlの値を取得し、1を足す
+	mini_init(&mini);
+	env_init(&mini, ev);
+	secret_env_init(&mini, ev);
+	get_shlvl_plus(mini.env);
 	while (mini.flag == 0)
 	{
-		ini_sig();    // シグナルの初期化
-		parse(&mini); // command lineをparse
+		ini_sig();
+		parse(&mini);
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
 		while (mini.start)
 		{
-			free(mini.start->content);
+			ft_free(mini.start->content);
 			tmp = mini.start->next;
-			free(mini.start);
+			ft_free(mini.start);
 			mini.start = tmp;
 		}
 	}
