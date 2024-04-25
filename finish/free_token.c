@@ -5,23 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 19:45:56 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/20 18:21:37 by sagemura         ###   ########.fr       */
+/*   Created: 2024/04/25 16:22:48 by sagemura          #+#    #+#             */
+/*   Updated: 2024/04/25 16:24:08 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_token(t_token *token)
+void	free_token(t_token *start)
 {
-	t_token	*tmp;
-
-	while (token && token->next)
+	while (start && start->next)
 	{
-		tmp = token->next;
-		ft_free(token->content);
-		ft_free(token->prev);
-		token = tmp;
+		ft_free(start->content);
+		start = start->next;
+		ft_free(start->prev);
 	}
-	ft_free(token->content);
+	if (start)
+	{
+		ft_free(start->content);
+		ft_free(start);
+	}
 }

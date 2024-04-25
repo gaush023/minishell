@@ -107,7 +107,7 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 	else if (is_type(token, APPEND))
 		redir(mini, token, APPEND);
 	else if (is_type(prev, INPUT))
-		input(mini	, token);
+		input(mini, token);
 	else if (is_type(prev, PIPE))
 		pipe = minipipe(mini);
 	if (next && is_type(next, END) == 0 && pipe != 1)
@@ -166,7 +166,6 @@ void	mini_init(t_mini *mini)
 int	main(int ac, char **av, char **ev)
 {
 	t_mini	mini;
-	t_token	*tmp;
 
 	(void)ac;
 	(void)av;
@@ -180,13 +179,7 @@ int	main(int ac, char **av, char **ev)
 		parse(&mini);
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
-		while (mini.start)
-		{
-			ft_free(mini.start->content);
-			tmp = mini.start->next;
-			ft_free(mini.start);
-			mini.start = tmp;
-		}
+		free_token(mini.start);
 	}
 	free_all(&mini, 0);
 }

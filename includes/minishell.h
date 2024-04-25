@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/20 21:44:56 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:31:30 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ini_sig(void);
 
 // finish
 void	free_all(t_mini *mini, int ret);
+void	free_token(t_token *start);
 void	ft_panic(t_mini *mini, char *str, enum e_err err_type);
 
 // env
@@ -55,7 +56,6 @@ void	ft_close(int fd);
 void	reset_std(t_mini *mini);
 int		quotes(char *line, int index);
 void	ft_free(void *ptr);
-void	free_token(t_token *token);
 void	free_tab(char **tab);
 int		is_type(t_token *token, int type);
 int		is_types(t_token *token, char *types);
@@ -77,7 +77,6 @@ int		check_line(t_mini *mini, t_token *token);
 // int		ft_strncmp(const char *s1, const char *s2, size_t n);
 bool	ft_equals(const char *s1, const char *s2);
 // int	ft_strcmp(const char *s1, const char *s2);
-
 
 // ft_commands
 void	cd(char **tokens);
