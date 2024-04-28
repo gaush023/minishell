@@ -166,3 +166,121 @@ int	get_tokens(char *line, t_data *data)
 	return (0);
 	(void)data;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+	@return 1 : ''が閉じられていなかったため終
+		    0 : 通常終了
+*/
+int	__get_tokens(char *line)
+{
+	t_token			*token1;
+	char			**tmp;
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	k;
+
+	token1 = ft_calloc(1, sizeof(t_token));
+	tmp = ft_calloc(15, sizeof(char*));
+
+	i = 0;
+	j = 0;
+	k = 0;
+	while (line[i])
+	{
+		if (line[i] == '\'')
+		{
+			j = 1;
+			while (line[i + j])
+			{
+				if (line[i + j] == '\'')
+				{
+					tmp[k] = ft_calloc(j, sizeof(char));
+					ft_memcpy(tmp[k], &line[i + 1], j - 1);
+					i += (j);
+					k++;
+					break ;
+				}
+				j++;
+			}
+			printf("single suo : i is %u when k is %u\n", i, k);
+		}
+		if (line[i] == ' ')
+		{
+			while (line[i] == ' ')
+				i++;
+			i--;
+			j = 1;
+			while (line[i + j])
+			{
+				if (line[i + j] == ' ')
+				{
+					tmp[k] = ft_calloc(j, sizeof(char));
+					ft_memcpy(tmp[k], &line[i + 1], j - 1);
+					i += j;
+					k++;
+					break;
+				}
+				j++;
+			}
+			printf("space : i is %u when k is %u\n", i, k);
+		}
+		/* printf("this is %c\n", line[i]); */
+		i++;
+	}
+	tmp[k] = NULL;
+	i = 0;
+	while (tmp[i] != NULL)
+	{
+		printf("%u : %s\n", i, tmp[i]);
+		i++;
+	}
+	return (0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -13,6 +13,8 @@ OBJS		= $(SRCS:.c=.o)
 
 RLFLAGS		= -lreadline
 
+SANIFLAG	= -fsanitize=address -g
+
 LIBFT_DIR	= ./lib/libft
 LIBFT		= $(LIBFT_DIR)/libft.a
 
