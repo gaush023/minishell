@@ -26,7 +26,7 @@ all:$(NAME)
 $(NAME):$(OBJS)
 	make -C $(LIBFT_DIR)
 	make -C $(MINI_LIB_DIR)
-	$(CC) $(CFLAGS) $(RLFLAGS) $(LIBFT) $(MINI_LIB) $^ -o $@
+	$(CC) $(CFLAGS) $(RLFLAGS) $(SANIFLAG) $(LIBFT) $(MINI_LIB) $^ -o $@
 
 clean:
 	make clean -C $(LIBFT_DIR)
