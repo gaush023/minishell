@@ -6,27 +6,20 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:41:34 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/25 16:38:35 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/05/01 10:11:05 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	free_env(t_env *env, t_env *secret_env)
+static void	free_env(t_env **env)
 {
 	t_env	*tmp;
 
-	while (env && env->next)
+	while (*env)
 	{
-		tmp = env;
-		env = env->next;
-		ft_free(tmp->value);
-		ft_free(tmp);
-	}
-	while (secret_env && secret_env->next)
-	{
-		tmp = secret_env;
-		secret_env = secret_env->next;
+		tmp = *env;
+		*env = (*env)->next;
 		ft_free(tmp->value);
 		ft_free(tmp);
 	}
@@ -35,6 +28,7 @@ static void	free_env(t_env *env, t_env *secret_env)
 void	free_all(t_mini *mini, int ret)
 {
 	(void)ret;
-	free_env(mini->env, mini->secret_env);
+	free_env(&(mini->env));
+	free_env(&(mini->secret_env));
 	clear_history();
 }

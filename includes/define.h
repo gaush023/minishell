@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:27:15 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/23 17:43:46 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/05/01 14:18:00 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@
 # define STDERR 2
 
 // prompt
-# define M_PROMPT "\033[0;36m\033[1m minishell> \033[0m"
+# define M_PROMPT "\033[0;36m\033[1m $> \033[0m"
+# define M_SUCCESS "\033[0;31mSUCCESS\033[0m"
+# define M_FAILURE "\033[0;31mFAILURE\033[0m"
+
 
 // token type
 # define EMPTY 0

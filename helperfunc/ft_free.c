@@ -6,17 +6,18 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:21:56 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/20 18:21:58 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/05/01 10:27:47 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_free(void *ptr)
+void	*ft_free(void *ptr)
 {
 	if (ptr)
 	{
 		free(ptr);
 		ptr = NULL;
 	}
+	return (NULL);
 }

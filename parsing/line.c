@@ -80,11 +80,10 @@ void	parse(t_mini *mini)
 	signal(SIGINT, &sig_int);
 	signal(SIGQUIT, &sig_quit);
 	if (mini->ret == 0)
-		ft_putstr_fd(" 🥳 ", STDERR);
+		ft_putstr_fd(M_SUCCESS, STDERR);
 	else
-		ft_putstr_fd(" 🤯 ", STDERR);
+		ft_putstr_fd(M_FAILURE, STDERR);
 	line = readline(M_PROMPT);
-	add_history(line);
 	if ((line == NULL) && (mini->flag = 1))
 		ft_putstr_fd("\nexit: Thank youn, bye;)\n", STDERR);
 	if (g_sig.sigint == 1)
@@ -94,16 +93,8 @@ void	parse(t_mini *mini)
 	line = transform_line(line);
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
-	mini->start = get_tokens(line, mini);
-	ft_free(line);
-	squish_content(mini);
-	token = mini->start;
-	while (token)
-	{
-		if (is_type(token, ARG))
-			type_token(token, 0);
-		token = token->next;
-	}
+	get_tokens(line, mini);
+	return ;
 }
 
 // int main(void)

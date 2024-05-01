@@ -9,6 +9,7 @@ int	get_shlvl_plus(t_env *env)
 {
 	int		shell_lvl;
 	char	*tmp;
+	char  *str_shelvl;
 
 	while (env && env->next)
 	{
@@ -16,8 +17,10 @@ int	get_shlvl_plus(t_env *env)
 		{
 			tmp = ft_strchr(env->value, '=') + 1;
 			shell_lvl = ft_atoi(tmp) + 1;
-			free(env->value);
-			env->value = ft_strjoin("SHLVL=", ft_itoa(shell_lvl));
+			str_shelvl = ft_itoa(shell_lvl);
+			ft_free(env->value);
+			env->value = ft_strjoin("SHLVL=", str_shelvl);
+			ft_free(str_shelvl);
 			return (0);
 		}
 		env = env->next;

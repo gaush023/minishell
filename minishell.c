@@ -84,6 +84,15 @@ int	minipipe(t_mini *mini)
 	}
 }
 
+t_token *prev_sep(t_token *token, int skip)
+{
+	if (token && skip)
+		token = token->prev;
+	while (token && token->type < TRUNC)
+		token = token->prev;
+	return (token);
+}
+
 t_token	*next_sep(t_token *token, int skip)
 {
 	if (token && skip)
@@ -140,7 +149,7 @@ void	minishell(t_mini *mini)
 			mini->ret = status;
 		if (mini->parent == 0)
 		{
-			free_token(mini->start);
+			free_token(mini->start, mini->flag);
 			exit(status);
 		}
 		mini->no_exec = 0;
@@ -163,6 +172,17 @@ void	mini_init(t_mini *mini)
 	mini->ret = 0;
 }
 
+void print_start(t_token *start)
+{
+	t_token *tmp = start;
+	while (tmp)
+	{
+		printf("content: %s\n", tmp->content);
+		printf("type: %d\n", tmp->type);
+		tmp = tmp->next;
+	}
+}
+
 int	main(int ac, char **av, char **ev)
 {
 	t_mini	mini;
@@ -179,7 +199,8 @@ int	main(int ac, char **av, char **ev)
 		parse(&mini);
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
-		free_token(mini.start);
+		print_start(mini.start);
+		free_token(mini.start, mini.flag);
 	}
 	free_all(&mini, 0);
 }

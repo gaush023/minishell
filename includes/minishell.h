@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/05/01 09:09:35 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/05/01 14:56:48 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
-# define M_PROMPT "\033[0;36m\033[1m minishell> \033[0m"
 
 # define EMPTY 0
 # define CMD 1
@@ -46,7 +45,7 @@ void	ini_sig(void);
 
 // finish
 void	free_all(t_mini *mini, int ret);
-void	free_token(t_token *start);
+void	free_token(t_token *start, int flag);
 void	ft_panic(t_mini *mini, char *str, enum e_err err_type);
 
 // env
@@ -63,7 +62,7 @@ bool	is_builtin(char *cmd);
 int		exec_builtin(char **arg, t_mini *mini);
 
 // parsing
-t_token	*get_tokens(char *line, t_mini *mini);
+void get_tokens(char *line, t_mini *mini);
 t_token	*prev_sep(t_token *token, int skip);
 void	squish_content(t_mini *mini);
 void	parse(t_mini *mini);
@@ -72,12 +71,11 @@ char	*expasions(char *arg, t_env *env, int ret);
 
 // helper_func
 void	reset_fds(t_mini *mini);
-void	ft_free(void *ptr);
+void	*ft_free(void *ptr);
 void	close_fds(t_mini *mini);
 void	ft_close(int fd);
 void	reset_std(t_mini *mini);
 int		quotes(char *line, int index);
-void	ft_free(void *ptr);
 void	free_tab(char **tab);
 int		is_type(t_token *token, int type);
 int		is_types(t_token *token, char *types);

@@ -6,7 +6,7 @@
 #    By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 16:39:35 by sagemura          #+#    #+#              #
-#    Updated: 2024/05/01 09:11:48 by sagemura         ###   ########.fr        #
+#    Updated: 2024/05/01 10:16:30 by sagemura         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ FT_CMD = ./ft_commands
 EXC = ./exec
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR) -I$(HELPERFUNC_DIR) -I$(PARSING_DIR) -I$(ENV_DIR) -I$(FINISH_DIR)
+CFLAGS = -Wall -Wextra -Werror  -g  -I$(LIBFT_DIR) -I$(HELPERFUNC_DIR) -I$(PARSING_DIR) -I$(ENV_DIR) -I$(FINISH_DIR)
 
 OBJS = $(SRCS:.c=.o)
 
