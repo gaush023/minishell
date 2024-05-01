@@ -11,6 +11,17 @@ enum e_err{
 	err_fork = 5,
 };
 
+enum commands{
+	co_echo,
+	co_cd,
+	co_pwd,
+	co_export,
+	co_unset,
+	co_env,
+	co_exit,
+	co_others,
+};
+
 typedef struct s_env
 {
 	char *value;
@@ -62,6 +73,5 @@ typedef struct s_mini
 	t_env *secret_env;
 	t_token *start;
 }	 t_mini;
-
 
 #endif

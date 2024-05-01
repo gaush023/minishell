@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 20:56:17 by sagemura          #+#    #+#             */
-/*   Updated: 2023/06/29 22:44:01 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/05/01 09:21:25 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ size_t				ft_strlcat(char *dst, const char *src, size_t size);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlen(const char *str);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-int					ft_strcmp(const char *str1, const char *str2);
 int					ft_strncmp(const char *str1, const char *str2, size_t n);
 char				*ft_strnstr(const char *haystack, const char *needle,
 						size_t len);
@@ -71,5 +70,6 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+int	ft_strcmp(const char *s1, const char *s2);
 
 #endif

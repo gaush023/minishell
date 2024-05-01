@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:26:51 by sagemura          #+#    #+#             */
-/*   Updated: 2023/07/03 20:32:49 by shuga            ###   ########.fr       */
+/*   Updated: 2024/05/01 09:15:40 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*ft_calloc(size_t nitems, size_t size)
 	}
 	ptr = malloc(nitems * size);
 	if (ptr == NULL)
-		return (NULL);
+		exit(1);
 	ft_bzero(ptr, size * nitems);
 	return (ptr);
 }

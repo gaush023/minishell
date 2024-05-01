@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/25 16:31:30 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/05/01 09:09:35 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,28 @@
 # include "define.h"
 # include "library.h"
 # include "struct.h"
+
+# define BUFF_SIZE 4096
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+# define M_PROMPT "\033[0;36m\033[1m minishell> \033[0m"
+
+# define EMPTY 0
+# define CMD 1
+# define ARG 2
+# define REDIR 3
+# define APPEND 4
+# define INPUT 5
+# define PIPE 6
+# define END 7
+
+# define NOSKIP 0
+# define SKIP 1
+
+# define BUF_SIZE 1024
+
+# define EXPANSION -36
 
 // main
 void	sig_int(int code);
@@ -85,5 +107,9 @@ void	unset(char **tokens, t_env *env);
 void	env(char **tokens, t_env *env);
 void	export(char **tokens, t_env *env);
 void	pwd(char **tokens);
+
+// commands
+void	echo(char **tokens);
+void	cd(char **tokens);
 
 #endif
