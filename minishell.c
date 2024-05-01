@@ -21,10 +21,10 @@ void	redir(t_mini *mini, t_token *token, int type)
 {
 	ft_close(mini->fdout);
 	if (type == TRUNC)
-		mini->fdout = open(token->next->content, O_WRONLY | O_CREAT | O_TRUNC,
+		mini->fdout = open(token->content, O_WRONLY | O_CREAT | O_TRUNC,
 				S_IRWXU);
 	else
-		mini->fdout = open(token->next->content, O_WRONLY | O_CREAT | O_APPEND,
+		mini->fdout = open(token->content, O_WRONLY | O_CREAT | O_APPEND,
 				S_IRWXU);
 	if (mini->fdout == -1)
 	{
@@ -172,16 +172,6 @@ void	mini_init(t_mini *mini)
 	mini->ret = 0;
 }
 
-void print_start(t_token *start)
-{
-	t_token *tmp = start;
-	while (tmp)
-	{
-		printf("content: %s\n", tmp->content);
-		printf("type: %d\n", tmp->type);
-		tmp = tmp->next;
-	}
-}
 
 int	main(int ac, char **av, char **ev)
 {
@@ -199,8 +189,8 @@ int	main(int ac, char **av, char **ev)
 		parse(&mini);
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
-		print_start(mini.start);
 		free_token(mini.start, mini.flag);
 	}
 	free_all(&mini, 0);
+	// system("leaks -q minishell");
 }

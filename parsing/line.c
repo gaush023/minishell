@@ -94,6 +94,7 @@ void	parse(t_mini *mini)
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
 	get_tokens(line, mini);
+	ft_free(line);
 	return ;
 }
 

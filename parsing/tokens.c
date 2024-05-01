@@ -23,17 +23,6 @@ static void	set_type(t_token *token)
 		token->type = ARG;
 }
 
-static t_token	*make_token(char *str, t_token *prev)
-{
-	t_token	*token;
-
-	token = ft_calloc(1, sizeof(t_token));
-	token->content = ft_strdup(str);
-	token->prev = prev;
-	token->next = NULL;
-	return (token);
-}
-
 int	*make_in_sq_flag(char *line)
 {
 	int				*str_flag;
@@ -64,7 +53,18 @@ int	*make_in_sq_flag(char *line)
 	return (str_flag);
 }
 
-void get_tokens(char *line, t_mini *mini)
+static t_token	*make_token(char *str, t_token *prev)
+{
+	t_token	*token;
+
+	token = ft_calloc(1, sizeof(t_token));
+	token->content = ft_strdup(str);
+	token->prev = prev;
+	token->next = NULL;
+	return (token);
+}
+
+void	get_tokens(char *line, t_mini *mini)
 {
 	t_token			*token;
 	t_token			*tmp_token;
@@ -73,8 +73,12 @@ void get_tokens(char *line, t_mini *mini)
 	unsigned int	k;
 	int				*str_flag;
 
+	if (line[0] == '\0')
+	{
+		mini->start = NULL;
+		return ;
+	}
 	str_flag = make_in_sq_flag(line);
-	tmp_token = ft_calloc(1, sizeof(t_token));
 	tmp_token = NULL;
 	i = 0;
 	k = 0;
@@ -90,6 +94,7 @@ void get_tokens(char *line, t_mini *mini)
 			tmp_str = ft_calloc(i - k + 1, sizeof(char));
 			ft_memcpy(tmp_str, &line[k], i - k);
 			token = make_token(tmp_str, tmp_token);
+			ft_free(tmp_str);
 			tmp_token = token;
 		}
 	}
