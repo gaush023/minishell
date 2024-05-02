@@ -59,10 +59,8 @@ int	minipipe(t_mini *mini)
 	pid_t	pid;
 	int		pipefd[2];
 
-	if (pipe(pipefd) < 0)
-		ft_panic(mini, "Error: pipe", err_pipe);
-	if ((pid = fork()) < 0)
-		ft_panic(mini, "Error: fork", err_fork);
+	pipe(pipefd);
+	pid = fork();
 	if (pid == 0)
 	{
 		ft_close(pipefd[1]);
@@ -150,7 +148,7 @@ void	minishell(t_mini *mini)
 		if (mini->parent == 0)
 		{
 			free_token(mini->start, mini->flag);
-			exit(status);
+			exit(mini->ret);
 		}
 		mini->no_exec = 0;
 		token = next_run(token, SKIP);
