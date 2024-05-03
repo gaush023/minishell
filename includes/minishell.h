@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/05/01 14:56:48 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:09:35 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,10 @@ bool	ft_equals(const char *s1, const char *s2);
 
 // ft_commands
 void	cd(char **tokens);
-void	echo(char **tokens);
+int				ft_echo(char **args);
 void	unset(char **tokens, t_env *env);
 void	env(char **tokens, t_env *env);
 void	export(char **tokens, t_env *env);
 void	pwd(char **tokens);
-
-// commands
-void	echo(char **tokens);
-void	cd(char **tokens);
 
 #endif

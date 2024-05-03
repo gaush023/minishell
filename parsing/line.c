@@ -56,6 +56,7 @@ char	*transform_line(char *line)
 	}
 	new[j] = '\0';
 	ft_free(line);
+	printf("new: %s\n", new);
 	return (new);
 }
 
@@ -79,13 +80,14 @@ void	parse(t_mini *mini)
 
 	signal(SIGINT, &sig_int);
 	signal(SIGQUIT, &sig_quit);
-	if (mini->ret == 0)
-		ft_putstr_fd(M_SUCCESS, STDERR);
-	else
-		ft_putstr_fd(M_FAILURE, STDERR);
+	// if (mini->ret == 0)
+	// 	ft_putstr_fd(M_SUCCESS, STDERR);
+	// else
+	// 	ft_putstr_fd(M_FAILURE, STDERR);
 	line = readline(M_PROMPT);
 	if ((line == NULL) && (mini->flag = 1))
-		ft_putstr_fd("\nexit: Thank youn, bye;)\n", STDERR);
+		// ft_putstr_fd("\nexit: Thank youn, bye;)\n", STDERR);
+		return ;
 	if (g_sig.sigint == 1)
 		mini->ret = g_sig.sig_flag;
 	if (line == NULL || quote_check(mini, line) == 1)

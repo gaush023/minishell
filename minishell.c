@@ -31,7 +31,7 @@ void	redir(t_mini *mini, t_token *token, int type)
 		ft_putstr_fd("minishell: ", STDERR);
 		ft_putstr_fd(token->content, STDERR);
 		ft_putstr_fd(": No such file or directory\n", STDERR);
-		mini->ret = 1;
+		mini->ret = 500;
 		mini->no_exec = 1;
 		return ;
 	}
@@ -47,7 +47,7 @@ void	input(t_mini *mini, t_token *token)
 		ft_putstr_fd("minishell: ", STDERR);
 		ft_putstr_fd(token->content, STDERR);
 		ft_putstr_fd(": No such file or directory\n", STDERR);
-		mini->ret = 1;
+		mini->ret = 200;
 		mini->no_exec = 1;
 		return ;
 	}
@@ -155,10 +155,10 @@ void	minishell(t_mini *mini)
 	}
 }
 
-__attribute__((destructor)) static void destructor()
-{
-	system("leaks -q minishell");
-}
+// __attribute__((destructor)) static void destructor()
+// {
+// 	system("leaks -q minishell");
+// }
 
 void	mini_init(t_mini *mini)
 {
@@ -190,5 +190,6 @@ int	main(int ac, char **av, char **ev)
 		free_token(mini.start, mini.flag);
 	}
 	free_all(&mini, 0);
+	return (mini.ret);
 	// system("leaks -q minishell");
 }

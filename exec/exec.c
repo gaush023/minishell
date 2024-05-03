@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/23 17:43:46 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:22:35 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	mini_exit(t_mini *mini, char **cmd)
 		ft_putstr_fd("☹︎\n", STDERR);
 	if (cmd[1] && cmd[2])
 	{
-		mini->ret = 1;
+		mini->ret = 800;
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR);
 	}
 	else if (cmd[1] && ft_strisnum(cmd[1]) == 0)

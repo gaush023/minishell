@@ -24,13 +24,20 @@ int	quotes(char *line, int index)
 	return (open);
 }
 
-/*
-** Function: check_line
-** -------------------
-** トークのタイプをチェックし、エラーがあればエラーメッセージを表示する
-*/
+
+void print_token(t_token *token)
+{
+	while (token)
+	{
+		printf("content: %s\n", token->content);
+		printf("type: %d\n", token->type);
+		token = token->next;
+	}
+}
+
 int	check_line(t_mini *mini, t_token *token)
 {
+	print_token(token);
 	while (token)
 	{
 		if (is_types(token, "RAI") && (!token->next || is_types(token->next,
@@ -49,7 +56,7 @@ int	check_line(t_mini *mini, t_token *token)
 		if (is_types(token, "PE") && (!token->next || !token->prev || is_types(token->next,
 					"RAIPE")))
 		{
-			ft_putstr_fd(" minishell: syntax error near unexpected token `",
+			ft_putstr_fd(" minishell: syntax error near unexpected token o2je2ij`",
 					STDERR);
 			ft_putstr_fd(token->content, STDERR);
 			write(STDERR, "\n", 1);

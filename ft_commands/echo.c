@@ -3,48 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:31:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/04/16 20:31:21 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:58:57 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
 
-static void	non_endl_echo(char **tokens)
+static	int		nb_args(char **args)
 {
-	size_t	i;
+	int		size;
 
-	i = 0;
-	while (tokens[i] != NULL)
-	{
-		ft_putstr_fd(tokens[i], 1);
-		i++;
-	}
-	return ;
+	size = 0;
+	while (args[size])
+		size++;
+	return (size);
 }
 
-void	echo(char **tokens)
+int				ft_echo(char **args)
 {
-	size_t	i;
+	int		i;
+	int		n_option;
 
-	if (!ft_equals(tokens[0], "echo"))
+	i = 1;
+	n_option = 0;
+	if (nb_args(args) > 1)
 	{
-		exit(1);
-	}
-	else if (ft_equals(tokens[1], "-n"))
-	{
-		non_endl_echo(tokens);
-	}
-	else
-	{
-		i = 0;
-		while (tokens[i] != NULL)
+		while (args[i] && ft_strcmp(args[i], "-n") == 0)
 		{
-			ft_putendl_fd(tokens[i], 1);
+			n_option = 1;
+			i++;
+		}
+		while (args[i])
+		{
+			ft_putstr_fd(args[i], 1);
+			if (args[i + 1] && args[i][0] != '\0')
+				write(1, " ", 1);
 			i++;
 		}
 	}
-	return ;
+	if (n_option == 0)
+		write(1, "\n", 1);
+	return (SUCCESS);
 }
