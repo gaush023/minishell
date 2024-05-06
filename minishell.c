@@ -82,6 +82,39 @@ int	minipipe(t_mini *mini)
 	}
 }
 
+void here_doc(t_mini *mini, t_token *token)
+{
+	char *delimiter;
+	char *line;
+
+	delimiter = token->content;
+	mini->heredoc_flag = (int )malloc(sizeof(int) * 1);
+	mini->heredoc_flag = 1;
+	mini->heredoc_fd = (int )malloc(sizeof(int) * 1);
+	mini->heredoc_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if(mini->heredoc_fd == -1)
+	    return ; // error
+	while(1)
+	{
+		line = readline("heredoc> ");
+		if (!line || ft_strcmp(line, delimiter) == 0)
+		{
+			ft_free(line);
+			break ;
+		}
+		ft_putstr_fd(line, mini->heredoc_fd);
+		ft_putstr_fd("\n", mini->heredoc_fd);
+		ft_free(line);
+	}
+	ft_close(mini->heredoc_fd);
+	mini->heredoc_fd = open("/tmp/heredoc_tmp", O_RDONLY);
+	if (mini->heredoc_fd == -1)
+		return ; // error
+	dup2(mini->heredoc_fd, STDIN);
+	close(mini->heredoc_fd);
+	mini->heredoc_flag = 0;
+}
+
 t_token *prev_sep(t_token *token, int skip)
 {
 	if (token && skip)
@@ -100,6 +133,8 @@ t_token	*next_sep(t_token *token, int skip)
 	return (token);
 }
 
+
+
 void	redir_and_exec(t_mini *mini, t_token *token)
 {
 	t_token	*prev;
@@ -117,6 +152,8 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 		input(mini, token);
 	else if (is_type(prev, PIPE))
 		pipe = minipipe(mini);
+	else if(is_type(prev, HERE_DOC))
+		here_doc(mini, token);
 	if (next && is_type(next, END) == 0 && pipe != 1)
 		redir_and_exec(mini, next->next);
 	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1
@@ -183,8 +220,13 @@ int	main(int ac, char **av, char **ev)
 	get_shlvl_plus(mini.env);
 	while (mini.flag == 0)
 	{
+		printf("%d\n", (&mini)->heredoc_flag);
+		printf("%d\n", mini.heredoc_flag);
+		if((&mini)->heredoc_flag == 1)
+			ft_close((&mini)->heredoc_fd);
 		ini_sig();
 		parse(&mini);
+		printf("\n++main++\n");
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
 		free_token(mini.start, mini.flag);

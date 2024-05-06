@@ -7,7 +7,7 @@ void	sig_int(int code)
 	{
 		ft_putstr_fd("\b\b", STDERR);
 		ft_putstr_fd("\n", STDERR);
-		ft_putstr_fd(M_PROMPT, STDERR);
+		ft_putstr_fd(M_PROMPT"AA", STDERR);
 	}
 	else
 	{

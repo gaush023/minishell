@@ -17,6 +17,8 @@ static void	set_type(t_token *token)
 		token->type = REDIR;
 	else if (ft_strcmp(token->content, ">>") == 0)
 		token->type = APPEND;
+	else if (ft_strcmp(token->content, "<<") == 0)
+		token->type = HERE_DOC;
 	else if (token->prev == NULL || token->prev->type == PIPE)
 		token->type = CMD;
 	else

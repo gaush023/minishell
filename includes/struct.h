@@ -69,6 +69,8 @@ typedef struct s_mini
 	int last;
 	int no_exec;
 	int exit;
+	int heredoc_fd;
+	int heredoc_flag;
 	t_env *env;
 	t_env *secret_env;
 	t_token *start;
