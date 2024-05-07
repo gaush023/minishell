@@ -14,7 +14,7 @@ static void	set_type(t_token *token)
 	else if (ft_strcmp(token->content, "|") == 0)
 		token->type = PIPE;
 	else if (ft_strcmp(token->content, ">") == 0)
-		token->type = REDIR;
+		token->type = TRUNC;
 	else if (ft_strcmp(token->content, ">>") == 0)
 		token->type = APPEND;
 	else if (ft_strcmp(token->content, "<<") == 0)

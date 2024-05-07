@@ -25,23 +25,13 @@ int	quotes(char *line, int index)
 }
 
 
-void print_token(t_token *token)
-{
-	while (token)
-	{
-		printf("content: %s\n", token->content);
-		printf("type: %d\n", token->type);
-		token = token->next;
-	}
-}
 
 int	check_line(t_mini *mini, t_token *token)
 {
-	print_token(token);
 	while (token)
 	{
-		if (is_types(token, "RAI") && (!token->next || is_types(token->next,
-					"RAIPE")))
+		if (is_types(token, "TAI") && (!token->next || is_types(token->next,
+					"TAIPE")))
 		{
 			ft_putstr_fd(" minishell: syntax error near unexpected token `",
 					STDERR);
@@ -54,7 +44,7 @@ int	check_line(t_mini *mini, t_token *token)
 			return (0);
 		}
 		if (is_types(token, "PE") && (!token->next || !token->prev || is_types(token->next,
-					"RAIPE")))
+					"TAIPE")))
 		{
 			ft_putstr_fd(" minishell: syntax error near unexpected token o2je2ij`",
 					STDERR);

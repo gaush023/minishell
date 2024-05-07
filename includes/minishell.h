@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/05/06 16:28:37 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:40:47 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,6 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
-
-# define EMPTY 0
-# define CMD 1
-# define ARG 2
-# define REDIR 3
-# define APPEND 4
-# define INPUT 5
-# define PIPE 6
-# define END 7
-# define HERE_DOC 8
 
 # define NOSKIP 0
 # define SKIP 1

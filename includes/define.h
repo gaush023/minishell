@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:27:15 by sagemura          #+#    #+#             */
-/*   Updated: 2024/05/01 14:18:00 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:40:41 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define INPUT 5
 # define PIPE 6
 # define END 7
+# define HERE_DOC 8
+
 
 # define NOSKIP 0
 # define SKIP 1

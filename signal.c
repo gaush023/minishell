@@ -2,12 +2,13 @@
 
 void	sig_int(int code)
 {
+	
 	(void)code;
 	if (g_sig.pid == 0)
 	{
 		ft_putstr_fd("\b\b", STDERR);
 		ft_putstr_fd("\n", STDERR);
-		ft_putstr_fd(M_PROMPT"AA", STDERR);
+		ft_putstr_fd(M_PROMPT, STDERR);
 	}
 	else
 	{

@@ -84,13 +84,15 @@ void	parse(t_mini *mini)
 	// 	ft_putstr_fd(M_SUCCESS, STDERR);
 	// else
 	// 	ft_putstr_fd(M_FAILURE, STDERR);
-	printf("\n++parse++\n");
 	line = readline(M_PROMPT);
 	if ((line == NULL) && (mini->flag = 1))
-		// ft_putstr_fd("\nexit: Thank youn, bye;)\n", STDERR);
 		return ;
 	if (g_sig.sigint == 1)
+	{
 		mini->ret = g_sig.sig_flag;
+		if(mini->heredoc_flag == 1)
+			mini->heredoc_flag = 0;
+	}
 	if (line == NULL || quote_check(mini, line) == 1)
 		return ;
 	line = transform_line(line);
