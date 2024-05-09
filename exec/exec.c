@@ -134,3 +134,4 @@ void	exec_cmd(t_mini *mini, t_token *token)
 	mini->pipeout = -1;
 	mini->charge = 0;
 }
+
