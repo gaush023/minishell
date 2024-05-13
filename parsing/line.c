@@ -90,9 +90,7 @@ void	parse(t_mini *mini)
 	if (g_sig.sigint == 1)
 	{
 		mini->ret = g_sig.sig_flag;
-		if(mini->heredoc_flag == 1)
-			mini->heredoc_flag = 0;
-	  mini->charge = 0;
+	  mini->no_exec = 1; 
   }
 	if (line == NULL || quote_check(mini, line) == 1)
 		return ;

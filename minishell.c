@@ -87,13 +87,14 @@ void here_doc(t_mini *mini, t_token *token)
 	char *delimiter;
 	char *line;
 
-  mini->no_exec = 1;
+  mini->charge = 0;
 	delimiter = token->content;
 	mini->heredoc_flag = 1;
 	mini->heredoc_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if(mini->heredoc_fd == -1)
 	    return ; // error
-	while(1)
+  printf("mini->no_exec: %d\n", mini->no_exec);
+  while(1)
 	{
 		line = readline("heredoc> ");
 		if (!line || ft_strcmp(line, delimiter) == 0 || g_sig.sigint == 1)
@@ -192,22 +193,26 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 	}
 	else if(is_type(prev, HERE_DOC))
 	{
-		printf("here_doc\n");
-		here_doc(mini, token);
+    printf("here_doc\n");
 	  printf("mini->charge:%d\n", mini->charge);
+		here_doc(mini, token);
 	}
 	if (next && is_type(next, END) == 0 && pipe != 1)
 	{
 		printf("redir_and_exec\n");
     printf("mini->charge:%d\n", mini->charge);
-		redir_and_exec(mini, next->next);
+		mini->charge = 0;
+    redir_and_exec(mini, next->next);
 	}
 	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1
-		&& mini->no_exec == 0 )
-	{
-		printf("exec_cmd\n");
-	  printf("mini->charge:%d\n", mini->charge);
-		exec_cmd(mini, token);
+		&& mini->no_exec == 0 ) 
+  {
+	  print_token(token);
+    printf("exec_cmd\n");
+	  printf("mini->heredoc_flag: %d\n", mini->heredoc_flag); 
+    printf("mini->charge:%d\n", mini->charge);
+		printf("mini->no_exec: %d\n", mini->no_exec);
+    exec_cmd(mini, token);
 	}
 }
 
@@ -222,10 +227,12 @@ void	minishell(t_mini *mini)
 		token = mini->start->next;
 	while (mini->flag == 0 && token)
 	{
-		mini->charge = 1;
+    mini->no_exec = 0;
+    mini->charge = 1;
 		mini->parent = 1;
 		mini->last = 1;
-		redir_and_exec(mini, token);
+    mini->heredoc_flag = 0;
+    redir_and_exec(mini, token);
 		reset_std(mini);
 		close_fds(mini);
 		reset_fds(mini);
