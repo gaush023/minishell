@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/05/03 15:22:35 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/05/13 19:04:17 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	exec_cmd(t_mini *mini, t_token *token)
 
 	if (mini->charge == 0)
 		return ;
-	cmd = cmd_tab(token);
+ 	cmd = cmd_tab(token);
 	i = 0;
 	while (cmd && cmd[i])
 	{

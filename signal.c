@@ -1,5 +1,6 @@
 #include "../includes/minishell.h"
 
+
 void	sig_int(int code)
 {
 	
@@ -9,7 +10,8 @@ void	sig_int(int code)
 		ft_putstr_fd("\b\b", STDERR);
 		ft_putstr_fd("\n", STDERR);
 		ft_putstr_fd(M_PROMPT, STDERR);
-	}
+		g_sig.sig_flag = 1;
+ 	}
 	else
 	{
 		ft_putstr_fd("\n", STDERR);

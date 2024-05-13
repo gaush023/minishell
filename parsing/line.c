@@ -88,11 +88,8 @@ void	parse(t_mini *mini)
 	if ((line == NULL) && (mini->flag = 1))
 		return ;
 	if (g_sig.sigint == 1)
-	{
-		mini->ret = g_sig.sig_flag;
-	  mini->no_exec = 1; 
-  }
-	if (line == NULL || quote_check(mini, line) == 1)
+    mini->ret = g_sig.sig_flag;
+  if (line == NULL || quote_check(mini, line) == 1)
 		return ;
 	line = transform_line(line);
 	if (line && line[0] == '$')

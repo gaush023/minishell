@@ -87,14 +87,19 @@ void here_doc(t_mini *mini, t_token *token)
 	char *delimiter;
 	char *line;
 
-  mini->charge = 0;
-	delimiter = token->content;
-	mini->heredoc_flag = 1;
+ 	mini->no_exec = 1;
+  if(token)	
+    delimiter = token->content;
+  else 
+  {
+    printf("minishell: parse error near `\n'");
+    return ;
+  }
+  mini->heredoc_flag = 1;
 	mini->heredoc_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if(mini->heredoc_fd == -1)
 	    return ; // error
-  printf("mini->no_exec: %d\n", mini->no_exec);
-  while(1)
+	while(1)
 	{
 		line = readline("heredoc> ");
 		if (!line || ft_strcmp(line, delimiter) == 0 || g_sig.sigint == 1)
@@ -114,15 +119,15 @@ void here_doc(t_mini *mini, t_token *token)
 	}
 	ft_close(mini->heredoc_fd);
 	if(g_sig.sigint == 1)
-		mini->heredoc_fd = open("/dev/null", O_RDONLY);
-	else
+	    return ;
+  	else
 		mini->heredoc_fd = open("/tmp/heredoc_tmp", O_RDONLY);
 	if (mini->heredoc_fd == -1)
 		return ;
 	dup2(mini->heredoc_fd, STDIN);
 	ft_close(mini->heredoc_fd);
 	mini->heredoc_flag = 0;
-  mini->no_exec = 0;
+  	mini->no_exec = 0;
 }
 
 t_token *prev_sep(t_token *token, int skip)
@@ -143,77 +148,30 @@ t_token	*next_sep(t_token *token, int skip)
 	return (token);
 }
 
-void print_token(t_token *token)
-{
-  t_token *tmp;
-
-  tmp = token;
-  while(tmp) 
-  {
-      printf("token->content: %s\n", tmp->content);
-      printf("token->type: %d\n", tmp->type);
-      tmp = tmp->next;
-  }
-}
-      
 void	redir_and_exec(t_mini *mini, t_token *token)
 {
 	t_token	*prev;
 	t_token	*next;
 	int		pipe;
 
-  print_token(token);
-	printf("no_exec: %d\n", mini->no_exec);
-  prev = prev_sep(token, SKIP);
+  	prev = prev_sep(token, SKIP);
 	next = next_sep(token, SKIP);
 	pipe = 0;
 	if (is_type(prev, TRUNC))
-	{
-		printf("redir_1\n");
-	  printf("mini->charge:%d\n", mini->charge);
 		redir(mini, token, TRUNC);
-  }
 	else if (is_type(token, APPEND))
-	{
-		printf("redir_2\n");
-	  printf("mini->charge:%d\n", mini->charge);
 		redir(mini, token, APPEND);
-	}
 	else if (is_type(prev, INPUT))
-	{
-		printf("input\n");
-	  printf("mini->charge:%d\n", mini->charge);
-		input(mini, token);
-	}
+	input(mini, token);
 	else if (is_type(prev, PIPE))
-	{
-		printf("pipe\n");
-	  printf("mini->charge:%d\n", mini->charge);
 		pipe = minipipe(mini);
-	}
 	else if(is_type(prev, HERE_DOC))
-	{
-    printf("here_doc\n");
-	  printf("mini->charge:%d\n", mini->charge);
 		here_doc(mini, token);
-	}
 	if (next && is_type(next, END) == 0 && pipe != 1)
-	{
-		printf("redir_and_exec\n");
-    printf("mini->charge:%d\n", mini->charge);
-		mini->charge = 0;
-    redir_and_exec(mini, next->next);
-	}
+		redir_and_exec(mini, next->next);
 	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1
-		&& mini->no_exec == 0 ) 
-  {
-	  print_token(token);
-    printf("exec_cmd\n");
-	  printf("mini->heredoc_flag: %d\n", mini->heredoc_flag); 
-    printf("mini->charge:%d\n", mini->charge);
-		printf("mini->no_exec: %d\n", mini->no_exec);
-    exec_cmd(mini, token);
-	}
+		&& mini->no_exec == 0)
+		exec_cmd(mini, token);
 }
 
 void	minishell(t_mini *mini)
@@ -221,17 +179,15 @@ void	minishell(t_mini *mini)
 	t_token	*token;
 	int		status;
   
-  
 	token = next_run(mini->start, NOSKIP);
   if (is_types(token, "TAIH"))
 		token = mini->start->next;
 	while (mini->flag == 0 && token)
 	{
-    mini->no_exec = 0;
-    mini->charge = 1;
+		mini->charge = 1;
 		mini->parent = 1;
 		mini->last = 1;
-    mini->heredoc_flag = 0;
+    mini->no_exec = 0;
     redir_and_exec(mini, token);
 		reset_std(mini);
 		close_fds(mini);
