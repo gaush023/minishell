@@ -87,15 +87,7 @@ void here_doc(t_mini *mini, t_token *token)
 	char *delimiter;
 	char *line;
 
- 	mini->no_exec = 1;
-  if(token)	
-    delimiter = token->content;
-  else 
-  {
-    printf("minishell: parse error near `\n'");
-    return ;
-  }
-  mini->heredoc_flag = 1;
+  delimiter = token->content;
 	mini->heredoc_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if(mini->heredoc_fd == -1)
 	    return ; // error
@@ -118,16 +110,16 @@ void here_doc(t_mini *mini, t_token *token)
 		ft_free(line);
 	}
 	ft_close(mini->heredoc_fd);
-	if(g_sig.sigint == 1)
-	    return ;
-  	else
-		mini->heredoc_fd = open("/tmp/heredoc_tmp", O_RDONLY);
+	mini->heredoc_fd = open("/tmp/heredoc_tmp", O_RDONLY);
 	if (mini->heredoc_fd == -1)
 		return ;
-	dup2(mini->heredoc_fd, STDIN);
+	if(g_sig.sigint == 1)
+  {   
+	  ft_close(mini->heredoc_fd);
+    return ;
+  }
+  dup2(mini->heredoc_fd, STDIN);
 	ft_close(mini->heredoc_fd);
-	mini->heredoc_flag = 0;
-  	mini->no_exec = 0;
 }
 
 t_token *prev_sep(t_token *token, int skip)
@@ -154,7 +146,7 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 	t_token	*next;
 	int		pipe;
 
-  	prev = prev_sep(token, SKIP);
+ 	prev = prev_sep(token, SKIP);
 	next = next_sep(token, SKIP);
 	pipe = 0;
 	if (is_type(prev, TRUNC))
@@ -238,8 +230,8 @@ int	main(int ac, char **av, char **ev)
 		parse(&mini);
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
-		free_token(mini.start, mini.flag);
-	}
+    free_token(mini.start, mini.flag);
+  }
 	free_all(&mini, 0);
 	return (mini.ret);
 	// system("leaks -q minishell");

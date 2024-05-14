@@ -23,7 +23,7 @@ void	sig_int(int code)
 void	sig_quit(int code)
 {
 	char	*nbr;
-
+:;;
 	nbr = ft_itoa(code);
 	if (g_sig.pid != 0)
 	{
