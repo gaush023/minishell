@@ -48,7 +48,8 @@ typedef struct s_sig
 	int sigint;
 	int sigquit;
 	int sig_flag;
-	pid_t pid;
+	int heredoc_flag;
+  pid_t pid;
 }	 t_sig;
 
 extern t_sig g_sig;

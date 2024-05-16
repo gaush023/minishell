@@ -87,13 +87,14 @@ void here_doc(t_mini *mini, t_token *token)
 	char *delimiter;
 	char *line;
 
+  g_sig.heredoc_flag = 1;
   delimiter = token->content;
 	mini->heredoc_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if(mini->heredoc_fd == -1)
 	    return ; // error
 	while(1)
 	{
-		line = readline("heredoc> ");
+  	line = readline("heredoc> ");
 		if (!line || ft_strcmp(line, delimiter) == 0 || g_sig.sigint == 1)
 		{
 			if(!line)
@@ -110,16 +111,15 @@ void here_doc(t_mini *mini, t_token *token)
 		ft_free(line);
 	}
 	ft_close(mini->heredoc_fd);
-	mini->heredoc_fd = open("/tmp/heredoc_tmp", O_RDONLY);
-	if (mini->heredoc_fd == -1)
+	if(g_sig.sigint != 1)
+    mini->heredoc_fd = open("/tmp/heredoc_tmp", O_RDONLY);
+  else 
+    mini->heredoc_fd = open("/null/dev", O_RDONLY);
+  if (mini->heredoc_fd == -1)
 		return ;
-	if(g_sig.sigint == 1)
-  {   
-	  ft_close(mini->heredoc_fd);
-    return ;
-  }
   dup2(mini->heredoc_fd, STDIN);
 	ft_close(mini->heredoc_fd);
+  g_sig.heredoc_flag = 0;
 }
 
 t_token *prev_sep(t_token *token, int skip)

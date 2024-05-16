@@ -1,29 +1,34 @@
 #include "../includes/minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 
 void	sig_int(int code)
 {
-	
 	(void)code;
-	if (g_sig.pid == 0)
-	{
-		ft_putstr_fd("\b\b", STDERR);
-		ft_putstr_fd("\n", STDERR);
-		ft_putstr_fd(M_PROMPT, STDERR);
-		g_sig.sig_flag = 1;
- 	}
-	else
-	{
-		ft_putstr_fd("\n", STDERR);
-		g_sig.sig_flag = 130;
-	}
-	g_sig.sigint = 1;
+  if (g_sig.pid != 0)
+  {
+    ft_putstr_fd("\n", STDERR);
+    rl_on_new_line();
+    rl_replace_line("", 0);
+    rl_redisplay();
+    g_sig.sig_flag = 130;
+    g_sig.sigint = 1;
+  }
+  else
+  {
+    ft_putstr_fd("\b\b  \b\b", STDERR);
+    ft_putstr_fd("\n", STDERR);
+    rl_on_new_line();
+    rl_replace_line("", 0);
+    rl_redisplay();
+  }
 }
 
 void	sig_quit(int code)
 {
 	char	*nbr;
-:;;
+
 	nbr = ft_itoa(code);
 	if (g_sig.pid != 0)
 	{

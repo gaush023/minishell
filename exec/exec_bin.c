@@ -23,7 +23,16 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 	{
 		env_array = env_to_array(env);
 		if (ft_strchr(path, '/') != NULL)
-      		execve(path, args, env_array);
+    {
+      printf("mini->heredoc_flag: %d\n", mini->heredoc_flag);
+      printf("path: %s\n", path);
+      if(mini->heredoc_flag == 1)
+      {
+        mini->heredoc_flag = 0;
+        return (-1);
+      }
+      execve(path, args, env_array);
+    }
 		ret = error_msg(path);
 		free_tab(env_array);
 		free_token(mini->start, mini->flag);
