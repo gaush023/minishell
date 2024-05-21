@@ -90,8 +90,8 @@ bool	ft_equals(const char *s1, const char *s2);
 // int	ft_strcmp(const char *s1, const char *s2);
 
 // ft_commands
-void	cd(char **tokens);
 int				ft_echo(char **args);
+int				ft_cd(char **args, t_env *env);
 void	unset(char **tokens, t_env *env);
 void	env(char **tokens, t_env *env);
 void	export(char **tokens, t_env *env);

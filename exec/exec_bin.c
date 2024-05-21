@@ -26,9 +26,10 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
     {
       printf("mini->heredoc_flag: %d\n", mini->heredoc_flag);
       printf("path: %s\n", path);
-      if(mini->heredoc_flag == 1)
+      if(g_sig.heredoc_flag == 1)
       {
-        mini->heredoc_flag = 0;
+        printf("mini->heredoc_fd: %d\n", mini->heredoc_fd);
+        g_sig.heredoc_flag = 0;
         return (-1);
       }
       execve(path, args, env_array);

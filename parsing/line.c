@@ -88,14 +88,23 @@ void	parse(t_mini *mini)
 	if ((line == NULL) && (mini->flag = 1))
 		return ;
 	if (g_sig.sigint == 1)
+  {
     mini->ret = g_sig.sig_flag;
+    ft_close(mini->heredoc_fd);
+    if (g_sig.heredoc_flag == 1)
+    {
+      ft_free(line);
+      line = readline(M_PROMPT);
+    }
+    g_sig.heredoc_flag = 0;
+  }
   if (line == NULL || quote_check(mini, line) == 1)
 		return ;
 	line = transform_line(line);
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
 	get_tokens(line, mini);
-	ft_free(line);
+  ft_free(line);
 	return ;
 }
 

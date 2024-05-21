@@ -1,14 +1,66 @@
-
-main
-    mini_init(&mini);// STDIN と STDOUT のデフォルトのファイルディスクリプタを保存
-
-    env_init(&mini, ev);// 環境変数を初期化
-    secret_env_init(&mini, ev);// 環境変数を初期化
-
-    get_shlvl_plus(mini.env);//shlvlの値を取得し、1を足す
+20 May
+通常時のコマンドでキャンセルの対応はできているが、catコマンドでのキャンセルするつ挙動がおかしい
+hredocは論外、以下キャンセルの挙動。
 
 
-クォーテーションが閉じられていない場合は対応しない。
-**Not interpret unclosed quotes or special characters** which are not required by the
-subject such as \ (backslash) or ; (semicolon).
-閉じられていない**クォーテーション**やバックスラッシュやセミコロンのような**特殊文字**は解釈しなくていよい。
+void    sig_int(int code)                                                                                   │┃  12   redoc> ^C
+{                                                                                                           │┃  13   redoc> ^C
+        (void)code;                                                                                         │┃  14   redoc> ^C
+  if (g_sig.pid != 0)                                                                                       │┃  15 heredoc> ls
+  {                                                                                                         │┃  16 heredoc>
+    ft_putstr_fd("\n", STDERR);                                                                             │   17
+    rl_on_new_line();                                                                                       │┃  18  $> cat  << EOF
+    rl_replace_line("", 0);                                                                                 │┃  19 g_sig.sigint: 0
+    rl_redisplay();                                                                                         │┃  20 heredoc> pwd
+    g_sig.sig_flag = 130;                                                                                   │┃  21 g_sig.sigint: 0
+  }                                                                                                         │┃  22 heredoc> ^C
+  else                                                                                                      │┃  23  $b
+  {                                                                                                         │┃  24
+    if(g_sig.heredoc_flag == 1)                                                                             │┃  25 b redoc> ^C
+    {                                                                                                       │┃  26
+      ft_putstr_fd("\n", STDERR);                                                                           │┃  27 b redoc> ^C
+      ft_putstr_fd("\b\b      \b\b\b\b\b\b", STDERR);                                                       │┃  28
+      ft_putstr_fd(M_PROMPT, STDERR);                                                                       │┃  29 b redoc> ^C
+      g_sig.sigint = 1;                                                                                     │┃  30
+      return ;                                                                                              │┃  31 heredoc>
+    }                                                                                                       │┃  32 mini->heredoc_flag: 0
+    ft_putstr_fd("\n", STDERR);                                                                             │┃  33 path: /bin/cat
+    rl_on_new_line();                                                                                       │┃  34 ^Ca
+    rl_replace_line("", 0);                                                                                 │┃  35
+    rl_redisplay();                                                                                         │┃  36 heredoc>  $> ^C
+  }                                                                                                         │┃  37 b
+  g_sig.sigint = 1;                                                                                         │~
+
+ $> cat << EOF                                                                                
+heredoc> pwd                                                                                  
+heredoc> ls                                                                                   
+  redoc> ^C                                                                                   
+  redoc> ^C                                                                                   
+  redoc> ^C                                                                                   
+  redoc> ^C                                                                                   
+  redoc> ^C                                                                                   
+  redoc> ^C                                                                                   
+  redoc> ^C                                                                                   
+heredoc> ls                                                                                   
+heredoc>
+
+ $> cat  << EOF                                                                                    
+g_sig.sigint: 0                                                                                   
+heredoc> pwd                                                                                     
+g_sig.sigint: 0                                                                               
+heredoc> ^C                                                                                 
+ $b                                                                                        
+                                                                                        
+b redoc> ^C                                                                           
+                                                                                     
+b redoc> ^C                                                                         
+                                                                                   
+b redoc> ^C                                                                       
+                                                                                 
+heredoc>                                                                                         
+mini->heredoc_flag: 0                                                         
+path: /bin/cat                                                                                     
+^Ca                                                                                                
+                                                                                                   
+heredoc>  $> ^C                                                                                    
+b                                                                                                  

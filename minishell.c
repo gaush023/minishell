@@ -94,27 +94,37 @@ void here_doc(t_mini *mini, t_token *token)
 	    return ; // error
 	while(1)
 	{
-  	line = readline("heredoc> ");
+    printf("g_sig.sigint: %d\n", g_sig.sigint);
+    printf("g_sig.heredoc_flag: %d\n", g_sig.heredoc_flag);
+    if(g_sig.heredoc_flag == 1)
+      ft_putstr_fd("heredoc> ", 1);
+      line = readline("");
 		if (!line || ft_strcmp(line, delimiter) == 0 || g_sig.sigint == 1)
 		{
-			if(!line)
+			if(g_sig.sigint == 1)
+      {
+        ft_close(mini->heredoc_fd);
+        line = readline(M_PROMPT);
+        return ;
+      }
+      if(!line)
 			{
-				ft_putstr_fd("\n", 1);
+        ft_putstr_fd("\n", 1);
 				ft_close(mini->heredoc_fd);
-				return ;
+        return ;
 			}
 			ft_free(line);
 			break ;
 		}
 		ft_putstr_fd(line, mini->heredoc_fd);
 		ft_putstr_fd("\n", mini->heredoc_fd);
-		ft_free(line);
+		ft_free(line);    
 	}
 	ft_close(mini->heredoc_fd);
 	if(g_sig.sigint != 1)
     mini->heredoc_fd = open("/tmp/heredoc_tmp", O_RDONLY);
   else 
-    mini->heredoc_fd = open("/null/dev", O_RDONLY);
+    mini->heredoc_fd = open("/dev/null" , O_RDONLY);
   if (mini->heredoc_fd == -1)
 		return ;
   dup2(mini->heredoc_fd, STDIN);
@@ -149,7 +159,8 @@ void	redir_and_exec(t_mini *mini, t_token *token)
  	prev = prev_sep(token, SKIP);
 	next = next_sep(token, SKIP);
 	pipe = 0;
-	if (is_type(prev, TRUNC))
+
+  if (is_type(prev, TRUNC))
 		redir(mini, token, TRUNC);
 	else if (is_type(token, APPEND))
 		redir(mini, token, APPEND);
@@ -162,7 +173,7 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 	if (next && is_type(next, END) == 0 && pipe != 1)
 		redir_and_exec(mini, next->next);
 	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1
-		&& mini->no_exec == 0)
+		&& mini->no_exec == 0 )
 		exec_cmd(mini, token);
 }
 
@@ -220,6 +231,9 @@ int	main(int ac, char **av, char **ev)
 
 	(void)ac;
 	(void)av;
+  int i;
+
+  i = 0;
 	mini_init(&mini);
 	env_init(&mini, ev);
 	secret_env_init(&mini, ev);
@@ -228,7 +242,8 @@ int	main(int ac, char **av, char **ev)
 	{
 		ini_sig();
 		parse(&mini);
-		if (mini.start != NULL && check_line(&mini, mini.start))
+    printf("%d\n", i++);
+    if (mini.start != NULL && check_line(&mini, mini.start) && g_sig.heredoc_flag == 0)
 			minishell(&mini);
     free_token(mini.start, mini.flag);
   }

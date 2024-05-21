@@ -49,4 +49,8 @@
 # define IS_DIR 126
 # define UK_CMD 127
 
+# define PATH_MAX 409
+# define ERR 1 
+# define SUCCESS 0
+
 #endif

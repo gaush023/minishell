@@ -110,7 +110,9 @@ void	get_tokens(char *line, t_mini *mini)
 	{
 		set_type(token);
 		token = token->next;
-	}
+    printf("token->content: %s\n", token->content);
+    printf("token->type: %d\n", token->type);
+  }
 	set_type(token);
 	while (token->prev)
 		token = token->prev;
