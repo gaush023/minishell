@@ -96,17 +96,10 @@ void here_doc(t_mini *mini, t_token *token)
 	{
     printf("g_sig.sigint: %d\n", g_sig.sigint);
     printf("g_sig.heredoc_flag: %d\n", g_sig.heredoc_flag);
-    if(g_sig.heredoc_flag == 1)
       ft_putstr_fd("heredoc> ", 1);
-      line = readline("");
-		if (!line || ft_strcmp(line, delimiter) == 0 || g_sig.sigint == 1)
+      line = readline(" \b");
+    if (!line || ft_strcmp(line, delimiter) == 0 || g_sig.sigint == 1)
 		{
-			if(g_sig.sigint == 1)
-      {
-        ft_close(mini->heredoc_fd);
-        line = readline(M_PROMPT);
-        return ;
-      }
       if(!line)
 			{
         ft_putstr_fd("\n", 1);
@@ -115,7 +108,7 @@ void here_doc(t_mini *mini, t_token *token)
 			}
 			ft_free(line);
 			break ;
-		}
+    }
 		ft_putstr_fd(line, mini->heredoc_fd);
 		ft_putstr_fd("\n", mini->heredoc_fd);
 		ft_free(line);    
@@ -129,7 +122,11 @@ void here_doc(t_mini *mini, t_token *token)
 		return ;
   dup2(mini->heredoc_fd, STDIN);
 	ft_close(mini->heredoc_fd);
-  g_sig.heredoc_flag = 0;
+  printf("End of here_doc\n");
+  if(g_sig.sigint != 1)
+    g_sig.heredoc_flag = 0;
+  else
+    g_sig.heredoc_flag = 1;
 }
 
 t_token *prev_sep(t_token *token, int skip)
@@ -231,9 +228,7 @@ int	main(int ac, char **av, char **ev)
 
 	(void)ac;
 	(void)av;
-  int i;
 
-  i = 0;
 	mini_init(&mini);
 	env_init(&mini, ev);
 	secret_env_init(&mini, ev);
@@ -241,9 +236,9 @@ int	main(int ac, char **av, char **ev)
 	while (mini.flag == 0)
 	{
 		ini_sig();
-		parse(&mini);
-    printf("%d\n", i++);
-    if (mini.start != NULL && check_line(&mini, mini.start) && g_sig.heredoc_flag == 0)
+    ft_putstr_fd(M_PROMPT, STDERR);
+    parse(&mini);
+    if (mini.start != NULL && check_line(&mini, mini.start) && g_sig.sigint == 0)
 			minishell(&mini);
     free_token(mini.start, mini.flag);
   }

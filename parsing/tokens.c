@@ -75,7 +75,11 @@ void	get_tokens(char *line, t_mini *mini)
 	unsigned int	k;
 	int				*str_flag;
 
-	if (line[0] == '\0')
+
+  i = 0;
+  while (line[i] == ' ')
+    i++;
+	if (line[i] == '\0' )
 	{
 		mini->start = NULL;
 		return ;

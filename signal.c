@@ -5,24 +5,16 @@
 
 void sig_int(int code) {
     (void)code;
-    if (g_sig.pid != 0) {
-        rl_on_new_line();
-        rl_replace_line("", 0);
-        rl_redisplay();
-    } 
-    else 
+    rl_on_new_line();
+    ft_putstr_fd("\n", STDOUT);
+    rl_replace_line("", 1);
+    if (g_sig.pid != 0)
     {
-        if (g_sig.heredoc_flag == 1) {
-            ft_putstr_fd("\n", STDERR_FILENO);
-            ft_putstr_fd(M_PROMPT, STDERR_FILENO);
-            g_sig.sigint = 1;
-            return;
-        }
-        ft_putstr_fd("\n", STDERR_FILENO);
-        rl_on_new_line();
-        rl_replace_line("", 0);
-        rl_redisplay();
+        g_sig.sig_flag = 130;
+        g_sig.sigint = 1;
     }
+    else
+      ft_putstr_fd(M_PROMPT, STDOUT);
     g_sig.sigint = 1;
 }
 

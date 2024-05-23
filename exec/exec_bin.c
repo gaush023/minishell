@@ -24,11 +24,12 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 		env_array = env_to_array(env);
 		if (ft_strchr(path, '/') != NULL)
     {
-      printf("mini->heredoc_flag: %d\n", mini->heredoc_flag);
       printf("path: %s\n", path);
       if(g_sig.heredoc_flag == 1)
       {
-        printf("mini->heredoc_fd: %d\n", mini->heredoc_fd);
+        printf("heredoc_flag: %d\n", g_sig.heredoc_flag);
+        printf("path: %s\n", path);
+        printf("mini->start->content: %s\n", mini->start->content);
         g_sig.heredoc_flag = 0;
         return (-1);
       }

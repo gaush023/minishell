@@ -24,7 +24,7 @@ char	*copy_env_name(char *dst, char *src)
 	int	i;
 
 	i = 0;
-	while (src[i] && src[i] != '=' && ft_strlen(src) < BUFF_SIZE)
+	while (src[i] && src[i] != '=' && i < BUFF_SIZE)
 	{
 		dst[i] = src[i];
 		i++;
@@ -131,7 +131,8 @@ char *get_var_value(char *arg, int pos, t_env *env, int ret)
 		var_name[i++] = arg[pos++];
 	var_name[i] = '\0';
 	var_value = get_env_value(var_name, env);
-	return (var_value);
+	
+  return (var_value);
 }
 
 size_t	var_cpy(char *dst, const char *src, size_t size)
@@ -141,6 +142,7 @@ size_t	var_cpy(char *dst, const char *src, size_t size)
 	i = 0;
 	while (src[i])
 		dst[size++] = src[i++];
+  printf("dst: %s\n", dst);
 	return (i);
 }
 
@@ -151,7 +153,7 @@ int	malloc4expassion(char *arg, t_env *env, int ret, t_expasion *ex)
 	int		size;
 
 	i = -1;
-	size = 0;
+	size = 1;
 	while (arg[++i])
 	{
 		if (arg[i] == EXPANSION)
@@ -161,7 +163,14 @@ int	malloc4expassion(char *arg, t_env *env, int ret, t_expasion *ex)
 				size++;
 			else
 				size += get_var_len(arg, i, env, ret);
-		}
+		  if(ft_isdigit(arg[i]) == 0)
+      {
+        while(arg[i + 1] && is_env_char(arg[i]) == 1)
+          i++;
+      }
+      else 
+        size--;
+    }
 		size++;
 	}
 	return (size);
@@ -174,10 +183,12 @@ void	insert_var(t_expasion *ex, char *arg, t_env *env, int ret)
 	env_value = get_var_value(arg, ex->j, env, ret);
 	if (env_value)
 		ex->i += var_cpy(ex->str, env_value, ex->i);
-	ft_free(env_value);
+  printf("ex->str: %s\n", ex->str);
+  printf("ex->i: %d\n", ex->i);
+  ft_free(env_value);
 	if (arg[ex->j] == '?')
 		ex->j++;
-	if (ft_isdigit(arg[ex->j] && arg[ex->j - 1] == '?'))
+	if (ft_isdigit(arg[ex->j]) && arg[ex->j - 1] == '?')
 	{
 		while (is_env_char(arg[ex->j]) == 1)
 			ex->j++;
@@ -200,21 +211,27 @@ char	*expasions(char *arg, t_env *env, int ret)
 		return (NULL);
 	ex.i = 0;
 	ex.j = 0;
-	while (ex.i < len && arg[ex.j])
+  printf("len: %d\n", len);
+  printf("ex.i: %d\n", ex.i);
+  printf("ex.j: %d\n", ex.j);
+  printf("arg: %s\n", arg);
+  printf("arg len: %zu\n", ft_strlen(arg));
+  while (ex.i < len && arg[ex.j])
 	{
 		while (arg[ex.j] == EXPANSION)
 		{
 			ex.j++;
 			if ((arg[ex.j] == '\0' || ft_isalnum(arg[ex.j]) == 0)
 				&& arg[ex.j] != '?')
-				ex.str[ex.i] = EXPANSION;
+				ex.str[ex.i++] = '$';
 			else
 				insert_var(&ex, arg, env, ret);
 		}
 		ex.str[ex.i] = arg[ex.j];
-		ex.i++;
-		ex.j++;
-	}
+	  printf("ex.str: %s\n", ex.str);
+    ex.i++;
+    ex.j++;
+  }
 	ex.str[ex.i] = '\0';
 	return (ex.str);
 }
