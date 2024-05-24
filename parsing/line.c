@@ -88,7 +88,13 @@ void	parse(t_mini *mini)
   line = readline(" \b");
 	if ((line == NULL) && (mini->flag = 1))
 		return ;
-	if (g_sig.sigint == 1)
+  if(line[0] == '\\' && !line[1])
+  {
+    ft_free(line);
+    ft_putstr_fd("> ", 1);
+    line = readline(" \b");
+  }
+  if (g_sig.sigint == 1)
     mini->ret = g_sig.sig_flag;
   if (line == NULL || quote_check(mini, line) == 1)
 		return ;

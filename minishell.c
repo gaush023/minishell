@@ -96,9 +96,9 @@ void here_doc(t_mini *mini, t_token *token)
 	{
     printf("g_sig.sigint: %d\n", g_sig.sigint);
     printf("g_sig.heredoc_flag: %d\n", g_sig.heredoc_flag);
-      ft_putstr_fd("heredoc> ", 1);
-      line = readline(" \b");
-    if (!line || ft_strcmp(line, delimiter) == 0 || g_sig.sigint == 1)
+    ft_putstr_fd("heredoc> ", 1);
+    line = readline(" \b");
+  	if (!line || ft_strcmp(line, delimiter) == 0 || g_sig.sigint == 1)
 		{
       if(!line)
 			{
@@ -182,7 +182,7 @@ void	minishell(t_mini *mini)
 	token = next_run(mini->start, NOSKIP);
   if (is_types(token, "TAIH"))
 		token = mini->start->next;
-	while (mini->flag == 0 && token)
+	while (mini->flag == 0 && token && g_sig.sigint == 0)
 	{
 		mini->charge = 1;
 		mini->parent = 1;
@@ -238,7 +238,7 @@ int	main(int ac, char **av, char **ev)
 		ini_sig();
     ft_putstr_fd(M_PROMPT, STDERR);
     parse(&mini);
-    if (mini.start != NULL && check_line(&mini, mini.start) && g_sig.sigint == 0)
+    if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
     free_token(mini.start, mini.flag);
   }

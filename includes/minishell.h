@@ -59,6 +59,16 @@ void	squish_content(t_mini *mini);
 void	parse(t_mini *mini);
 void	type_token(t_token *token, int sep);
 char	*expasions(char *arg, t_env *env, int ret);
+int	malloc4expassion(char *arg, t_env *env, int ret);
+char *get_var_value(char *arg, int pos, t_env *env, int ret);
+int	get_var_len(const char *arg, int pos, t_env *env, int ret);
+char	*get_env_value(char *var_name, t_env *env);
+char	*copy_env_value(char *env);
+int	env_value_len(char *env);
+char	*copy_env_name(char *dst, char *src);
+int	is_env_char(char c);
+int ret_size(int ret);
+
 
 // helper_func
 void	reset_fds(t_mini *mini);

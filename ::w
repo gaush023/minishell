@@ -1,6 +1,5 @@
 #include "../includes/minishell.h"
 
-
 size_t	var_cpy(char *dst, const char *src, size_t size)
 {
 	size_t	i;
@@ -12,7 +11,6 @@ size_t	var_cpy(char *dst, const char *src, size_t size)
 	return (i);
 }
 
-
 void	insert_var(t_expasion *ex, char *arg, t_env *env, int ret)
 {
 	char	*env_value;
@@ -20,6 +18,8 @@ void	insert_var(t_expasion *ex, char *arg, t_env *env, int ret)
 	env_value = get_var_value(arg, ex->j, env, ret);
 	if (env_value)
 		ex->i += var_cpy(ex->str, env_value, ex->i);
+  printf("ex->str: %s\n", ex->str);
+  printf("ex->i: %d\n", ex->i);
   ft_free(env_value);
 	if (arg[ex->j] == '?')
 		ex->j++;
@@ -27,12 +27,14 @@ void	insert_var(t_expasion *ex, char *arg, t_env *env, int ret)
 	{
 		while (is_env_char(arg[ex->j]) == 1)
 			ex->j++;
-	}
+  }
 	else
 	{
 		if (arg[ex->j - 1] != EXPANSION)
 			ex->j++;
 	}
+  printf("ex->i insert: %d\n", ex->i);
+	printf("ex->j insert: %d\n", ex->j);
 }
 
 char	*expasions(char *arg, t_env *env, int ret)
@@ -40,12 +42,15 @@ char	*expasions(char *arg, t_env *env, int ret)
 	t_expasion	ex;
 	int			len;
 
-	len = malloc4expassion(arg, env, ret);
+	len =  malloc4expassion(arg, env, ret);
 	ex.str = (char *)malloc(sizeof(char) * (len + 1));
 	if (ex.str == NULL)
 		return (NULL);
 	ex.i = 0;
 	ex.j = 0;
+  printf("len: %d\n", len);
+  printf("arg: %s\n", arg);
+  printf("arg len: %zu\n", ft_strlen(arg));
   while (ex.i < len && arg[ex.j])
 	{
 		while (arg[ex.j] == EXPANSION)
@@ -56,11 +61,18 @@ char	*expasions(char *arg, t_env *env, int ret)
 				ex.str[ex.i++] = '$';
 			else
 				insert_var(&ex, arg, env, ret);
-    }
-		ex.str[ex.i] = arg[ex.j];
-    ex.i++;
-    ex.j++;
+      printf("ex.i: %d\n", ex.i);
+      printf("ex.j: %d\n", ex.j);
+		}
+		ex.str[ex.i++] = arg[ex.j++];
+    printf("len: %d\n", len);
+    printf("ex.i: %d\n", ex.i);
+    printf("ex.j: %d\n", ex.j);
+    printf("arg: %s\n", arg);
+    printf("arg len: %zu\n", ft_strlen(arg));
+	  printf("ex.str: %s\n", ex.str);
   }
 	ex.str[ex.i] = '\0';
-	return (ex.str);
+  printf("ex.str len: %zu\n", ft_strlen(ex.str));
+  return (ex.str);
 }

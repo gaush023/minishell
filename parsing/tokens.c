@@ -66,6 +66,27 @@ static t_token	*make_token(char *str, t_token *prev)
 	return (token);
 }
 
+static int is_all_space(char *line)
+{
+  unsigned int	i;
+  char *tmp;
+
+  i = 0;
+  tmp = ft_strdup(line);
+  while (tmp[i] != '\n')
+  {
+    if (tmp[i] != ' ') 
+    {
+      ft_free(tmp);
+      return (0);
+    }
+    i++;
+  }
+  ft_free(tmp);
+  return (1);
+
+}
+
 void	get_tokens(char *line, t_mini *mini)
 {
 	t_token			*token;
@@ -77,6 +98,20 @@ void	get_tokens(char *line, t_mini *mini)
 
 
   i = 0;
+  while (line[i])
+    i++;  
+  if(i > 1024)
+  {
+    mini->start = NULL;
+    return ;
+  }
+  i = 0;
+  if( line[i] == ':' && line[i++] == ' ')
+
+  {
+    mini->start = NULL;
+    return ;
+  }
   while (line[i] == ' ')
     i++;
 	if (line[i] == '\0' )
