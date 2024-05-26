@@ -115,7 +115,7 @@ void	exec_cmd(t_mini *mini, t_token *token)
   printf("exec_cmd\n");
   printf("mini->charge: %d\n", mini->charge);
   printf("g_sig.heredoc_flag: %d\n", g_sig.heredoc_flag);
-	if (mini->charge == 0 || g_sig.heredoc_flag == 1)
+	if (mini->charge == 0 )
 		return ;
  	cmd = cmd_tab(token);
 	i = 0;

@@ -80,15 +80,10 @@ void	parse(t_mini *mini)
 
 	signal(SIGINT, &sig_int);
 	signal(SIGQUIT, &sig_quit);
-	// if (mini->ret == 0)
-	// 	ft_putstr_fd(M_SUCCESS, STDERR);
-	// else
-	// 	ft_putstr_fd(M_FAILURE, STDERR);
-
   line = readline(" \b");
 	if ((line == NULL) && (mini->flag = 1))
 		return ;
-  if(line[0] == '\\' && !line[1])
+  while(line[0] == '\\' && !line[1])
   {
     ft_free(line);
     ft_putstr_fd("> ", 1);
@@ -96,23 +91,13 @@ void	parse(t_mini *mini)
   }
   if (g_sig.sigint == 1)
     mini->ret = g_sig.sig_flag;
-  if (line == NULL || quote_check(mini, line) == 1)
+  if (line == NULL || quote_check(mini, line) == 1 )
 		return ;
 	line = transform_line(line);
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
-  printf("line: %s\n", line);
 	get_tokens(line, mini);
   ft_free(line);
 	return ;
 }
 
-// int main(void)
-//{
-// char *line;
-// line = ft_strdup("echo $HOME > file");
-// ft_putstr_fd(line, 1);
-// line = transform_line(line);
-// ft_putstr_fd(line, 1);
-// return (0);
-//}

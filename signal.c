@@ -9,10 +9,7 @@ void sig_int(int code) {
     ft_putstr_fd("\n", STDOUT);
     rl_replace_line("", 1);
     if (g_sig.pid != 0)
-    {
         g_sig.sig_flag = 130;
-        g_sig.sigint = 1;
-    }
     else
       ft_putstr_fd(M_PROMPT, STDOUT);
     g_sig.sigint = 1;

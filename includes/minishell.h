@@ -22,9 +22,6 @@
 # define STDOUT 1
 # define STDERR 2
 
-# define NOSKIP 0
-# define SKIP 1
-
 # define BUF_SIZE 1024
 
 # define EXPANSION -36

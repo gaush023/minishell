@@ -4,7 +4,7 @@ t_sig	g_sig;
 
 t_token	*next_run(t_token *token, int skip)
 {
-	if (token && skip)
+  if (token && skip)
 		token = token->next;
 	while (token && token->type != CMD)
 	{
@@ -14,8 +14,10 @@ t_token	*next_run(t_token *token, int skip)
 		else if (token && token->type == CMD && token->prev->type < END)
 			token = token->next;
 	}
-	return (token);
+  return (token);
 }
+
+
 
 void	redir(t_mini *mini, t_token *token, int type)
 {
@@ -87,6 +89,8 @@ void here_doc(t_mini *mini, t_token *token)
 	char *delimiter;
 	char *line;
 
+  printf("Start of here_doc\n");
+  mini->charge = 0;
   g_sig.heredoc_flag = 1;
   delimiter = token->content;
 	mini->heredoc_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -98,7 +102,7 @@ void here_doc(t_mini *mini, t_token *token)
     printf("g_sig.heredoc_flag: %d\n", g_sig.heredoc_flag);
     ft_putstr_fd("heredoc> ", 1);
     line = readline(" \b");
-  	if (!line || ft_strcmp(line, delimiter) == 0 || g_sig.sigint == 1)
+  	if (!line || ft_strcmp(line, delimiter) == 0 )
 		{
       if(!line)
 			{
@@ -127,7 +131,10 @@ void here_doc(t_mini *mini, t_token *token)
     g_sig.heredoc_flag = 0;
   else
     g_sig.heredoc_flag = 1;
+  if(g_sig.sigint != 1)
+    mini->charge = 1;
 }
+
 
 t_token *prev_sep(t_token *token, int skip)
 {
@@ -153,9 +160,11 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 	t_token	*next;
 	int		pipe;
 
- 	prev = prev_sep(token, SKIP);
+  printf("start of redir_and_exec\n");
+  prev = prev_sep(token, SKIP);
 	next = next_sep(token, SKIP);
 	pipe = 0;
+
 
   if (is_type(prev, TRUNC))
 		redir(mini, token, TRUNC);
@@ -179,15 +188,14 @@ void	minishell(t_mini *mini)
 	t_token	*token;
 	int		status;
   
-	token = next_run(mini->start, NOSKIP);
+	token = next_run(mini->start, NOSKIP); 
   if (is_types(token, "TAIH"))
 		token = mini->start->next;
-	while (mini->flag == 0 && token && g_sig.sigint == 0)
+	while (mini->flag == 0 && token)
 	{
 		mini->charge = 1;
 		mini->parent = 1;
 		mini->last = 1;
-    mini->no_exec = 0;
     redir_and_exec(mini, token);
 		reset_std(mini);
 		close_fds(mini);
@@ -219,6 +227,7 @@ void	mini_init(t_mini *mini)
 		ft_panic(NULL, "dup", 1);
 	mini->flag = 0;
 	mini->ret = 0;
+  mini->no_exec = 0;
 }
 
 
@@ -246,3 +255,4 @@ int	main(int ac, char **av, char **ev)
 	return (mini.ret);
 	// system("leaks -q minishell");
 }
+

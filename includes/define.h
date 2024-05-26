@@ -20,10 +20,6 @@
 # define STDOUT 1
 # define STDERR 2
 
-// prompt
-# define M_PROMPT "\033[0;36m\033[1m $> \033[0m"
-# define M_SUCCESS "\033[0;31mSUCCESS\033[0m"
-# define M_FAILURE "\033[0;31mFAILURE\033[0m"
 
 
 // token type
@@ -40,6 +36,8 @@
 
 # define NOSKIP 0
 # define SKIP 1
+
+#define M_PROMPT "$> "  
 
 # define BUF_SIZE 1024
 

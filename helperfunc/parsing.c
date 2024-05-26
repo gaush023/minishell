@@ -35,21 +35,21 @@ int	check_line(t_mini *mini, t_token *token)
 		{
 			ft_putstr_fd(" minishell: syntax error near unexpected token `",
 					STDERR);
-			if (token)
-				ft_putstr_fd(token->content, STDERR);
+			if (token->next)
+				ft_putstr_fd(token->next->content, STDERR);
 			else
 				ft_putstr_fd("newline", STDERR);
-			write(STDERR, "\n", 1);
+			write(STDERR, "'\n", 1);
 			mini->ret = 258;
 			return (0);
 		}
-		if (is_types(token, "PE") && (!token->next || !token->prev || is_types(token->next,
+		if (is_types(token, "PE") && (!token->prev || !token->next || is_types(token->prev,
 					"TAIPE")))
 		{
-			ft_putstr_fd(" minishell: syntax error near unexpected token o2je2ij`",
+			ft_putstr_fd(" minishell: syntax error near unexpected token `",
 					STDERR);
 			ft_putstr_fd(token->content, STDERR);
-			write(STDERR, "\n", 1);
+			write(STDERR, "'\n", 2);
 			mini->ret = 258;
 			return (0);
 		}
@@ -58,23 +58,3 @@ int	check_line(t_mini *mini, t_token *token)
 	return (1);
 }
 
-//int main(void)
-//{
-//char *line;
-//int i;
-//
-//line = "echo \"hello world";
-//i = 0;
-//while(line[i] != '\0')
-//{
-//if(line[i] == '\"' || line[i] == '\'')
-//{
-//if(qoutes(line, i) == 0)
-//printf("open\n");
-//else
-//printf("close\n");
-//}
-//i++;
-//}
-//return (0);
-//}
