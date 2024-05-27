@@ -1,3 +1,0 @@
-exec_cmd
-mini->charge:1
-hello, wold

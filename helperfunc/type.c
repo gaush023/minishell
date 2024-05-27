@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 22:42:37 by sagemura          #+#    #+#             */
-/*   Updated: 2024/04/23 17:43:46 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/05/27 18:34:51 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@ int	is_type(t_token *token, int type)
 		return (0);
 }
 
-/*
-** Function: is_types
-** -------------------
-** トークンのタイプが指定されたタイプのいずれかであるかを確認する
-*/
+
 int	is_types(t_token *token, char *types)
 {
 	if (ft_strchr(types, ' ') && is_type(token, EMPTY))

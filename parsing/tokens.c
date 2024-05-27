@@ -3,10 +3,7 @@
 static void	set_type(t_token *token)
 {
 	if (ft_strcmp(token->content, "") == 0)
-	{
 		token->type = EMPTY;
-		printf("this is enp?: %s\n", token->content);
-	}
 	else if (ft_strcmp(token->content, ";") == 0)
 		token->type = END;
 	else if (ft_strcmp(token->content, "<") == 0)
@@ -52,7 +49,43 @@ int	*make_in_sq_flag(char *line)
 			str_flag[i] = 0;
 		i++;
 	}
-	return (str_flag);
+  return (str_flag);
+}
+
+t_token *confirm_token_order(t_token *token)
+{
+    t_token *tmp;
+    t_token *tmp2;  
+
+    if(token->type == HERE_DOC)
+    {
+      if(!token->next->next || token->next->next->type != ARG)
+      {
+        tmp = ft_calloc(1, sizeof(t_token));
+        tmp->content = ft_strdup("cat");
+        tmp->type = CMD;
+        tmp->next = token;
+        tmp->prev = NULL;
+        token->prev = tmp;
+        token = token->prev;
+        return (token); 
+      }    
+      else if(token->next->next->type == ARG)
+      { 
+        tmp = NULL;
+        tmp = token->next->next;
+        tmp->type = CMD;
+        tmp->prev = NULL;
+        tmp2 = token->next->next->next;
+        token->next->next = tmp2;  
+        token->prev = tmp;
+        tmp->next = token;
+        tmp->prev = NULL;
+        token = token->prev;
+        return (token);
+      }
+    }
+    return (token);
 }
 
 static t_token	*make_token(char *str, t_token *prev_token)
@@ -100,18 +133,8 @@ void	get_tokens(char *line, t_mini *mini)
 	int				*str_flag;
   int flag;
 
-  flag = 0;
   i = 0;
-  while (line[i])
-    i++;  
-  if(i > 1024)
-  {
-    mini->start = NULL;
-    return ;
-  }
-  i = 0;
-  if( line[i] == ':' && line[i++] == ' ')
-
+  if((line[i] == '\\' || line[i] == ';' || line[i] == ':') && line[i + 1] == '\0')
   {
     mini->start = NULL;
     return ;
@@ -153,6 +176,20 @@ void	get_tokens(char *line, t_mini *mini)
 	set_type(token);
   t_token *tmp;
   tmp = token;
+  while (tmp)
+  {
+    printf("content: %s\n", tmp->content);
+    printf("type: %d\n", tmp->type);
+    tmp = tmp->next;
+  }
+  token =  confirm_token_order(token);
+  tmp = token;
+  while (tmp)
+  {
+    printf("content: %s\n", tmp->content);
+    printf("type: %d\n", tmp->type);
+    tmp = tmp->next;
+  }
   mini->start = token;
 }
 

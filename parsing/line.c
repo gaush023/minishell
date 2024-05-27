@@ -78,23 +78,19 @@ void	parse(t_mini *mini)
 	char	*line;
 	t_token	*token;
 
-	signal(SIGINT, &sig_int);
-	signal(SIGQUIT, &sig_quit);
-  line = readline(" \b");
+
+  line = readline(M_PROMPT);
 	if ((line == NULL) && (mini->flag = 1))
 		return ;
-  while(line[0] == '\\' && !line[1])
-  {
-    ft_free(line);
-    ft_putstr_fd("> ", 1);
-    line = readline(" \b");
-  }
+  if (line != NULL )
+    add_history(line);
   if (g_sig.sigint == 1)
     mini->ret = g_sig.sig_flag;
   if (line == NULL || quote_check(mini, line) == 1 )
 		return ;
 	line = transform_line(line);
-	if (line && line[0] == '$')
+  printf("line: %s\n", line);
+  if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
 	get_tokens(line, mini);
   ft_free(line);

@@ -14,6 +14,8 @@
 
 void	free_token(t_token *start, int flag)
 {
+  if(start == NULL)
+    return ;
 	while (start && start->next)
 	{
 		ft_free(start->content);

@@ -1,4 +1,0 @@
-exec_cmd
-mini->charge: 1
-g_sig.heredoc_flag: 0
-hello

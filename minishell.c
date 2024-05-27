@@ -21,7 +21,8 @@ t_token	*next_run(t_token *token, int skip)
 
 void	redir(t_mini *mini, t_token *token, int type)
 {
-	ft_close(mini->fdout);
+  printf("Start of redir\n");
+  ft_close(mini->fdout);
 	if (type == TRUNC)
 		mini->fdout = open(token->content, O_WRONLY | O_CREAT | O_TRUNC,
 				S_IRWXU);
@@ -191,7 +192,8 @@ void	minishell(t_mini *mini)
 	token = next_run(mini->start, NOSKIP); 
   if (is_types(token, "TAIH"))
 		token = mini->start->next;
-	while (mini->flag == 0 && token)
+  printf("token->content: %s\n", token->content);
+  while (mini->flag == 0 && token)
 	{
 		mini->charge = 1;
 		mini->parent = 1;
@@ -245,7 +247,6 @@ int	main(int ac, char **av, char **ev)
 	while (mini.flag == 0)
 	{
 		ini_sig();
-    ft_putstr_fd(M_PROMPT, STDERR);
     parse(&mini);
     if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
