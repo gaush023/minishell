@@ -51,6 +51,7 @@ int		exec_builtin(char **arg, t_mini *mini);
 
 // parsing
 void get_tokens(char *line, t_mini *mini);
+char	*transform_line(char *line);
 t_token	*prev_sep(t_token *token, int skip);
 void	squish_content(t_mini *mini);
 void	parse(t_mini *mini);

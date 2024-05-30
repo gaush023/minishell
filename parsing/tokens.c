@@ -22,33 +22,51 @@ static void	set_type(t_token *token)
 		token->type = ARG;
 }
 
-int	*make_in_sq_flag(char *line)
+int  *make_in_sq_flag(char *line)
 {
-	int				*str_flag;
-	bool			is_in_sq;
-	unsigned int	i;
+  int *str_flag;
+  unsigned int i;
+  int flag;
 
+  i = 0;
+  flag = 0;
 	str_flag = ft_calloc(ft_strlen(line), sizeof(int));
-	str_flag[ft_strlen(line)] = -2;
-	i = 0;
-	while (line[i])
+  str_flag[ft_strlen(line)] = -2;
+  while (line[i])
 	{
-		if (line[i] == '\\')
-			i = i + 2;
-		if (line[i] == '\'' || line[i] == '\"')
-		{
-			if (is_in_sq)
-				is_in_sq = false;
-			else
-				is_in_sq = true;
-			str_flag[i] = -1;
-		}
-		else if (line[i] == ' ' && !is_in_sq)
-			str_flag[i] = -1;
-		else
-			str_flag[i] = 0;
-		i++;
-	}
+    if(line[i] == '\'')
+    {
+      flag = 1;
+      str_flag[i] = -1;
+      i++;
+      while (1)
+      {
+          if(line[i] == '\'' && line[i - 1] != '\\')
+            break ;
+          str_flag[i] = 0;
+          i++; 
+      }
+    }
+    if(line[i] == '\"')
+    {
+      flag = 1;
+      str_flag[i] = -1;
+      i++;
+      while (1)
+      {
+        if(line[i] == '\"' && line[i- 1] != '\\')
+            break ;
+        str_flag[i] = 0;
+        i++; 
+      }
+    }
+    if(line[i] == ' ' || flag == 1)
+      str_flag[i] = -1;
+    else
+      str_flag[i] = 0;
+    flag = 0;
+    i++;
+  }
   return (str_flag);
 }
 
@@ -134,6 +152,8 @@ void	get_tokens(char *line, t_mini *mini)
   int flag;
 
   i = 0;
+  while(line[i] == ' ' && line[i] != '\0')
+    i++;
   if((line[i] == '\\' || line[i] == ';' || line[i] == ':') && line[i + 1] == '\0')
   {
     mini->start = NULL;
@@ -179,6 +199,7 @@ void	get_tokens(char *line, t_mini *mini)
   while (tmp)
   {
     printf("content: %s\n", tmp->content);
+    printf("content len: %d\n", ft_strlen(tmp->content));
     printf("type: %d\n", tmp->type);
     tmp = tmp->next;
   }
