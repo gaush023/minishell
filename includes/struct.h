@@ -34,6 +34,7 @@ typedef struct s_token
 	int type;
 	struct s_token *next;
 	struct s_token *prev;
+  int qute_flag;
 }	 t_token;
 
 typedef struct s_expasion

@@ -31,13 +31,13 @@ int  *make_in_sq_flag(char *line)
   i = 0;
   flag = 0;
 	str_flag = ft_calloc(ft_strlen(line), sizeof(int));
-  str_flag[ft_strlen(line)] = -2;
+  str_flag[ft_strlen(line)] = -3;
   while (line[i])
 	{
     if(line[i] == '\'')
     {
       flag = 1;
-      str_flag[i] = -1;
+      str_flag[i] = -2;
       i++;
       while (1)
       {
@@ -50,7 +50,7 @@ int  *make_in_sq_flag(char *line)
     if(line[i] == '\"')
     {
       flag = 1;
-      str_flag[i] = -1;
+      str_flag[i] = -2;
       i++;
       while (1)
       {
@@ -60,8 +60,10 @@ int  *make_in_sq_flag(char *line)
         i++; 
       }
     }
-    if(line[i] == ' ' || flag == 1)
+    if(line[i] == ' ')
       str_flag[i] = -1;
+    else if(flag == 1)
+      str_flag[i] = -2;
     else
       str_flag[i] = 0;
     flag = 0;
@@ -74,7 +76,32 @@ t_token *confirm_token_order(t_token *token)
 {
     t_token *tmp;
     t_token *tmp2;  
+    int sum_quote_str;
+    char *quote_str;
+    int loop_count;
 
+    if(token-next->qute_flag == 1)
+    {
+      sum_quote_str = ft_strlen(token->content);
+      tmp = tpken->next;
+      loop_count = 0;
+      while(tmp->qute_flag == 1)
+      {
+        tmp = tmp->next;
+        sum_qutoe_str += ft_strlne(tmp->content);
+        count++;
+      }
+      quote_str = ft_malloc(sum_quote_str + 1, sizeof(char));
+      while(loop_count-- > 0)
+        tmp = tmp->prev;
+      while(tmp->qute_flag == 1)
+      {
+        ft_strlcat(quote_str, tmp->content, sum_quote_str + 1); 
+        tmp = tmp->next;
+      }
+      while(token->qute_flag == 1)
+ 
+    }
     if(token->type == HERE_DOC)
     {
       if(!token->next->next || token->next->next->type != ARG)
@@ -106,15 +133,17 @@ t_token *confirm_token_order(t_token *token)
     return (token);
 }
 
-static t_token	*make_token(char *str, t_token *prev_token)
+static t_token	*make_token(char *str, t_token *prev_token, int quote_flag)
 {
 	t_token	*token;
   t_token *tmp;
 
 	token = ft_calloc(1, sizeof(t_token));
-  if(str[0] == '\\')
-    str++; 
   token->prev = prev_token;
+  if(quote_flag == 1 && prev_token != NULL)
+    token->qute_flag = 1;
+  else
+    token->qute_flag = 0;
   token->content = ft_strdup(str);
 	token->next = NULL;
 	return (token);
@@ -172,7 +201,7 @@ void	get_tokens(char *line, t_mini *mini)
 	k = 0;
 	while (line[i])
 	{
-		while (str_flag[i] == -1)
+		while (str_flag[i] == -1 || str_flag[i] == -2)
 			i++;
 		if (str_flag[i] == 0)
 		{
@@ -180,8 +209,11 @@ void	get_tokens(char *line, t_mini *mini)
 			while (str_flag[i] == 0)
 				i++;
 			tmp_str = ft_calloc(i - k + 1, sizeof(char));
-			ft_memcpy(tmp_str, &line[k], i - k);
-			 token = make_token(tmp_str, tmp_token);
+      ft_memcpy(tmp_str, &line[k], i - k);
+      if(str_flag[k] == -2)
+			  token = make_token(tmp_str, tmp_token, 1);
+      else
+        token = make_token(tmp_str, tmp_token, 0);
 			ft_free(tmp_str);
 			tmp_token = token;
 		}
@@ -199,7 +231,7 @@ void	get_tokens(char *line, t_mini *mini)
   while (tmp)
   {
     printf("content: %s\n", tmp->content);
-    printf("content len: %d\n", ft_strlen(tmp->content));
+    printf("content len: %zu\n", ft_strlen(tmp->content));
     printf("type: %d\n", tmp->type);
     tmp = tmp->next;
   }
