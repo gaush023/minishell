@@ -89,7 +89,6 @@ void	parse(t_mini *mini)
   if (line == NULL || quote_check(mini, line) == 1 )
 		return ;
 	line = transform_line(line);
-  printf("line: %s\n", line);
   if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
 	get_tokens(line, mini);

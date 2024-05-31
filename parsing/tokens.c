@@ -76,33 +76,27 @@ t_token *confirm_token_order(t_token *token)
 {
     t_token *tmp;
     t_token *tmp2;  
-    int sum_quote_str;
-    char *quote_str;
-    int loop_count;
+    char *tmp_str;
 
-    if(token-next->qute_flag == 1)
+    while(token->next != NULL)
     {
-      sum_quote_str = ft_strlen(token->content);
-      tmp = tpken->next;
-      loop_count = 0;
-      while(tmp->qute_flag == 1)
+      if(token->qute_flag == 1)
       {
-        tmp = tmp->next;
-        sum_qutoe_str += ft_strlne(tmp->content);
-        count++;
+        tmp_str = ft_strjoin(token->content, token->next->content);
+        token->content = ft_strdup(tmp_str);
+        ft_free(tmp_str);
+        printf("1\n");
+        tmp = token->next;
+        token->next = tmp->next; 
       }
-      quote_str = ft_malloc(sum_quote_str + 1, sizeof(char));
-      while(loop_count-- > 0)
-        tmp = tmp->prev;
-      while(tmp->qute_flag == 1)
-      {
-        ft_strlcat(quote_str, tmp->content, sum_quote_str + 1); 
-        tmp = tmp->next;
-      }
-      while(token->qute_flag == 1)
- 
+      if(token->next != NULL)
+        token = token->next;
     }
-    if(token->type == HERE_DOC)
+    
+      while(token->prev != NULL)
+        token = token->prev;
+
+    if(token->type == HERE_DOC && token->qute_flag == 0)
     {
       if(!token->next->next || token->next->next->type != ARG)
       {
@@ -130,44 +124,36 @@ t_token *confirm_token_order(t_token *token)
         return (token);
       }
     }
+    else if(token->type == HERE_DOC && token->qute_flag == 1)
+    {
+      ft_putstr_fd("minishell: command not found: <<\n", 2);
+      free_token(token, 0);
+      token = NULL;
+    }
     return (token);
 }
 
-static t_token	*make_token(char *str, t_token *prev_token, int quote_flag)
+static t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos)
 {
 	t_token	*token;
   t_token *tmp;
+  int i;
 
 	token = ft_calloc(1, sizeof(t_token));
   token->prev = prev_token;
-  if(quote_flag == 1 && prev_token != NULL)
-    token->qute_flag = 1;
-  else
+  if(quote_flag[pos] == -2)
+  {  
+    i = pos;
+    if(quote_flag[pos + 1] && quote_flag[pos + 1] == -2)
+      token->qute_flag = 1;
+    else
+      token->qute_flag = 0;
+  }
+  else 
     token->qute_flag = 0;
   token->content = ft_strdup(str);
 	token->next = NULL;
 	return (token);
-}
-
-static int is_all_space(char *line)
-{
-  unsigned int	i;
-  char *tmp;
-
-  i = 0;
-  tmp = ft_strdup(line);
-  while (tmp[i] != '\n')
-  {
-    if (tmp[i] != ' ') 
-    {
-      ft_free(tmp);
-      return (0);
-    }
-    i++;
-  }
-  ft_free(tmp);
-  return (1);
-
 }
 
 void	get_tokens(char *line, t_mini *mini)
@@ -199,21 +185,19 @@ void	get_tokens(char *line, t_mini *mini)
   tmp_token = NULL;
 	i = 0;
 	k = 0;
-	while (line[i])
+
+  while (line[i])
 	{
 		while (str_flag[i] == -1 || str_flag[i] == -2)
-			i++;
-		if (str_flag[i] == 0)
+      i++;
+    if (str_flag[i] == 0)
 		{
 			k = i;
 			while (str_flag[i] == 0)
 				i++;
 			tmp_str = ft_calloc(i - k + 1, sizeof(char));
       ft_memcpy(tmp_str, &line[k], i - k);
-      if(str_flag[k] == -2)
-			  token = make_token(tmp_str, tmp_token, 1);
-      else
-        token = make_token(tmp_str, tmp_token, 0);
+			token = make_token(tmp_str, tmp_token, str_flag, i);
 			ft_free(tmp_str);
 			tmp_token = token;
 		}
@@ -226,23 +210,7 @@ void	get_tokens(char *line, t_mini *mini)
     token = token->prev;
   }
 	set_type(token);
-  t_token *tmp;
-  tmp = token;
-  while (tmp)
-  {
-    printf("content: %s\n", tmp->content);
-    printf("content len: %zu\n", ft_strlen(tmp->content));
-    printf("type: %d\n", tmp->type);
-    tmp = tmp->next;
-  }
   token =  confirm_token_order(token);
-  tmp = token;
-  while (tmp)
-  {
-    printf("content: %s\n", tmp->content);
-    printf("type: %d\n", tmp->type);
-    tmp = tmp->next;
-  }
   mini->start = token;
 }
 
