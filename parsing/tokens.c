@@ -86,16 +86,17 @@ t_token *confirm_token_order(t_token *token)
         token->content = ft_strdup(tmp_str);
         ft_free(tmp_str);
         printf("1\n");
+        token->qute_flag = token->next->qute_flag;
         tmp = token->next;
         token->next = tmp->next; 
+        printf("confirm_token content: %s\n", token->content);
       }
-      if(token->next != NULL)
+      else if(token->next != NULL)
         token = token->next;
+      printf("confirm token after content: %s\n", token->content);
     }
-    
-      while(token->prev != NULL)
+    while(token->prev != NULL)
         token = token->prev;
-
     if(token->type == HERE_DOC && token->qute_flag == 0)
     {
       if(!token->next->next || token->next->next->type != ARG)
@@ -213,4 +214,5 @@ void	get_tokens(char *line, t_mini *mini)
   token =  confirm_token_order(token);
   mini->start = token;
 }
+
 
