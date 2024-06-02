@@ -90,19 +90,38 @@ void here_doc(t_mini *mini, t_token *token)
 	char *delimiter;
 	char *line;
 
-  printf("Start of here_doc\n");
   mini->charge = 0;
   g_sig.heredoc_flag = 1;
   delimiter = token->content;
 	mini->heredoc_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if(mini->heredoc_fd == -1)
-	    return ; // error
+	    return ;
 	while(1)
 	{
+    signal(SIGINT, sig_int);
+    printf("here_doc:0\n");
+    if (g_sig.sigint == 1)
+    {
+      printf("止まります\n");
+      mini->charge = 1;
+      g_sig.heredoc_flag = 0;
+      break ;
+    }
+    printf("here_doc:1\n");
     printf("g_sig.sigint: %d\n", g_sig.sigint);
     printf("g_sig.heredoc_flag: %d\n", g_sig.heredoc_flag);
-    ft_putstr_fd("heredoc> ", 1);
-    line = readline(" \b");
+    line = readline("heredoc>  \b");
+    printf("here_doc:2\n");
+    if (g_sig.sigint == 1)
+    {
+      printf("line: %s\n", line); 
+      printf("tmp->content: %s\n", token->prev->prev->content);
+      token->prev->prev->content = line;
+      mini->charge = 1;
+      g_sig.heredoc_flag = 0;
+      break ;
+    }
+    printf("here_doc:3\n");
   	if (!line || ft_strcmp(line, delimiter) == 0 )
 		{
       if(!line)
@@ -114,9 +133,11 @@ void here_doc(t_mini *mini, t_token *token)
 			ft_free(line);
 			break ;
     }
+    printf("here_doc:4\n");
 		ft_putstr_fd(line, mini->heredoc_fd);
 		ft_putstr_fd("\n", mini->heredoc_fd);
 		ft_free(line);    
+    printf("here_doc:5\n");
 	}
 	ft_close(mini->heredoc_fd);
 	if(g_sig.sigint != 1)
@@ -127,7 +148,6 @@ void here_doc(t_mini *mini, t_token *token)
 		return ;
   dup2(mini->heredoc_fd, STDIN);
 	ft_close(mini->heredoc_fd);
-  printf("End of here_doc\n");
   if(g_sig.sigint != 1)
     g_sig.heredoc_flag = 0;
   else
@@ -161,27 +181,52 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 	t_token	*next;
 	int		pipe;
 
-  printf("start of redir_and_exec\n");
   prev = prev_sep(token, SKIP);
 	next = next_sep(token, SKIP);
 	pipe = 0;
 
-
+  t_token *tmp = token;
+  while(tmp)
+  {
+    printf("redir_and_exec: tmp->content: %s\n", tmp->content);
+    tmp = tmp->next;
+  }
   if (is_type(prev, TRUNC))
-		redir(mini, token, TRUNC);
-	else if (is_type(token, APPEND))
+  {
+	  printf("redir_and_exec: is_type(prev, TRUNC)\n");
+    redir(mini, token, TRUNC);
+  }
+	else if (is_type(prev, APPEND))
+  {
+    printf("redir_and_exec: is_type(token, APPEND)\n");
 		redir(mini, token, APPEND);
+  }
 	else if (is_type(prev, INPUT))
-	input(mini, token);
-	else if (is_type(prev, PIPE))
-		pipe = minipipe(mini);
+  {
+    printf("redir_and_exec: is_type(prev, INPUT)\n");
+	  input(mini, token);
+  }
+  else if (is_type(prev, PIPE))
+  {
+    printf("redir_and_exec: is_type(prev, PIPE)\n");
+    pipe = minipipe(mini);
+  }
 	else if(is_type(prev, HERE_DOC))
-		here_doc(mini, token);
+  {
+    printf("redir_and_exec: is_type(prev, HERE_DOC)\n");
+    here_doc(mini, token);
+  }
 	if (next && is_type(next, END) == 0 && pipe != 1)
-		redir_and_exec(mini, next->next);
+  {
+    printf("redir_and_exec: is_type(next, END) == 0 && pipe != 1\n");
+    redir_and_exec(mini, next->next);
+  }
 	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1
 		&& mini->no_exec == 0 )
-		exec_cmd(mini, token);
+  {
+    printf("redir_and_exec: is_type(prev, END) || is_type(prev, PIPE) || !prev\n");
+    exec_cmd(mini, token);
+  }
 }
 
 void	minishell(t_mini *mini)
@@ -192,9 +237,10 @@ void	minishell(t_mini *mini)
 	token = next_run(mini->start, NOSKIP); 
   if (is_types(token, "TAIH"))
 		token = mini->start->next;
-  printf("token->content: %s\n", token->content);
+  printf("token->content minishell: %s\n", token->content);
   while (mini->flag == 0 && token)
 	{
+    printf("minishell start\n");
 		mini->charge = 1;
 		mini->parent = 1;
 		mini->last = 1;

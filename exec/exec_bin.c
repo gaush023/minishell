@@ -25,14 +25,6 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 		if (ft_strchr(path, '/') != NULL)
     {
       printf("path: %s\n", path);
-      if(g_sig.heredoc_flag == 1)
-      {
-        printf("heredoc_flag: %d\n", g_sig.heredoc_flag);
-        printf("path: %s\n", path);
-        printf("mini->start->content: %s\n", mini->start->content);
-        g_sig.heredoc_flag = 0;
-        return (-1);
-      }
       execve(path, args, env_array);
     }
 		ret = error_msg(path);

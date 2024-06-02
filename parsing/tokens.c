@@ -85,15 +85,12 @@ t_token *confirm_token_order(t_token *token)
         tmp_str = ft_strjoin(token->content, token->next->content);
         token->content = ft_strdup(tmp_str);
         ft_free(tmp_str);
-        printf("1\n");
         token->qute_flag = token->next->qute_flag;
         tmp = token->next;
         token->next = tmp->next; 
-        printf("confirm_token content: %s\n", token->content);
       }
       else if(token->next != NULL)
         token = token->next;
-      printf("confirm token after content: %s\n", token->content);
     }
     while(token->prev != NULL)
         token = token->prev;

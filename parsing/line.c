@@ -77,8 +77,10 @@ void	parse(t_mini *mini)
 {
 	char	*line;
 	t_token	*token;
-
-
+  
+    
+  signal(SIGINT, &sig_int);
+	signal(SIGQUIT, &sig_quit);
   line = readline(M_PROMPT);
 	if ((line == NULL) && (mini->flag = 1))
 		return ;
