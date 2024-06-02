@@ -50,7 +50,7 @@ bool	is_builtin(char *cmd);
 int		exec_builtin(char **arg, t_mini *mini);
 
 // parsing
-void get_tokens(char *line, t_mini *mini);
+t_token	*get_tokens(char *line);
 char	*transform_line(char *line);
 t_token	*prev_sep(t_token *token, int skip);
 void	squish_content(t_mini *mini);
@@ -66,6 +66,8 @@ int	env_value_len(char *env);
 char	*copy_env_name(char *dst, char *src);
 int	is_env_char(char c);
 int ret_size(int ret);
+t_token *confirm_tokens(t_token *token);
+
 
 
 // helper_func

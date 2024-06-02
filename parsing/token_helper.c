@@ -72,6 +72,65 @@ int  *make_in_sq_flag(char *line)
   return (str_flag);
 }
 
+t_token *confirm_token_order(t_token *token)
+{
+    t_token *tmp;
+    t_token *tmp2;  
+    char *tmp_str;
+
+    while(token->next != NULL)
+    {
+      if(token->qute_flag == 1)
+      {
+        tmp_str = ft_strjoin(token->content, token->next->content);
+        token->content = ft_strdup(tmp_str);
+        ft_free(tmp_str);
+        token->qute_flag = token->next->qute_flag;
+        tmp = token->next;
+        token->next = tmp->next; 
+      }
+      else if(token->next != NULL)
+        token = token->next;
+    }
+    while(token->prev != NULL)
+        token = token->prev;
+    if(token->type == HERE_DOC && token->qute_flag == 0)
+    {
+      if(!token->next->next || token->next->next->type != ARG)
+      {
+        tmp = ft_calloc(1, sizeof(t_token));
+        tmp->content = ft_strdup("cat");
+        tmp->type = CMD;
+        tmp->next = token;
+        tmp->prev = NULL;
+        token->prev = tmp;
+        token = token->prev;
+        return (token); 
+      }    
+      else if(token->next->next->type == ARG)
+      { 
+        tmp = NULL;
+        tmp = token->next->next;
+        tmp->type = CMD;
+        tmp->prev = NULL;
+        tmp2 = token->next->next->next;
+        token->next->next = tmp2;  
+        token->prev = tmp;
+        tmp->next = token;
+        tmp->prev = NULL;
+        token = token->prev;
+        return (token);
+      }
+    }
+    else if(token->type == HERE_DOC && token->qute_flag == 1)
+    {
+      ft_putstr_fd("minishell: command not found: <<\n", 2);
+      free_token(token, 0);
+      token = NULL;
+    }
+    return (token);
+}
+
 static t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos)
 {
 	t_token	*token;
@@ -94,57 +153,4 @@ static t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int 
 	token->next = NULL;
 	return (token);
 }
-
-t_token	*get_tokens(char *line)
-{
-	t_token			*token;
-	t_token			*tmp_token;
-	char			*tmp_str;
-	unsigned int	i;
-	unsigned int	k;
-	int				*str_flag;
-  int flag;
-
-  i = 0;
-  while(line[i] == ' ' && line[i] != '\0')
-    i++;
-  if((line[i] == '\\' || line[i] == ';' || line[i] == ':') && line[i + 1] == '\0')
-    return (NULL);
-  while (line[i] == ' ')
-    i++;
-	if (line[i] == '\0' )
-    return (NULL);
-	str_flag = make_in_sq_flag(line);
-  tmp_token = NULL;
-	i = 0;
-	k = 0;
-
-  while (line[i])
-	{
-		while (str_flag[i] == -1 || str_flag[i] == -2)
-      i++;
-    if (str_flag[i] == 0)
-		{
-			k = i;
-			while (str_flag[i] == 0)
-				i++;
-			tmp_str = ft_calloc(i - k + 1, sizeof(char));
-      ft_memcpy(tmp_str, &line[k], i - k);
-			token = make_token(tmp_str, tmp_token, str_flag, i);
-			ft_free(tmp_str);
-			tmp_token = token;
-		}
-	}
-	ft_free(str_flag);
-	while (token->prev != NULL)
-	{
-	  set_type(token);
-		token->prev->next = token;
-    token = token->prev;
-  }
-	set_type(token);
-  token =  confirm_tokens(token);
-  return (token);
-}
-
 

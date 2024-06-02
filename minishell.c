@@ -114,14 +114,10 @@ void	here_doc(t_mini *mini, t_token *token)
 		printf("here_doc:2\n");
 		if (g_sig.sigint == 1)
 		{
-			tmp = ft_calloc(1, sizeof(t_token));
+      line = transform_line(line);
+			tmp = get_tokens(line);
 			printf("line: %s\n", line);
 			printf("tmp->content: %s\n", token->prev->prev->content);
-			tmp->content = ft_strdup("-a");
-			tmp->next = NULL;
-			tmp->type = ARG;
-			token->prev->prev->content = ft_strdup("ls");
-			token->prev->prev->type = CMD;
 			token->prev->prev->next = tmp;
 			/* token->prev->content = ft_strdup("-a"); */
 			/* token->prev->prev->next->type = ARG; */
