@@ -1,7 +1,5 @@
 #include "includes/minishell.h"
 
-t_sig	g_sig;
-
 t_token	*next_run(t_token *token, int skip)
 {
 	if (token && skip)
@@ -19,7 +17,6 @@ t_token	*next_run(t_token *token, int skip)
 
 void	redir(t_mini *mini, t_token *token, int type)
 {
-	printf("Start of redir\n");
 	ft_close(mini->fdout);
 	if (type == TRUNC)
 		mini->fdout = open(token->content, O_WRONLY | O_CREAT | O_TRUNC,
@@ -98,40 +95,15 @@ void	here_doc(t_mini *mini, t_token *token)
 		return ;
 	while (1)
 	{
-		signal(SIGINT, sig_int);
-		printf("here_doc:0\n");
 		if (g_sig.sigint == 1)
 		{
-			printf("止まります\n");
-			mini->charge = 1;
-			g_sig.heredoc_flag = 0;
-			break ;
-		}
-		printf("here_doc:1\n");
-		printf("g_sig.sigint: %d\n", g_sig.sigint);
-		printf("g_sig.heredoc_flag: %d\n", g_sig.heredoc_flag);
-		line = readline("heredoc>  \b");
-		printf("here_doc:2\n");
-		if (g_sig.sigint == 1)
-		{
-      line = transform_line(line);
+    		line = transform_line(line);
 			tmp = get_tokens(line);
-			printf("line: %s\n", line);
-			printf("tmp->content: %s\n", token->prev->prev->content);
 			token->prev->prev->next = tmp;
-			/* token->prev->content = ft_strdup("-a"); */
-			/* token->prev->prev->next->type = ARG; */
-			/* t_token *tmp = token; */
-			/* while(tmp) */
-			/* { */
-			/*   printf("tmp->content: %s\n", tmp->content); */
-			/*   tmp = tmp->next; */
-			/* } */
 			mini->charge = 1;
 			g_sig.heredoc_flag = 0;
 			break ;
 		}
-		printf("here_doc:3\n");
 		if (!line || ft_strcmp(line, delimiter) == 0)
 		{
 			if (!line)
@@ -143,11 +115,9 @@ void	here_doc(t_mini *mini, t_token *token)
 			ft_free(line);
 			break ;
 		}
-		printf("here_doc:4\n");
 		ft_putstr_fd(line, mini->heredoc_fd);
 		ft_putstr_fd("\n", mini->heredoc_fd);
 		ft_free(line);
-		printf("here_doc:5\n");
 	}
 	ft_close(mini->heredoc_fd);
 	if (g_sig.sigint != 1)
@@ -166,75 +136,31 @@ void	here_doc(t_mini *mini, t_token *token)
 		mini->charge = 1;
 }
 
-t_token	*prev_sep(t_token *token, int skip)
-{
-	if (token && skip)
-		token = token->prev;
-	while (token && token->type < TRUNC)
-		token = token->prev;
-	return (token);
-}
-
-t_token	*next_sep(t_token *token, int skip)
-{
-	if (token && skip)
-		token = token->next;
-	while (token && token->type < TRUNC)
-		token = token->next;
-	return (token);
-}
-
 void	redir_and_exec(t_mini *mini, t_token *token)
 {
 	t_token	*prev;
 	t_token	*next;
 	int		pipe;
-	t_token	*tmp;
 
 	prev = prev_sep(token, SKIP);
 	next = next_sep(token, SKIP);
 	pipe = 0;
-	tmp = token;
-	while (tmp)
-	{
-		printf("redir_and_exec: tmp->content: %s\n", tmp->content);
-		tmp = tmp->next;
-	}
+
 	if (is_type(prev, TRUNC))
-	{
-		printf("redir_and_exec: is_type(prev, TRUNC)\n");
 		redir(mini, token, TRUNC);
-	}
 	else if (is_type(prev, APPEND))
-	{
-		printf("redir_and_exec: is_type(token, APPEND)\n");
 		redir(mini, token, APPEND);
-	}
 	else if (is_type(prev, INPUT))
-	{
-		printf("redir_and_exec: is_type(prev, INPUT)\n");
 		input(mini, token);
-	}
 	else if (is_type(prev, PIPE))
-	{
-		printf("redir_and_exec: is_type(prev, PIPE)\n");
 		pipe = minipipe(mini);
-	}
 	else if (is_type(prev, HERE_DOC))
-	{
-		printf("redir_and_exec: is_type(prev, HERE_DOC)\n");
 		here_doc(mini, token);
-	}
 	if (next && is_type(next, END) == 0 && pipe != 1)
-	{
-		printf("redir_and_exec: is_type(next, END) == 0 && pipe != 1\n");
 		redir_and_exec(mini, next->next);
-	}
 	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1
 		&& mini->no_exec == 0)
-	{
 		exec_cmd(mini, token);
-	}
 }
 
 void	minishell(t_mini *mini)
@@ -245,10 +171,8 @@ void	minishell(t_mini *mini)
 	token = next_run(mini->start, NOSKIP);
 	if (is_types(token, "TAIH"))
 		token = mini->start->next;
-	printf("token->content minishell: %s\n", token->content);
 	while (mini->flag == 0 && token)
 	{
-		printf("minishell start\n");
 		mini->charge = 1;
 		mini->parent = 1;
 		mini->last = 1;
@@ -270,41 +194,3 @@ void	minishell(t_mini *mini)
 	}
 }
 
-// __attribute__((destructor)) static void destructor()
-// {
-// 	system("leaks -q minishell");
-// }
-
-void	mini_init(t_mini *mini)
-{
-	mini->in = dup(STDIN);
-	mini->out = dup(STDOUT);
-	if (!mini->in || !mini->out)
-		ft_panic(NULL, "dup", 1);
-	mini->flag = 0;
-	mini->ret = 0;
-	mini->no_exec = 0;
-}
-
-int	main(int ac, char **av, char **ev)
-{
-	t_mini	mini;
-
-	(void)ac;
-	(void)av;
-	mini_init(&mini);
-	env_init(&mini, ev);
-	secret_env_init(&mini, ev);
-	get_shlvl_plus(mini.env);
-	while (mini.flag == 0)
-	{
-		ini_sig();
-		parse(&mini);
-		if (mini.start != NULL && check_line(&mini, mini.start))
-			minishell(&mini);
-		free_token(mini.start, mini.flag);
-	}
-	free_all(&mini, 0);
-	return (mini.ret);
-	// system("leaks -q minishell");
-}

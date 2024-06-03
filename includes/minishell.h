@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/05/07 19:40:47 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:16:00 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,16 @@ void	squish_content(t_mini *mini);
 void	parse(t_mini *mini);
 void	type_token(t_token *token, int sep);
 char	*expasions(char *arg, t_env *env, int ret);
-int	malloc4expassion(char *arg, t_env *env, int ret);
-char *get_var_value(char *arg, int pos, t_env *env, int ret);
-int	get_var_len(const char *arg, int pos, t_env *env, int ret);
+int		malloc4expassion(char *arg, t_env *env, int ret);
+char	*get_var_value(char *arg, int pos, t_env *env, int ret);
+int		get_var_len(const char *arg, int pos, t_env *env, int ret);
 char	*get_env_value(char *var_name, t_env *env);
 char	*copy_env_value(char *env);
-int	env_value_len(char *env);
+int		env_value_len(char *env);
 char	*copy_env_name(char *dst, char *src);
-int	is_env_char(char c);
-int ret_size(int ret);
-t_token *confirm_tokens(t_token *token);
-
-
+int		is_env_char(char c);
+int		ret_size(int ret);
+t_token	*confirm_tokens(t_token *token);
 
 // helper_func
 void	reset_fds(t_mini *mini);
@@ -81,27 +79,13 @@ void	free_tab(char **tab);
 int		is_type(t_token *token, int type);
 int		is_types(t_token *token, char *types);
 int		check_line(t_mini *mini, t_token *token);
-
-// helper_func/libft
-// char	*ft_strdup(const char *s1);
-// size_t	ft_strlen(const char *s);
-// int		ft_atoi(const char *s);
-// char	*ft_itoa(int n);
-// int		ft_strcmp(const char *s1, const char *s2);
-// char	*ft_strchr(const char *s, int c);
-// char	*ft_strjoin(char const *s1, char const *s2);
-// size_t	ft_strlcat(char *dst, const char *src, size_t size);
-// size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-// void	ft_putstr_fd(char *s, int fd);
-// int		ft_isalnum(int c);
-// int		ft_isdigit(int c);
-// int		ft_strncmp(const char *s1, const char *s2, size_t n);
+t_token	*next_sep(t_token *token, int skip);
+t_token	*prev_sep(t_token *token, int skip);
 bool	ft_equals(const char *s1, const char *s2);
-// int	ft_strcmp(const char *s1, const char *s2);
 
 // ft_commands
-int				ft_echo(char **args);
-int				ft_cd(char **args, t_env *env);
+int		ft_echo(char **args);
+int		ft_cd(char **args, t_env *env);
 void	unset(char **tokens, t_env *env);
 void	env(char **tokens, t_env *env);
 void	export(char **tokens, t_env *env);
