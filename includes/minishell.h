@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/03 17:16:00 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:39:18 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,14 @@ int		check_line(t_mini *mini, t_token *token);
 t_token	*next_sep(t_token *token, int skip);
 t_token	*prev_sep(t_token *token, int skip);
 bool	ft_equals(const char *s1, const char *s2);
+
+//main_helper
+void here_doc(t_mini *mini, t_token *token);
+void	input(t_mini *mini, t_token *token);
+void	redir(t_mini *mini, t_token *token, int type);
+int		minipipe(t_mini *mini);
+void	minishell(t_mini *mini);
+
 
 // ft_commands
 int		ft_echo(char **args);

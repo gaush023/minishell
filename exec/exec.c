@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/02 16:19:07 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/03 18:30:35 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,8 @@ void	exec_cmd(t_mini *mini, t_token *token)
 	char	**cmd;
 	int		i;
 
-  printf("exec_cmd\n");
-  printf("mini->charge: %d\n", mini->charge);
-  printf("g_sig.heredoc_flag: %d\n", g_sig.heredoc_flag);
 	if (mini->charge == 0 )
-	{
-		printf("finish\n");
 		return ;
-	}
 	cmd = cmd_tab(token);
 	i = 0;
 	while (cmd && cmd[i])

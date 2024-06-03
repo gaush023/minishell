@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/05/13 20:20:28 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/03 18:30:20 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 	{
 		env_array = env_to_array(env);
 		if (ft_strchr(path, '/') != NULL)
-    {
-      printf("path: %s\n", path);
-      execve(path, args, env_array);
-    }
+		{
+			execve(path, args, env_array);
+		}
 		ret = error_msg(path);
 		free_tab(env_array);
 		free_token(mini->start, mini->flag);

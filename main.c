@@ -1,5 +1,7 @@
 #include "includes/minishell.h"
 
+t_sig	g_sig;
+
 // __attribute__((destructor)) static void destructor()
 // {
 // 	system("leaks -q minishell");

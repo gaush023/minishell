@@ -1,4 +1,4 @@
-#include "includes/minishell.h"
+#include "../includes/minishell.h"
 
 t_token	*next_run(t_token *token, int skip)
 {
@@ -15,127 +15,6 @@ t_token	*next_run(t_token *token, int skip)
 	return (token);
 }
 
-void	redir(t_mini *mini, t_token *token, int type)
-{
-	ft_close(mini->fdout);
-	if (type == TRUNC)
-		mini->fdout = open(token->content, O_WRONLY | O_CREAT | O_TRUNC,
-				S_IRWXU);
-	else
-		mini->fdout = open(token->content, O_WRONLY | O_CREAT | O_APPEND,
-				S_IRWXU);
-	if (mini->fdout == -1)
-	{
-		ft_putstr_fd("minishell: ", STDERR);
-		ft_putstr_fd(token->content, STDERR);
-		ft_putstr_fd(": No such file or directory\n", STDERR);
-		mini->ret = 500;
-		mini->no_exec = 1;
-		return ;
-	}
-	dup2(mini->fdout, STDOUT);
-}
-
-void	input(t_mini *mini, t_token *token)
-{
-	ft_close(mini->fdin);
-	mini->fdin = open(token->content, O_RDONLY, S_IRUSR);
-	if (mini->fdin < 0)
-	{
-		ft_putstr_fd("minishell: ", STDERR);
-		ft_putstr_fd(token->content, STDERR);
-		ft_putstr_fd(": No such file or directory\n", STDERR);
-		mini->ret = 200;
-		mini->no_exec = 1;
-		return ;
-	}
-	dup2(mini->fdin, STDIN);
-}
-
-int	minipipe(t_mini *mini)
-{
-	pid_t	pid;
-	int		pipefd[2];
-
-	pipe(pipefd);
-	pid = fork();
-	if (pid == 0)
-	{
-		ft_close(pipefd[1]);
-		dup2(pipefd[0], STDIN);
-		mini->pipein = pipefd[0];
-		mini->m_pid = -1;
-		mini->parent = 0;
-		mini->no_exec = 0;
-		return (2);
-	}
-	else
-	{
-		ft_close(pipefd[0]);
-		dup2(pipefd[1], STDOUT);
-		mini->pipeout = pipefd[1];
-		mini->m_pid = pid;
-		mini->last = 0;
-		return (1);
-	}
-}
-
-void	here_doc(t_mini *mini, t_token *token)
-{
-	char	*delimiter;
-	char	*line;
-	t_token	*tmp;
-
-	mini->charge = 0;
-	g_sig.heredoc_flag = 1;
-	delimiter = token->content;
-	mini->heredoc_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC,
-			0644);
-	if (mini->heredoc_fd == -1)
-		return ;
-	while (1)
-	{
-		if (g_sig.sigint == 1)
-		{
-    		line = transform_line(line);
-			tmp = get_tokens(line);
-			token->prev->prev->next = tmp;
-			mini->charge = 1;
-			g_sig.heredoc_flag = 0;
-			break ;
-		}
-		if (!line || ft_strcmp(line, delimiter) == 0)
-		{
-			if (!line)
-			{
-				ft_putstr_fd("\n", 1);
-				ft_close(mini->heredoc_fd);
-				return ;
-			}
-			ft_free(line);
-			break ;
-		}
-		ft_putstr_fd(line, mini->heredoc_fd);
-		ft_putstr_fd("\n", mini->heredoc_fd);
-		ft_free(line);
-	}
-	ft_close(mini->heredoc_fd);
-	if (g_sig.sigint != 1)
-		mini->heredoc_fd = open("/tmp/heredoc_tmp", O_RDONLY);
-	else
-		mini->heredoc_fd = open("/dev/null", O_RDONLY);
-	if (mini->heredoc_fd == -1)
-		return ;
-	dup2(mini->heredoc_fd, STDIN);
-	ft_close(mini->heredoc_fd);
-	if (g_sig.sigint != 1)
-		g_sig.heredoc_flag = 0;
-	else
-		g_sig.heredoc_flag = 1;
-	if (g_sig.sigint != 1)
-		mini->charge = 1;
-}
-
 void	redir_and_exec(t_mini *mini, t_token *token)
 {
 	t_token	*prev;
@@ -145,7 +24,6 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 	prev = prev_sep(token, SKIP);
 	next = next_sep(token, SKIP);
 	pipe = 0;
-
 	if (is_type(prev, TRUNC))
 		redir(mini, token, TRUNC);
 	else if (is_type(prev, APPEND))
@@ -166,7 +44,7 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 void	minishell(t_mini *mini)
 {
 	t_token	*token;
-  int		status;
+	int		status;
 
 	token = next_run(mini->start, NOSKIP);
 	if (is_types(token, "TAIH"))
@@ -193,4 +71,3 @@ void	minishell(t_mini *mini)
 		token = next_run(token, SKIP);
 	}
 }
-

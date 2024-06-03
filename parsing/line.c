@@ -77,26 +77,24 @@ void	parse(t_mini *mini)
 {
 	char	*line;
 	t_token	*token;
-  
-    
-  signal(SIGINT, &sig_int);
+
+	signal(SIGINT, &sig_int);
 	signal(SIGQUIT, &sig_quit);
-  line = readline(M_PROMPT);
+	line = readline(M_PROMPT);
 	if ((line == NULL) && (mini->flag = 1))
 		return ;
-  if (line != NULL )
-    add_history(line);
-  if (g_sig.sigint == 1)
-    mini->ret = g_sig.sig_flag;
-  if (line == NULL || quote_check(mini, line) == 1 )
+	if (line != NULL)
+		add_history(line);
+	if (g_sig.sigint == 1)
+		mini->ret = g_sig.sig_flag;
+	if (line == NULL || quote_check(mini, line) == 1)
 		return ;
 	line = transform_line(line);
-  if (line && line[0] == '$')
+	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
-  token = NULL;
+	token = NULL;
 	token = get_tokens(line);
-  mini->start = token;
-  ft_free(line);
+	mini->start = token;
+	ft_free(line);
 	return ;
 }
-

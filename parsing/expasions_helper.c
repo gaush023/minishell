@@ -103,20 +103,20 @@ int	get_var_len(const char *arg, int pos, t_env *env, int ret)
 		return (ret_size(ret));
 	if (ft_isdigit(arg[pos]))
 		return (0);
-  while (arg[pos] && is_env_char(arg[pos]) == 1 && i < BUFF_SIZE)
+	while (arg[pos] && is_env_char(arg[pos]) == 1 && i < BUFF_SIZE)
 		var_name[i++] = arg[pos++];
-  var_name[i] = '\0';
-  var_value = get_env_value(var_name, env);
-  i = ft_strlen(var_value);
+	var_name[i] = '\0';
+	var_value = get_env_value(var_name, env);
+	i = ft_strlen(var_value);
 	ft_free(var_value);
-  return (i);
+	return (i);
 }
 
-char *get_var_value(char *arg, int pos, t_env *env, int ret)
+char	*get_var_value(char *arg, int pos, t_env *env, int ret)
 {
-	char var_name[BUFF_SIZE];
-	char *var_value;
-	int i;
+	char	var_name[BUFF_SIZE];
+	char	*var_value;
+	int		i;
 
 	i = 0;
 	if (arg[pos] == '?')
@@ -130,8 +130,7 @@ char *get_var_value(char *arg, int pos, t_env *env, int ret)
 		var_name[i++] = arg[pos++];
 	var_name[i] = '\0';
 	var_value = get_env_value(var_name, env);
-	
-  return (var_value);
+	return (var_value);
 }
 
 int	malloc4expassion(char *arg, t_env *env, int ret)
@@ -148,25 +147,24 @@ int	malloc4expassion(char *arg, t_env *env, int ret)
 		{
 			i++;
 			if ((arg[i] == '\0' || ft_isalnum(arg[i]) == 0) && arg[i] != '?')
-      {	
-        size++;
-      }
-      else
-      {
+			{
+				size++;
+			}
+			else
+			{
 				size += get_var_len(arg, i, env, ret);
-      }
-      if(ft_isdigit(arg[i]) == 0)
-      {
-        while(arg[i + 1] && is_env_char(arg[i]) == 1)
-          i++;
-      }
-      else 
-      {  
-        size--;
-      }
-    }
+			}
+			if (ft_isdigit(arg[i]) == 0)
+			{
+				while (arg[i + 1] && is_env_char(arg[i]) == 1)
+					i++;
+			}
+			else
+			{
+				size--;
+			}
+		}
 		size++;
-  }
+	}
 	return (size);
 }
-
