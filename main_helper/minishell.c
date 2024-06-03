@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/03 20:24:21 by sagemura          #+#    #+#             */
+/*   Updated: 2024/06/03 20:27:24 by sagemura         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 t_token	*next_run(t_token *token, int skip)
@@ -41,6 +53,13 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 		exec_cmd(mini, token);
 }
 
+static void	prepare_rerun(t_mini *mini)
+{
+	reset_std(mini);
+	close_fds(mini);
+	reset_fds(mini);
+}
+
 void	minishell(t_mini *mini)
 {
 	t_token	*token;
@@ -55,9 +74,7 @@ void	minishell(t_mini *mini)
 		mini->parent = 1;
 		mini->last = 1;
 		redir_and_exec(mini, token);
-		reset_std(mini);
-		close_fds(mini);
-		reset_fds(mini);
+		prepare_rerun(mini);
 		waitpid(-1, &status, 0);
 		status = WEXITSTATUS(status);
 		if (mini->last == 0)

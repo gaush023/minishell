@@ -1,2 +1,2 @@
-hello, world
-Good bye, world
+Eo
+pwd
