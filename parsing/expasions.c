@@ -7,7 +7,6 @@ size_t	var_cpy(char *dst, const char *src, size_t size)
 	i = 0;
 	while (src[i])
 		dst[size++] = src[i++];
-	printf("dst: %s\n", dst);
 	return (i);
 }
 
@@ -60,5 +59,11 @@ char	*expasions(char *arg, t_env *env, int ret)
 		ex.j++;
 	}
 	ex.str[ex.i] = '\0';
+	if (ft_strcmp(ex.str, "-4") == 0)
+	{
+		ft_free(ex.str);
+		ex.str = ft_strdup("130");
+	}
+	printf("expasion: %s\n", ex.str);
 	return (ex.str);
 }

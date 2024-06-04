@@ -1,18 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/04 15:11:21 by sagemura          #+#    #+#             */
+/*   Updated: 2024/06/04 16:41:42 by sagemura         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	sig_int(int code)
 {
 	(void)code;
 	rl_on_new_line();
-	ft_putstr_fd("\n", STDOUT);
+	ft_putstr_fd("\n", STDERR);
 	rl_replace_line("", 1);
-	rl_redisplay();
-	/* if (g_sig.pid != 0) */
-	/*     g_sig.sig_flag = 130; */
-	/* else */
-	/*   ft_putstr_fd("sigint:", STDOUT); */
-	g_sig.sig_flag = 130;
-	g_sig.sigint = 1;
+	if (g_sig == ON_PID || g_sig == ON_HERE_DOC)
+	{
+		g_sig = SIGNAL_INT;
+		if (g_sig == HERE_DOC)
+			ft_putstr_fd(M_PROMPT, STDERR);
+		else
+			ft_putstr_fd("\n", STDERR);
+	}
+	else
+		rl_redisplay();
 }
 
 void	sig_quit(int code)
@@ -20,12 +35,12 @@ void	sig_quit(int code)
 	char	*nbr;
 
 	nbr = ft_itoa(code);
-	if (g_sig.pid != 0)
+	if (g_sig == ON_PID)
 	{
 		ft_putstr_fd("Quit: ", STDERR);
 		ft_putstr_fd(nbr, STDERR);
-		g_sig.sig_flag = 131;
-		g_sig.sigquit = 1;
+		ft_putstr_fd("\n", STDERR);
+		g_sig = SIGNAL_QUIT;
 	}
 	else
 		ft_putstr_fd("\b\b \b\b", STDERR);
@@ -34,8 +49,5 @@ void	sig_quit(int code)
 
 void	ini_sig(void)
 {
-	g_sig.sigint = 0;
-	g_sig.sigquit = 0;
-	g_sig.pid = 0;
-	g_sig.heredoc_flag = 0;
+	g_sig = SIGNAL_OFF;
 }

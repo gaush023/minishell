@@ -1,6 +1,6 @@
 #include "includes/minishell.h"
 
-t_sig	g_sig;
+int g_sig = 0;
 
 // __attribute__((destructor)) static void destructor()
 // {
@@ -38,5 +38,4 @@ int	main(int ac, char **av, char **ev)
 	}
 	free_all(&mini, 0);
 	return (mini.ret);
-	// system("leaks -q minishell");
 }

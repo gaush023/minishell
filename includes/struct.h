@@ -44,17 +44,6 @@ typedef struct s_expasion
 	int j;
 }	 t_expasion;
 
-typedef struct s_sig
-{
-	int sigint;
-	int sigquit;
-	int sig_flag;
-	int heredoc_flag;
-  pid_t pid;
-}	 t_sig;
-
-extern t_sig g_sig;
-
 typedef struct s_mini
 {
 	int in;

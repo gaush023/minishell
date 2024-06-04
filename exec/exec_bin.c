@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/03 18:30:20 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:19:17 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 {
 	char	**env_array;
 	int		ret;
+	int		pid;
 
 	ret = SUCCESS;
-	g_sig.pid = fork();
-	if (g_sig.pid == 0)
+	g_sig = ON_PID;
+	pid = fork();
+	if (pid == 0)
 	{
+		g_sig = SIGNAL_NORMAL;
 		env_array = env_to_array(env);
 		if (ft_strchr(path, '/') != NULL)
 		{
@@ -32,9 +35,9 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 		exit(ret);
 	}
 	else
-		waitpid(g_sig.pid, &ret, 0);
-	if (g_sig.sigint == 1 || g_sig.sigquit == 1)
-		return (g_sig.sig_flag);
+		waitpid(pid, &ret, 0);
+	if (g_sig != SIGNAL_OFF)
+		return (g_sig);
 	if (ret == 32256 || ret == 32512)
 		ret = ret / 256;
 	else

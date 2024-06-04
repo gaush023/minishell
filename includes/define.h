@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:27:15 by sagemura          #+#    #+#             */
-/*   Updated: 2024/05/07 19:40:41 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:34:55 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,15 @@
 # define STDOUT 1
 # define STDERR 2
 
-
+// signal
+extern int	g_sig;
+# define ON_PID -1
+# define ON_HERE_DOC -2
+# define SIGNAL_NORMAL 0
+# define SIGNAL_OFF -2
+# define SIGNAL_ON -3
+# define SIGNAL_INT 130
+# define SIGNAL_QUIT 131
 
 // token type
 # define EMPTY 0
@@ -33,11 +41,10 @@
 # define END 7
 # define HERE_DOC 8
 
-
 # define NOSKIP 0
 # define SKIP 1
 
-#define M_PROMPT "$> "  
+# define M_PROMPT "$> "
 
 # define BUF_SIZE 1024
 
@@ -48,7 +55,7 @@
 # define UK_CMD 127
 
 # define PATH_MAX 409
-# define ERR 1 
+# define ERR 1
 # define SUCCESS 0
 
 #endif

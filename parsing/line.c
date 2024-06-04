@@ -56,7 +56,6 @@ char	*transform_line(char *line)
 	}
 	new[j] = '\0';
 	ft_free(line);
-	// printf("new: %s\n", new);
 	return (new);
 }
 
@@ -85,8 +84,13 @@ void	parse(t_mini *mini)
 		return ;
 	if (line != NULL)
 		add_history(line);
-	if (g_sig.sigint == 1)
-		mini->ret = g_sig.sig_flag;
+	printf("mini->ret pwd: %d\n", mini->ret);
+	printf("g_sig parse 1: %d\n", g_sig);
+	if (g_sig != SIGNAL_OFF)
+	{
+		mini->ret = g_sig;
+		printf("g_sig parse 2: %d\n", g_sig);
+	}
 	if (line == NULL || quote_check(mini, line) == 1)
 		return ;
 	line = transform_line(line);
