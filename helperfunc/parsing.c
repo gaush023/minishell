@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/05 19:41:16 by etakaham          #+#    #+#             */
+/*   Updated: 2024/06/05 19:41:16 by etakaham         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	quotes(char *line, int index)
@@ -24,17 +36,33 @@ int	quotes(char *line, int index)
 	return (open);
 }
 
+bool	check_line_helper(t_token *token)
+{
+	if (is_types(token, "HTAI"))
+	{
+		if (!token->next || is_types(token->next, "TAIPE"))
+			return (true);
+	}
+	return (false);
+}
 
+bool	check_line_helper2(t_token *token)
+{
+	if (is_types(token, "PE"))
+	{
+		if (!token->prev || !token->next || is_types(token->prev, "TAIPE"))
+			return (true);
+	}
+	return (false);
+}
 
 int	check_line(t_mini *mini, t_token *token)
 {
 	while (token)
 	{
-		if (is_types(token, "HTAI") && (!token->next || is_types(token->next,
-					"TAIPE")))
+		if (check_line_helper(token))
 		{
-			ft_putstr_fd(" minishell: syntax error near unexpected token `",
-					STDERR);
+			ft_putstr_fd(SYNTAX_ERR, STDERR);
 			if (token->next)
 				ft_putstr_fd(token->next->content, STDERR);
 			else
@@ -43,11 +71,9 @@ int	check_line(t_mini *mini, t_token *token)
 			mini->ret = 258;
 			return (0);
 		}
-		if (is_types(token, "PE") && (!token->prev || !token->next || is_types(token->prev,
-					"TAIPE")))
+		if (check_line_helper2(token))
 		{
-			ft_putstr_fd(" minishell: syntax error near unexpected token `",
-					STDERR);
+			ft_putstr_fd(SYNTAX_ERR, STDERR);
 			ft_putstr_fd(token->content, STDERR);
 			write(STDERR, "'\n", 2);
 			mini->ret = 258;
@@ -57,4 +83,3 @@ int	check_line(t_mini *mini, t_token *token)
 	}
 	return (1);
 }
-

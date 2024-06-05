@@ -20,7 +20,6 @@ int	is_type(t_token *token, int type)
 		return (0);
 }
 
-
 int	is_types(t_token *token, char *types)
 {
 	if (ft_strchr(types, ' ') && is_type(token, EMPTY))
