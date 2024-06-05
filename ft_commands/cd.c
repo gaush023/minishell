@@ -53,7 +53,7 @@ char	*make_home_path(char **args, t_env *env)
 	return (path);
 }
 
-int	*make_hyphen_path(t_env *env, char *path)
+int	make_hyphen_path(t_env *env, char *path)
 {
 	int	ret;
 
@@ -86,7 +86,7 @@ int	ft_cd(char **args, t_env *env)
 	if (ft_strcmp(path, "-") == 0)
 		cd_ret = go_to_path(1, env);
 	else
-		cd_ret = make_home_path(env, path);
+		cd_ret = make_hyphen_path(env, path);
 	ft_free(path);
 	return (cd_ret);
 }
