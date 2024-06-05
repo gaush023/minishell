@@ -84,19 +84,18 @@ t_token	*prev_sep(t_token *token, int skip);
 bool	ft_equals(const char *s1, const char *s2);
 
 //main_helper
-void here_doc(t_mini *mini, t_token *token);
+void	here_doc(t_mini *mini, t_token *token);
 void	input(t_mini *mini, t_token *token);
 void	redir(t_mini *mini, t_token *token, int type);
 int		minipipe(t_mini *mini);
 void	minishell(t_mini *mini);
 
-
 // ft_commands
-int	ft_echo(char **args);
-int	ft_cd(char **args, t_env *env);
-int	unset(char **tokens, t_env *env);
-int	env(char **tokens, t_env *env);
-int	export(char **tokens, t_env *env);
-int	pwd(char **tokens);
+int		ft_echo(char **args);
+int		ft_cd(char **args, t_env *env);
+int		unset(char **tokens, t_env *env);
+int		env(char **tokens, t_env *env);
+int		export(char **tokens, t_env *env);
+int		pwd(char **tokens);
 
 #endif
