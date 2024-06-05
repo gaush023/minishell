@@ -57,7 +57,7 @@ clean:
 	$(MAKE) clean -C $(ENV_DIR)
 	$(MAKE) clean -C $(FINISH_DIR)
 	$(MAKE) clean -C $(FT_CMD_DIR)
-	$(MAKE) clean -C $(MAIN_HELPER_DIR)
+	# $(MAKE) clean -C $(MAIN_HELPER_DIR)
 	$(MAKE) clean -C $(EXC_DIR)
 	rm -f $(OBJS)
 
@@ -69,8 +69,7 @@ fclean: clean
 	$(MAKE) fclean -C $(FINISH_DIR)
 	$(MAKE) fclean -C $(FT_CMD_DIR)
 	$(MAKE) fclean -C $(EXC_DIR)
-	$(MAKE) fclean -C $(MAIN_HELPER_DIR)
+	# $(MAKE) fclean -C $(MAIN_HELPER_DIR)
 	rm -f $(NAME)
 
 re: fclean all
-
