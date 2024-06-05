@@ -1,15 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shlvl.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/05 18:07:12 by etakaham          #+#    #+#             */
+/*   Updated: 2024/06/05 18:07:12 by etakaham         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-/*
-** Function: get_shlvl_plus
-** -------------------
-** shlvlの値を取得し、1を足す
-*/
 int	get_shlvl_plus(t_env *env)
 {
 	int		shell_lvl;
 	char	*tmp;
-	char  *str_shelvl;
+	char	*str_shelvl;
 
 	while (env && env->next)
 	{
@@ -27,26 +34,3 @@ int	get_shlvl_plus(t_env *env)
 	}
 	return (0);
 }
-
-// void print_env(t_env *env)
-//{
-//	while(env)
-//{
-// printf("%s\n", env->value);
-// env = env->next;
-//}
-//}
-//
-//
-// int main(int argc, char **argv, char **ev)
-//{
-// t_mini *mini;
-//
-//(void)argc;
-//(void)argv;
-// env_init(mini, ev);
-// get_shlvl_plus(mini->env);
-// print_env(mini->env);
-// return(0);
-//}
-//
