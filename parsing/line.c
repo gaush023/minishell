@@ -51,7 +51,7 @@ char	*transform_line(char *line)
 	i = 0;
 	j = 0;
 	new = allo_new(line);
-	while (new &&line[i])
+	while (new && line[i])
 	{
 		if (quotes(line, i) != 2 && line[i] == '$' && i && line[i - 1] != '\\')
 			new[j++] = (char)(-line[i++]);
@@ -92,7 +92,7 @@ void	parse(t_mini *mini)
 	signal(SIGINT, &sig_int);
 	signal(SIGQUIT, &sig_quit);
 	line = readline(M_PROMPT);
-	if ((line == NULL) && (mini->flag = 1))
+	if ((line == NULL) && (mini->flag == 1))
 		return ;
 	if (line != NULL)
 		add_history(line);

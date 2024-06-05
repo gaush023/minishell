@@ -56,7 +56,7 @@ int	*make_in_sq_flag(char *line)
 				if (line[i] == '\'' && line[i - 1] != '\\')
 					break ;
 				str_flag[i] = 0;
-				i++; 
+				i++;
 			}
 		}
 		if (line[i] == '\"')
@@ -66,10 +66,10 @@ int	*make_in_sq_flag(char *line)
 			i++;
 			while (1)
 			{
-				if (line[i] == '\"' && line[i- 1] != '\\')
+				if (line[i] == '\"' && line[i - 1] != '\\')
 					break ;
 				str_flag[i] = 0;
-				i++; 
+				i++;
 			}
 		}
 		if (line[i] == ' ')
@@ -93,14 +93,14 @@ static t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int 
 	token = ft_calloc(1, sizeof(t_token));
 	token->prev = prev_token;
 	if (quote_flag[pos] == -2)
-	{  
+	{
 		i = pos;
 		if (quote_flag[pos + 1] && quote_flag[pos + 1] == -2)
 			token->qute_flag = 1;
 		else
 			token->qute_flag = 0;
 	}
-	else 
+	else
 		token->qute_flag = 0;
 	token->content = ft_strdup(str);
 	token->next = NULL;
@@ -118,9 +118,9 @@ t_token	*get_tokens(char *line)
 	int				flag;
 
 	i = 0;
-	while(line[i] == ' ' && line[i] != '\0')
+	while (line[i] == ' ' && line[i] != '\0')
 		i++;
-	if((line[i] == '\\' || line[i] == ';' || line[i] == ':') && line[i + 1] == '\0')
+	if ((line[i] == '\\' || line[i] == ';' || line[i] == ':') && line[i + 1] == '\0')
 		return (NULL);
 	while (line[i] == ' ')
 		i++;
@@ -154,6 +154,6 @@ t_token	*get_tokens(char *line)
 		token = token->prev;
 	}
 	set_type(token);
-	token =  confirm_tokens(token);
+	token = confirm_tokens(token);
 	return (token);
 }

@@ -71,8 +71,7 @@ char	*copy_env_value(char *env)
 	char	*env_value;
 
 	size_alloc = env_value_len(env) + 1;
-	if (!(env_value = (char *)malloc(sizeof(char) * size_alloc)))
-		return (NULL);
+	env_value = malloc(sizeof(char) * size_alloc);
 	i = 0;
 	while (env[i] && env[i] != '=')
 		i++;
