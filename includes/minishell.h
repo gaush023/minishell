@@ -92,11 +92,11 @@ void	minishell(t_mini *mini);
 
 
 // ft_commands
-int		ft_echo(char **args);
-int		ft_cd(char **args, t_env *env);
-void	unset(char **tokens, t_env *env);
-void	env(char **tokens, t_env *env);
-void	export(char **tokens, t_env *env);
-void	pwd(char **tokens);
+int	ft_echo(char **args);
+int	ft_cd(char **args, t_env *env);
+int	unset(char **tokens, t_env *env);
+int	env(char **tokens, t_env *env);
+int	export(char **tokens, t_env *env);
+int	pwd(char **tokens);
 
 #endif
