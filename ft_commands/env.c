@@ -12,7 +12,7 @@
 
 # include "../../includes/minishell.h"
 
-void	env(char **tokens, t_env *env)
+int	env(char **tokens, t_env *env)
 {
 	(void)tokens;
 	while (env != NULL)
@@ -20,4 +20,5 @@ void	env(char **tokens, t_env *env)
 		ft_putendl_fd(env->value, 1);
 		env = env->next;
 	}
+	return (0);
 }

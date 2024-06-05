@@ -31,7 +31,7 @@ bool	ft_env_equals(char *value, char *token)
 	return (true);
 }
 
-void	unset(char **tokens, t_env *env)
+int	unset(char **tokens, t_env *env)
 {
 	if (tokens[1] == NULL)
 	{
@@ -40,16 +40,16 @@ void	unset(char **tokens, t_env *env)
 	if (ft_env_equals(env->value, tokens[1]))
 	{
 		env = env->next;
-		return ;
+		return (1);
 	}
 	while (env->next->next != NULL)
 	{
 		if (ft_env_equals(env->next->value, tokens[1]))
 		{
 			env->next = env->next->next;
-			return ;
+			return (1);
 		}
 		env = env->next;
 	}
-
+	return (0);
 }

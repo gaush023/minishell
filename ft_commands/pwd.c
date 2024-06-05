@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	pwd(char **tokens)
+int	pwd(char **tokens)
 {
 	char	*work_dir;
 
@@ -24,4 +24,5 @@ void	pwd(char **tokens)
 	getcwd(work_dir, BUF_SIZE);
 	ft_putendl_fd(work_dir, 1);
 	free(work_dir);
+	return (0);
 }

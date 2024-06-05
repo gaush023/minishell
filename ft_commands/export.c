@@ -39,15 +39,15 @@ bool	is_env_format(char *str)
 	return (false);
 }
 
-void	export(char **tokens, t_env *env)
+int	export(char **tokens, t_env *env)
 {
 	t_env	*new_env;
 	t_env	*tmp;
 
 	if (!ft_equals(tokens[0], "export") || tokens[1] == NULL)
-		return ;
+		return (1);
 	if (!is_env_format(tokens[1]))
-		return ;
+		return (1);
 	new_env = ft_calloc(1, sizeof(t_env));
 	new_env->value = ft_calloc(ft_strlen(tokens[1]), sizeof(char));
 	ft_memcpy(new_env->value, tokens[1], ft_strlen(tokens[1]));
@@ -57,4 +57,5 @@ void	export(char **tokens, t_env *env)
 	tmp = create_node(env->next->value);
 	new_env->next = tmp;
 	env->next = new_env;
+	return (0);
 }
