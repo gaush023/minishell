@@ -30,6 +30,9 @@ extern int	g_sig;
 # define SIGNAL_INT 130
 # define SIGNAL_QUIT 131
 
+// string
+# define SYNTAX_ERR " minishell: syntax error near unexpected token `"
+
 // token type
 # define EMPTY 0
 # define CMD 1
