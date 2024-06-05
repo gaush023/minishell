@@ -31,13 +31,13 @@ bool	is_builtin(char *cmd)
 
 int	exec_builtin(char **arg, t_mini *mini)
 {
-	int ret;
+	int	ret;
 
 	ret = 0;
 	if (ft_strcmp(arg[0], "echo") == 0)
 		ret = ft_echo(arg);
 	else if (ft_strcmp(arg[0], "cd") == 0)
-    ret =	ft_cd(arg, mini->env);
+	ret = ft_cd(arg, mini->env);
 	else if (ft_strcmp(arg[0], "pwd") == 0)
 		pwd(arg);
 	else if (ft_strcmp(arg[0], "export") == 0)

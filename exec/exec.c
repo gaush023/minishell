@@ -12,48 +12,11 @@
 
 #include "../includes/minishell.h"
 
-int	count_tab(t_token *start)
+char	**cmd_tab(t_token *start);
+
+int	ft_strisnum(char *str)
 {
-	t_token	*token;
-	int		i;
-
-	token = start->next;
-	i = 2;
-	while (token && token->type < TRUNC)
-	{
-		token = token->next;
-		i++;
-	}
-	return (i);
-}
-
-char	**cmd_tab(t_token *start)
-{
-	t_token	*token;
-	char	**tab;
-	int		i;
-
-	if (!start)
-		return (NULL);
-	i = count_tab(start);
-	tab = (char **)malloc(sizeof(char *) * i);
-	if (!tab)
-		return (NULL);
-	token = start->next;
-	tab[0] = start->content;
-	i = 1;
-	while (token && token->type < TRUNC)
-	{
-		tab[i++] = token->content;
-		token = token->next;
-	}
-	tab[i] = NULL;
-	return (tab);
-}
-
-int ft_strisnum(char *str)
-{
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
@@ -93,9 +56,9 @@ void	mini_exit(t_mini *mini, char **cmd)
 		mini->ret = 0;
 }
 
-int has_pipe(t_token *token)
+int	has_pipe(t_token *token)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = token;
 	while (tmp)
@@ -112,7 +75,7 @@ void	exec_cmd(t_mini *mini, t_token *token)
 	char	**cmd;
 	int		i;
 
-	if (mini->charge == 0 )
+	if (mini->charge == 0)
 		return ;
 	cmd = cmd_tab(token);
 	i = 0;
@@ -134,4 +97,3 @@ void	exec_cmd(t_mini *mini, t_token *token)
 	mini->pipeout = -1;
 	mini->charge = 0;
 }
-

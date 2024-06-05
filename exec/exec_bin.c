@@ -12,6 +12,15 @@
 
 #include "../includes/minishell.h"
 
+static int	calc_ret(int ret)
+{
+	if (ret == 32256 || ret == 32512)
+		ret = ret / 256;
+	else
+		ret = !!ret;
+	return (ret);
+}
+
 int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 {
 	char	**env_array;
@@ -26,9 +35,7 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 		g_sig = SIGNAL_NORMAL;
 		env_array = env_to_array(env);
 		if (ft_strchr(path, '/') != NULL)
-		{
 			execve(path, args, env_array);
-		}
 		ret = error_msg(path);
 		free_tab(env_array);
 		free_token(mini->start, mini->flag);
@@ -38,11 +45,7 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 		waitpid(pid, &ret, 0);
 	if (g_sig != SIGNAL_OFF)
 		return (g_sig);
-	if (ret == 32256 || ret == 32512)
-		ret = ret / 256;
-	else
-		ret = !!ret;
-	return (ret);
+	return (calc_ret(ret));
 }
 
 char	*path_join(const char *s1, char *s2)
