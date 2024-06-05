@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
-# include <stdbool.h>
+#include "../../includes/minishell.h"
+#include <stdbool.h>
 
 bool	ft_env_equals(char *value, char *token)
 {
