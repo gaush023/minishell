@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   confirm_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/05 20:17:20 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/06 17:57:44 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_token	*confirm_tokens(t_token *token)
+t_token	*confrim_tokens_prepareation(t_token *token)
 {
 	t_token	*tmp;
-	t_token	*tmp2;
 	char	*tmp_str;
 
 	while (token->next != NULL)
@@ -34,33 +33,53 @@ t_token	*confirm_tokens(t_token *token)
 	}
 	while (token->prev != NULL)
 		token = token->prev;
+	return (token);
+}
+
+t_token	*add_infront_cat(t_token *token)
+{
+	t_token	*tmp;
+
+	tmp = ft_calloc(1, sizeof(t_token));
+	tmp->content = ft_strdup("cat");
+	tmp->type = CMD;
+	tmp->next = token;
+	tmp->prev = NULL;
+	token->prev = tmp;
+	token = token->prev;
+	return (token);
+}
+
+t_token	*changes_orders_heredoc(t_token *token)
+{
+	t_token	*tmp;
+	t_token	*tmp2;
+
+	tmp = NULL;
+	tmp = token->next->next;
+	tmp->type = CMD;
+	tmp->prev = NULL;
+	tmp2 = token->next->next->next;
+	token->next->next = tmp2;
+	token->prev = tmp;
+	tmp->next = token;
+	tmp->prev = NULL;
+	token = token->prev;
+	return (token);
+}
+
+t_token	*confirm_tokens(t_token *token)
+{
+	t_token	*tmp;
+	t_token	*tmp2;
+
+	token = confrim_tokens_prepareation(token);
 	if (token->type == HERE_DOC && token->qute_flag == 0)
 	{
 		if (!token->next->next || token->next->next->type != ARG)
-		{
-			tmp = ft_calloc(1, sizeof(t_token));
-			tmp->content = ft_strdup("cat");
-			tmp->type = CMD;
-			tmp->next = token;
-			tmp->prev = NULL;
-			token->prev = tmp;
-			token = token->prev;
-			return (token);
-		}
+			return (add_infront_cat(token));
 		else if (token->next->next->type == ARG)
-		{
-			tmp = NULL;
-			tmp = token->next->next;
-			tmp->type = CMD;
-			tmp->prev = NULL;
-			tmp2 = token->next->next->next;
-			token->next->next = tmp2;
-			token->prev = tmp;
-			tmp->next = token;
-			tmp->prev = NULL;
-			token = token->prev;
-			return (token);
-		}
+			return (changes_orders_heredoc(token));
 	}
 	else if (token->type == HERE_DOC && token->qute_flag == 1)
 	{

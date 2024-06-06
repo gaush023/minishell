@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expasions.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:24 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/05 20:17:24 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/06 20:09:36 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,8 @@ char	*expasions(char *arg, t_env *env, int ret)
 			else
 				insert_var(&ex, arg, env, ret);
 		}
-		ex.str[ex.i] = arg[ex.j];
-		ex.i++;
-		ex.j++;
+		ex.str[ex.i++] = arg[ex.j++];
 	}
 	ex.str[ex.i] = '\0';
-	if (ft_strcmp(ex.str, "-4") == 0)
-	{
-		ft_free(ex.str);
-		ex.str = ft_strdup("130");
-	}
-	printf("expasion: %s\n", ex.str);
 	return (ex.str);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_helper.c                                     :+:      :+:    :+:   */
+/*   get_tokens_helper.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 20:17:36 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/06 20:12:30 by sagemura         ###   ########.fr       */
+/*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
+/*   Updated: 2024/06/06 20:30:05 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,61 @@ static void	set_type(t_token *token)
 		token->type = ARG;
 }
 
-t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos)
+char	*chek_prepareation(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] == ' ')
+		i++;
+	if (line[i] == '\0')
+		return (NULL);
+	return (line);
+}
+
+t_token	*get_tokens_finish(t_token *token)
+{
+	while (token->prev != NULL)
+	{
+		set_type(token);
+		token->prev->next = token;
+		token = token->prev;
+	}
+	set_type(token);
+	token = confirm_tokens(token);
+	return (token);
+}
+
+char	*cutout_str(char *line, unsigned int i, unsigned int k)
+{
+	char	*tmp_str;
+
+	tmp_str = ft_calloc(i - k + 1, sizeof(char));
+	ft_memcpy(tmp_str, &line[k], i - k);
+	return (tmp_str);
+}
+
+t_token	*get_token_loops(char *line, int *str_flag)
 {
 	t_token	*token;
-	t_token	*tmp;
+	t_token	*tmp_token;
 	int		i;
+	int		k;
 
-	token = ft_calloc(1, sizeof(t_token));
-	token->prev = prev_token;
-	if (quote_flag[pos] == -2)
+	i = 0;
+	tmp_token = NULL;
+	while (line[i])
 	{
-		i = pos;
-		if (quote_flag[pos + 1] && quote_flag[pos + 1] == -2)
-			token->qute_flag = 1;
-		else
-			token->qute_flag = 0;
+		while (str_flag[i] == -1 || str_flag[i] == -2)
+			i++;
+		if (str_flag[i] == 0)
+		{
+			k = i;
+			while (str_flag[i] == 0)
+				i++;
+			token = make_token(cutout_str(line, i, k), tmp_token, str_flag, i);
+			tmp_token = token;
+		}
 	}
-	else
-		token->qute_flag = 0;
-	token->content = ft_strdup(str);
-	token->next = NULL;
-	ft_free(str);
 	return (token);
 }

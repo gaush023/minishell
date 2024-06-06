@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 19:49:32 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/04 16:25:01 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:30:53 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static t_token	*stop_heredoc(t_token *token, char *line, t_mini *mini)
 {
 	t_token	*tmp;
 
-	printf("g_sig: %d\n", g_sig);
 	(void)mini;
 	line = transform_line(line);
 	tmp = get_tokens(line);

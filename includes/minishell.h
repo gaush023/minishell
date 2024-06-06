@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/03 17:39:18 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/06 20:27:17 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,12 @@ char	*copy_env_name(char *dst, char *src);
 int		is_env_char(char c);
 int		ret_size(int ret);
 t_token	*confirm_tokens(t_token *token);
+t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos);
+int		*make_in_sq_flag(char *line);
+char	*chek_prepareation(char *line);
+t_token	*get_tokens_finish(t_token *token);
+char	*cutout_str(char *line, unsigned int i, unsigned int k);
+t_token	*get_token_loops(char *line, int *str_flag);
 
 // helper_func
 void	reset_fds(t_mini *mini);
@@ -83,7 +89,7 @@ t_token	*next_sep(t_token *token, int skip);
 t_token	*prev_sep(t_token *token, int skip);
 bool	ft_equals(const char *s1, const char *s2);
 
-//main_helper
+// main_helper
 void	here_doc(t_mini *mini, t_token *token);
 void	input(t_mini *mini, t_token *token);
 void	redir(t_mini *mini, t_token *token, int type);

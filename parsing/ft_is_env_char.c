@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokens.c                                           :+:      :+:    :+:   */
+/*   ft_is_env_char.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/06 20:28:00 by sagemura         ###   ########.fr       */
+/*   Created: 2024/06/05 20:17:27 by etakaham          #+#    #+#             */
+/*   Updated: 2024/06/06 16:36:07 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_token	*get_tokens(char *line)
+int	is_env_char(char c)
 {
-	t_token	*token;
-	int		*str_flag;
-
-	if (chek_prepareation(line) == NULL)
-		return (NULL);
-	str_flag = make_in_sq_flag(line);
-	token = get_token_loops(line, str_flag);
-	ft_free(str_flag);
-	token = get_tokens_finish(token);
-	return (token);
+	if (ft_isalnum(c) == 1 || c == '_')
+		return (1);
+	return (0);
 }
