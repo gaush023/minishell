@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/07 18:18:02 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:44:09 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ bool	is_builtin(char *cmd);
 int		exec_builtin(char **arg, t_mini *mini);
 
 // parsing
-t_token	*get_tokens(char *line);
-char	*transform_line(char *line);
+t_token	*get_tokens(char *line, t_mini *mini);
+char	*transform_line(char *line, t_mini *mini);
 t_token	*prev_sep(t_token *token, int skip);
 void	squish_content(t_mini *mini);
 void	parse(t_mini *mini);
@@ -67,12 +67,11 @@ char	*copy_env_name(char *dst, char *src);
 int		is_env_char(char c);
 int		ret_size(int ret);
 t_token	*confirm_tokens(t_token *token);
-t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos);
-int		*make_in_sq_flag(char *line);
+t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos, t_mini *mini);
+int		*make_in_sq_flag(char *line, t_mini *mini);
 char	*chek_prepareation(char *line);
 t_token	*get_tokens_finish(t_token *token);
-char	*cutout_str(char *line, unsigned int i, unsigned int k);
-t_token	*get_token_loops(char *line, int *str_flag);
+t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini);
 
 // helper_func
 void	reset_fds(t_mini *mini);
@@ -87,6 +86,7 @@ int		check_line(t_mini *mini, t_token *token);
 t_token	*next_sep(t_token *token, int skip);
 t_token	*prev_sep(t_token *token, int skip);
 bool	ft_equals(const char *s1, const char *s2);
+char	*my_readline(const char *prompt, t_node *node);
 
 // main_helper
 void	here_doc(t_mini *mini, t_token *token);

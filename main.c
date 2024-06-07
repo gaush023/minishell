@@ -6,7 +6,7 @@
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:18:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/07 18:17:00 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:54:43 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	mini_init(t_mini *mini)
 	mini->no_exec = 0;
 }
 
-int	main(int ac, char **av, char **ev)
+int	__main(int ac, char **av, char **ev)
 {
 	t_mini	mini;
 
@@ -48,4 +48,30 @@ int	main(int ac, char **av, char **ev)
 	}
 	malloc_end(mini.m_node);
 	return (mini.ret);
+}
+
+int	main(int ac, char **av, char **ev)
+{
+	t_mini	mini;
+
+	mini_init(&mini);
+	mini.m_node = malloc(sizeof(t_node));
+	malloc_startup(mini.m_node);
+	env_init(&mini, ev);
+	secret_env_init(&mini, ev);
+	get_shlvl_plus(&mini);
+	while (mini.flag == 0)
+	{
+		ini_sig();
+		parse(&mini);
+		if (mini.start != NULL && check_line(&mini, mini.start))
+			minishell(&mini);
+		free_token(mini.start, mini.flag);
+	}
+	malloc_end(mini.m_node);
+	return (mini.ret);
+	(void)__main;
+	(void)ac;
+	(void)av;
+	(void)ev;
 }

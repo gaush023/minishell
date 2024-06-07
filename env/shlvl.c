@@ -6,7 +6,7 @@
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:07:12 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/07 18:23:17 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:04:21 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	get_shlvl_plus(t_mini *mini)
 		{
 			tmp = ft_strchr(env->value, '=') + 1;
 			shell_lvl = ft_atoi(tmp) + 1;
-			str_shelvl = ft_itoa(shell_lvl);
-			free(env->value);
-			env->value = ft_strjoin("SHLVL=", str_shelvl);
-			free(str_shelvl);
+			str_shelvl = my_itoa(shell_lvl, mini->m_node);
+			my_free(env->value, mini->m_node);
+			env->value = my_strjoin("SHLVL=", str_shelvl, mini->m_node);
+			my_free(str_shelvl, mini->m_node);
 			return (0);
 		}
 		env = env->next;

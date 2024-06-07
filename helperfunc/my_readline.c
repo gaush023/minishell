@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokens.c                                           :+:      :+:    :+:   */
+/*   my_readline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/07 19:48:12 by etakaham         ###   ########.fr       */
+/*   Created: 2024/06/07 19:06:41 by etakaham          #+#    #+#             */
+/*   Updated: 2024/06/07 19:15:43 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_token	*get_tokens(char *line, t_mini *mini)
+char	*my_readline(const char *prompt, t_node *node)
 {
-	t_token	*token;
-	int		*str_flag;
+	char	*str;
+	char	*str_cpy;
 
-	if (chek_prepareation(line) == NULL)
+	str = readline(prompt);
+	if (!str)
 		return (NULL);
-	str_flag = make_in_sq_flag(line, mini);
-	token = get_token_loops(line, str_flag, mini);
-	my_free(str_flag, mini->m_node);
-	token = get_tokens_finish(token);
-	return (token);
+	str_cpy = my_strdup(str, node);
+	free(str);
+	return (str_cpy);
 }

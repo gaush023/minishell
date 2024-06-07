@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:36 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/06 20:12:30 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:42:37 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ static void	set_type(t_token *token)
 		token->type = ARG;
 }
 
-t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos)
+t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos, t_mini *mini)
 {
 	t_token	*token;
 	t_token	*tmp;
 	int		i;
 
-	token = malloc(sizeof(t_token));
+	token = my_calloc(1, sizeof(t_token), mini->m_node);
 	token->prev = prev_token;
 	if (quote_flag[pos] == -2)
 	{
@@ -52,8 +52,8 @@ t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos)
 	}
 	else
 		token->qute_flag = 0;
-	token->content = ft_strdup(str);
+	token->content = my_strdup(str, mini->m_node);
 	token->next = NULL;
-	free(str);
+	my_free(str, mini->m_node);
 	return (token);
 }
