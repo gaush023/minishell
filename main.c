@@ -6,7 +6,7 @@
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:18:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/07 16:24:18 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:17:00 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int ac, char **av, char **ev)
 	malloc_startup(mini.m_node);
 	env_init(&mini, ev);
 	secret_env_init(&mini, ev);
-	get_shlvl_plus(mini.env);
+	get_shlvl_plus(&mini);
 	while (mini.flag == 0)
 	{
 		ini_sig();

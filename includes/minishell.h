@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/06 20:27:17 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:18:02 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_panic(t_mini *mini, char *str, enum e_err err_type);
 // env
 int		env_init(t_mini *mini, char **env_ar);
 int		secret_env_init(t_mini *mini, char **env_ar);
-int		get_shlvl_plus(t_env *env);
+int		get_shlvl_plus(t_mini *mini);
 
 // exec
 void	exec_cmd(t_mini *mini, t_token *token);
