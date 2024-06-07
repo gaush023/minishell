@@ -40,7 +40,7 @@ t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos)
 	t_token	*tmp;
 	int		i;
 
-	token = ft_calloc(1, sizeof(t_token));
+	token = malloc(sizeof(t_token));
 	token->prev = prev_token;
 	if (quote_flag[pos] == -2)
 	{
@@ -54,6 +54,6 @@ t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos)
 		token->qute_flag = 0;
 	token->content = ft_strdup(str);
 	token->next = NULL;
-	ft_free(str);
+	free(str);
 	return (token);
 }

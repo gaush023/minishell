@@ -25,9 +25,9 @@ int	get_shlvl_plus(t_env *env)
 			tmp = ft_strchr(env->value, '=') + 1;
 			shell_lvl = ft_atoi(tmp) + 1;
 			str_shelvl = ft_itoa(shell_lvl);
-			ft_free(env->value);
+			free(env->value);
 			env->value = ft_strjoin("SHLVL=", str_shelvl);
-			ft_free(str_shelvl);
+			free(str_shelvl);
 			return (0);
 		}
 		env = env->next;

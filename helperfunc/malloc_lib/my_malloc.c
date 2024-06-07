@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   my_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 19:47:38 by etakaham          #+#    #+#             */
-/*   Updated: 2024/05/26 19:47:38 by etakaham         ###   ########.fr       */
+/*   Created: 2024/05/26 19:47:45 by etakaham          #+#    #+#             */
+/*   Updated: 2024/06/07 16:00:01 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc_lib.h"
+#include <stdlib.h>
 
-int	ft_free(void *ptr, t_node *node)
+void	*my_malloc(size_t size, t_node *node)
 {
+	t_node	*new_node;
+	void	*ptr;
+
+	if (size == 0)
+		return (NULL);
+	ptr = malloc(size);
 	if (ptr == NULL)
-		return (1);
-	while (node)
-	{
-		if (node->ptr == ptr)
-		{
-			if (node->is_free == true)
-				return (1);
-			node->is_free = true;
-			break ;
-		}
+		return (NULL);
+	new_node = malloc(sizeof(t_node));
+	new_node->ptr = ptr;
+	new_node->is_free = false;
+	new_node->next = NULL;
+	new_node->size = size;
+	while (node->next)
 		node = node->next;
-	}
-	if (node == NULL)
-		return (1);
-	free(ptr);
-	ptr = NULL;
-	return (0);
+	node->next = new_node;
+	return (ptr);
 }

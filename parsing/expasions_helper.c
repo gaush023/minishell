@@ -23,7 +23,7 @@ char	*get_env_value(char *var_name, t_env *env)
 		copy_env_name(env_name, env->value);
 		if (ft_strcmp(env_name, var_name) == 0)
 		{
-			ft_free(env_value);
+			free(env_value);
 			env_value = copy_env_value(env->value);
 			return (env_value);
 		}

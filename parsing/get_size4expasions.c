@@ -58,6 +58,6 @@ int	get_var_len(const char *arg, int pos, t_env *env, int ret)
 	var_name[i] = '\0';
 	var_value = get_env_value(var_name, env);
 	i = ft_strlen(var_value);
-	ft_free(var_value);
+	free(var_value);
 	return (i);
 }

@@ -29,7 +29,7 @@ void	insert_var(t_expasion *ex, char *arg, t_env *env, int ret)
 	env_value = get_var_value(arg, ex->j, env, ret);
 	if (env_value)
 		ex->i += var_cpy(ex->str, env_value, ex->i);
-	ft_free(env_value);
+	free(env_value);
 	if (arg[ex->j] == '?')
 		ex->j++;
 	if (ft_isdigit(arg[ex->j]) == 0 && arg[ex->j - 1] != '?')

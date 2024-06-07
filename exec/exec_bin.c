@@ -55,7 +55,7 @@ char	*path_join(const char *s1, char *s2)
 
 	tmp = ft_strjoin(s1, "/");
 	path = ft_strjoin(tmp, s2);
-	ft_free(tmp);
+	free(tmp);
 	return (path);
 }
 
@@ -105,6 +105,6 @@ int	exec_bin(char **args, t_env *env, t_mini *mini)
 	else
 		ret = magic_box(args[0], args, env, mini);
 	free_tab(bin);
-	ft_free(path);
+	free(path);
 	return (ret);
 }

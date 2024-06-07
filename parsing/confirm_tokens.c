@@ -23,7 +23,7 @@ t_token	*confrim_tokens_prepareation(t_token *token)
 		{
 			tmp_str = ft_strjoin(token->content, token->next->content);
 			token->content = ft_strdup(tmp_str);
-			ft_free(tmp_str);
+			free(tmp_str);
 			token->qute_flag = token->next->qute_flag;
 			tmp = token->next;
 			token->next = tmp->next;
@@ -40,7 +40,7 @@ t_token	*add_infront_cat(t_token *token)
 {
 	t_token	*tmp;
 
-	tmp = ft_calloc(1, sizeof(t_token));
+	tmp = malloc(sizeof(t_token));
 	tmp->content = ft_strdup("cat");
 	tmp->type = CMD;
 	tmp->next = token;

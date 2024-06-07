@@ -59,7 +59,7 @@ int	*make_in_sq_flag(char *line)
 
 	i = 0;
 	flag = 0;
-	str_flag = ft_calloc(ft_strlen(line), sizeof(int));
+	str_flag = malloc(ft_strlen(line) * sizeof(int));
 	str_flag[ft_strlen(line)] = -3;
 	while (line[i])
 	{

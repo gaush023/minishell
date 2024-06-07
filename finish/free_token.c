@@ -18,14 +18,14 @@ void	free_token(t_token *start, int flag)
 		return ;
 	while (start && start->next)
 	{
-		ft_free(start->content);
+		free(start->content);
 		start = start->next;
-		ft_free(start->prev);
+		free(start->prev);
 	}
 	if (start && (flag != 1 || ft_strcmp(start->content,
 				"exit") == 0))
 	{
-		ft_free(start->content);
-		ft_free(start);
+		free(start->content);
+		free(start);
 	}
 }

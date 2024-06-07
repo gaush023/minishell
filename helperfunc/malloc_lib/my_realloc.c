@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   my_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:48:14 by etakaham          #+#    #+#             */
-/*   Updated: 2024/05/26 19:48:14 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:00:03 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,21 @@ static void	*element_cpy(void *dest, const void *src, t_node *node)
 	return (dest);
 }
 
-void	*ft_realloc(void *ptr, size_t size, t_node *node)
+void	*my_realloc(void *ptr, size_t size, t_node *node)
 {
 	void	*new_ptr;
 
 	if (ptr == NULL)
-		return (ft_calloc(size, 1, node));
+		return (my_calloc(size, 1, node));
 	if (size == 0)
 	{
-		ft_free(ptr, node);
+		my_free(ptr, node);
 		return (NULL);
 	}
-	new_ptr = ft_calloc(size, 1, node);
+	new_ptr = my_calloc(size, 1, node);
 	if (new_ptr == NULL)
 		return (NULL);
 	element_cpy(new_ptr, ptr, node);
-	ft_free(ptr, node);
+	my_free(ptr, node);
 	return (new_ptr);
 }

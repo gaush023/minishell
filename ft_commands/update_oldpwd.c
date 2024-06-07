@@ -37,7 +37,7 @@ static bool	is_in_env(t_env *env, char *args)
 		get_env_name(env_var, env->value);
 		if (ft_strcmp(env_var, var_name) == 0)
 		{
-			ft_free(env->value);
+			free(env->value);
 			env->value = ft_strdup(args);
 			return (ERR);
 		}
@@ -80,6 +80,6 @@ int	update_oldpwd(t_env *env)
 	{
 		env_add(oldpwd, env);
 	}
-	ft_free(oldpwd);
+	free(oldpwd);
 	return (SUCCESS);
 }

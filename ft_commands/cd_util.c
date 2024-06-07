@@ -37,7 +37,7 @@ int	go_to_path(int opt, t_env *env)
 		return (ERR);
 	}
 	ret = chdir(env_path);
-	ft_free(env_path);
+	free(env_path);
 	if (ret == -1)
 		return (ERR);
 	return (SUCCESS);

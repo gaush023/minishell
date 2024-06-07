@@ -6,7 +6,7 @@
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:22:49 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/05 18:22:49 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:02:03 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ char	*make_home_path(char **args, t_env *env)
 	else
 		path = ft_strdup(home_path);
 	temp = ft_strjoin(path, args[1] + 1);
-	ft_free(path);
+	free(path);
 	path = temp;
-	ft_free(home_path);
+	free(home_path);
 	return (path);
 }
 
@@ -87,6 +87,6 @@ int	ft_cd(char **args, t_env *env)
 		cd_ret = go_to_path(1, env);
 	else
 		cd_ret = make_hyphen_path(env, path);
-	ft_free(path);
+	free(path);
 	return (cd_ret);
 }

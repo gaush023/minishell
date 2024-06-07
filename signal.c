@@ -44,7 +44,7 @@ void	sig_quit(int code)
 	}
 	else
 		ft_putstr_fd("\b\b \b\b", STDERR);
-	ft_free(nbr);
+	free(nbr);
 }
 
 void	ini_sig(void)

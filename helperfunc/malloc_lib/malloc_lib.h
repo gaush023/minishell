@@ -24,11 +24,11 @@ typedef struct s_node
 	struct s_node	*next;
 }			t_node;
 
-void	*ft_malloc(size_t size, t_node *node);
-void	*ft_calloc(size_t count, size_t size, t_node *node);
-void	*ft_realloc(void *ptr, size_t size, t_node *node);
+void	*my_malloc(size_t size, t_node *node);
+void	*my_calloc(size_t count, size_t size, t_node *node);
+void	*my_realloc(void *ptr, size_t size, t_node *node);
 int		malloc_startup(t_node *head);
-int		ft_free(void *ptr, t_node *node);
+int		my_free(void *ptr, t_node *node);
 int		malloc_end(t_node *node);
-void	ft_exit(int status, t_node *node);
+void	my_exit(int status, t_node *node);
 #endif

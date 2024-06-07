@@ -76,7 +76,6 @@ t_token	*get_token_loops(char *line, int *str_flag);
 
 // helper_func
 void	reset_fds(t_mini *mini);
-void	*ft_free(void *ptr);
 void	close_fds(t_mini *mini);
 void	ft_close(int fd);
 void	reset_std(t_mini *mini);

@@ -63,7 +63,7 @@ char	*cutout_str(char *line, unsigned int i, unsigned int k)
 {
 	char	*tmp_str;
 
-	tmp_str = ft_calloc(i - k + 1, sizeof(char));
+	tmp_str = malloc(i - k + 1 * sizeof(char));
 	ft_memcpy(tmp_str, &line[k], i - k);
 	return (tmp_str);
 }

@@ -20,8 +20,8 @@ static void	free_env(t_env **env)
 	{
 		tmp = *env;
 		*env = (*env)->next;
-		ft_free(tmp->value);
-		ft_free(tmp);
+		free(tmp->value);
+		free(tmp);
 	}
 }
 

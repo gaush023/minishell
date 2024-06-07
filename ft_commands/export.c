@@ -17,7 +17,7 @@ t_env	*create_node(char *val)
 {
 	t_env	*new_node;
 
-	new_node = ft_calloc(1, sizeof(t_env));
+	new_node = malloc(sizeof(t_env));
 	if (new_node == NULL)
 		return (NULL);
 	new_node->value = ft_strdup(val);
@@ -48,8 +48,8 @@ int	export(char **tokens, t_env *env)
 		return (1);
 	if (!is_env_format(tokens[1]))
 		return (1);
-	new_env = ft_calloc(1, sizeof(t_env));
-	new_env->value = ft_calloc(ft_strlen(tokens[1]), sizeof(char));
+	new_env = malloc(sizeof(t_env));
+	new_env->value = malloc(ft_strlen(tokens[1]) * sizeof(char));
 	ft_memcpy(new_env->value, tokens[1], ft_strlen(tokens[1]));
 	while (env->next->next != NULL)
 		env = env->next;

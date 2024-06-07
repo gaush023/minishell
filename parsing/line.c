@@ -67,7 +67,7 @@ char	*transform_line(char *line)
 			new[j++] = line[i++];
 	}
 	new[j] = '\0';
-	ft_free(line);
+	free(line);
 	return (new);
 }
 
@@ -76,7 +76,7 @@ int	quote_check(t_mini *mini, char *line)
 	if (quotes(line, INT_MAX) != 0)
 	{
 		ft_putstr_fd("quote error\n", STDERR);
-		ft_free(line);
+		free(line);
 		mini->ret = 2;
 		mini->start = NULL;
 		return (1);
@@ -106,6 +106,6 @@ void	parse(t_mini *mini)
 	token = NULL;
 	token = get_tokens(line);
 	mini->start = token;
-	ft_free(line);
+	free(line);
 	return ;
 }

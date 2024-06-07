@@ -26,5 +26,6 @@
 # include <dirent.h>
 # include <errno.h> 
 # include "../helperfunc/libft/libft.h"
+# include "../helperfunc/malloc_lib/malloc_lib.h"
 
 #endif

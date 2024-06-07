@@ -20,7 +20,7 @@ int	pwd(char **tokens)
 	{
 		exit(0);
 	}
-	work_dir = ft_calloc(BUF_SIZE, sizeof(char));
+	work_dir = malloc(BUF_SIZE * sizeof(char));
 	getcwd(work_dir, BUF_SIZE);
 	ft_putendl_fd(work_dir, 1);
 	free(work_dir);

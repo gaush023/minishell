@@ -6,7 +6,7 @@
 #    By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/26 19:51:15 by etakaham          #+#    #+#              #
-#    Updated: 2024/05/26 19:51:15 by etakaham         ###   ########.fr        #
+#    Updated: 2024/06/07 16:00:10 by etakaham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME	= malloc_lib.a
 CC		= CC
 CFLAGS	= -Wall -Wextra -Werror
-SRCS	= ft_calloc.c ft_exit.c ft_free.c ft_malloc.c ft_realloc.c malloc_end.c malloc_startup.c
+SRCS	= my_calloc.c my_exit.c my_free.c my_malloc.c my_realloc.c malloc_end.c malloc_startup.c
 OBJS	= $(SRCS:.c=.o)
 
 .c.o:

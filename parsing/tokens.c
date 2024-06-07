@@ -21,7 +21,7 @@ t_token	*get_tokens(char *line)
 		return (NULL);
 	str_flag = make_in_sq_flag(line);
 	token = get_token_loops(line, str_flag);
-	ft_free(str_flag);
+	free(str_flag);
 	token = get_tokens_finish(token);
 	return (token);
 }
