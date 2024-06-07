@@ -6,7 +6,7 @@
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:26:09 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/05 20:26:09 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:08:08 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_mini
 	t_env	*env;
 	t_env	*secret_env;
 	t_token	*start;
+	t_node	*m_node;
 }			t_mini;
 
 #endif

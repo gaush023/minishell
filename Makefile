@@ -6,7 +6,7 @@
 #    By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 16:39:35 by sagemura          #+#    #+#              #
-#    Updated: 2024/06/03 18:27:49 by sagemura         ###   ########.fr        #
+#    Updated: 2024/06/07 16:13:55 by etakaham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ $(NAME): $(OBJS)
 	$(MAKE) -C $(FT_CMD_DIR)
 	$(MAKE) -C $(EXC_DIR)
 	$(MAKE) -C $(MAIN_HELPER_DIR)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFT_DIR)/$(LIBFT) $(HELPERFUNC_DIR)/$(HELPERFUNC) $(PARSING_DIR)/$(PARSING) $(ENV_DIR)/$(ENV) $(FINISH_DIR)/$(FINISH) \
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFT_DIR)/$(LIBFT) $(HELPERFUNC_DIR)/$(HELPERFUNC) \
+	$(PARSING_DIR)/$(PARSING) $(ENV_DIR)/$(ENV) $(FINISH_DIR)/$(FINISH) $(MALLOC_DIR)/$(MALLOC) \
 	$(FT_CMD_DIR)/$(FT_CMD) $(EXC_DIR)/$(EXC) $(MAIN_HELPER_DIR)/$(MAIN_HELPER) -lreadline
 
 clean:	
@@ -61,7 +62,7 @@ clean:
 	$(MAKE) clean -C $(ENV_DIR)
 	$(MAKE) clean -C $(FINISH_DIR)
 	$(MAKE) clean -C $(FT_CMD_DIR)
-	# $(MAKE) clean -C $(MAIN_HELPER_DIR)
+	$(MAKE) clean -C $(MAIN_HELPER_DIR)
 	$(MAKE) clean -C $(EXC_DIR)
 	rm -f $(OBJS)
 
@@ -74,7 +75,7 @@ fclean: clean
 	$(MAKE) fclean -C $(FINISH_DIR)
 	$(MAKE) fclean -C $(FT_CMD_DIR)
 	$(MAKE) fclean -C $(EXC_DIR)
-	# $(MAKE) fclean -C $(MAIN_HELPER_DIR)
+	$(MAKE) fclean -C $(MAIN_HELPER_DIR)
 	rm -f $(NAME)
 
 re: fclean all

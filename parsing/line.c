@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:30 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/06 20:11:36 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:21:26 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	parse(t_mini *mini)
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
 	token = NULL;
-	token = get_tokens(line);
+	token = get_tokens(line, mini);
 	mini->start = token;
 	free(line);
 	return ;
