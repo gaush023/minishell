@@ -6,7 +6,7 @@
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:18:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/07 19:54:43 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/09 18:57:55 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	g_sig = 0;
 
-// malloc
 void	mini_init(t_mini *mini)
 {
 	mini->in = dup(STDIN);
@@ -24,30 +23,6 @@ void	mini_init(t_mini *mini)
 	mini->flag = 0;
 	mini->ret = 0;
 	mini->no_exec = 0;
-}
-
-int	__main(int ac, char **av, char **ev)
-{
-	t_mini	mini;
-
-	(void)ac;
-	(void)av;
-	mini_init(&mini);
-	mini.m_node = malloc(sizeof(t_node));
-	malloc_startup(mini.m_node);
-	env_init(&mini, ev);
-	secret_env_init(&mini, ev);
-	get_shlvl_plus(&mini);
-	while (mini.flag == 0)
-	{
-		ini_sig();
-		parse(&mini);
-		if (mini.start != NULL && check_line(&mini, mini.start))
-			minishell(&mini);
-		free_token(mini.start, mini.flag);
-	}
-	malloc_end(mini.m_node);
-	return (mini.ret);
 }
 
 int	main(int ac, char **av, char **ev)
@@ -66,12 +41,18 @@ int	main(int ac, char **av, char **ev)
 		parse(&mini);
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
-		free_token(mini.start, mini.flag);
+		free_token(mini.start, mini.flag, mini.m_node);
 	}
 	malloc_end(mini.m_node);
 	return (mini.ret);
-	(void)__main;
 	(void)ac;
 	(void)av;
-	(void)ev;
+}
+
+#include <libc.h>
+
+__attribute__((destructor))
+static void destructor()
+{
+	system("leaks -q minishell");
 }

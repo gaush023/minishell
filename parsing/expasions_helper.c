@@ -12,27 +12,27 @@
 
 #include "../includes/minishell.h"
 
-char	*get_env_value(char *var_name, t_env *env)
+char	*get_env_value(char *var_name, t_mini *mini)
 {
 	char	env_name[BUFF_SIZE];
 	char	*env_value;
 
-	env_value = ft_strdup("");
-	while (env && env->value)
+	env_value = my_strdup("", mini->m_node);
+	while (mini->env && mini->env->value)
 	{
-		copy_env_name(env_name, env->value);
+		copy_env_name(env_name, mini->env->value);
 		if (ft_strcmp(env_name, var_name) == 0)
 		{
-			free(env_value);
-			env_value = copy_env_value(env->value);
+			my_free(env_value, mini->m_node);
+			env_value = copy_env_value(mini);
 			return (env_value);
 		}
-		env = env->next;
+		mini->env = mini->env->next;
 	}
 	return (env_value);
 }
 
-char	*get_var_value(char *arg, int pos, t_env *env, int ret)
+char	*get_var_value(char *arg, int pos, t_mini *mini)
 {
 	char	var_name[BUFF_SIZE];
 	char	*var_value;
@@ -41,7 +41,7 @@ char	*get_var_value(char *arg, int pos, t_env *env, int ret)
 	i = 0;
 	if (arg[pos] == '?')
 	{
-		var_value = ft_itoa(ret);
+		var_value = my_itoa(mini->ret, mini->m_node);
 		return (var_value);
 	}
 	if (ft_isdigit(arg[pos]))
@@ -49,7 +49,7 @@ char	*get_var_value(char *arg, int pos, t_env *env, int ret)
 	while (arg[pos] && is_env_char(arg[pos]) == 1 && i < BUFF_SIZE)
 		var_name[i++] = arg[pos++];
 	var_name[i] = '\0';
-	var_value = get_env_value(var_name, env);
+	var_value = get_env_value(var_name, mini);
 	return (var_value);
 }
 
@@ -65,7 +65,7 @@ static int	increment_i(int i, char *arg, int size)
 	return (i);
 }
 
-int	malloc4expassion(char *arg, t_env *env, int ret)
+int	malloc4expassion(char *arg, t_mini *mini)
 {
 	char	*env_value;
 	int		i;
@@ -81,7 +81,7 @@ int	malloc4expassion(char *arg, t_env *env, int ret)
 			if ((arg[i] == '\0' || ft_isalnum(arg[i]) == 0) && arg[i] != '?')
 				size++;
 			else
-				size += get_var_len(arg, i, env, ret);
+				size += get_var_len(arg, i, mini);
 			if (ft_isdigit(arg[i]) == 0)
 				i += increment_i(i, arg, size);
 			else

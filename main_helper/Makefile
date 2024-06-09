@@ -6,7 +6,7 @@
 #    By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/05 18:00:11 by etakaham          #+#    #+#              #
-#    Updated: 2024/06/05 18:00:11 by etakaham         ###   ########.fr        #
+#    Updated: 2024/06/09 17:10:48 by etakaham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = main_helper.a
 
 SRCS = $(wildcard *.c)
 
-CC = cc 
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 OBJS = $(SRCS:.c=.o)

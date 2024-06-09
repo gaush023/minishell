@@ -6,13 +6,13 @@
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:22:49 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/07 16:02:03 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:02:50 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		go_to_path(int opt, t_env *env);
+int		go_to_path(int opt, t_mini *mini);
 char	*get_env_path(t_env *env, char *var, int len);
 int		update_oldpwd(t_env *env);
 
@@ -30,26 +30,26 @@ static void	print_error(char **args)
 	ft_putstr_fd("\n", STDERR);
 }
 
-char	*make_home_path(char **args, t_env *env)
+char	*make_home_path(char **args, t_mini *mini)
 {
 	char	*path;
 	char	*home_path;
 	char	*temp;
 
-	home_path = get_env_path(env, "HOME", 4);
+	home_path = get_env_path(mini->env, "HOME", 4);
 	if (!home_path)
 	{
 		ft_putstr_fd("cd: HOME not set\n", STDERR);
 		return (NULL);
 	}
 	if (args[1][1] != '/')
-		path = ft_strjoin(home_path, "/");
+		path = my_strjoin(home_path, "/", mini->m_node);
 	else
-		path = ft_strdup(home_path);
-	temp = ft_strjoin(path, args[1] + 1);
-	free(path);
+		path = my_strdup(home_path, mini->m_node);
+	temp = my_strjoin(path, args[1] + 1, mini->m_node);
+	my_free(path, mini->m_node);
 	path = temp;
-	free(home_path);
+	my_free(home_path, mini->m_node);
 	return (path);
 }
 
@@ -67,26 +67,26 @@ int	make_hyphen_path(t_env *env, char *path)
 	return (ret);
 }
 
-int	ft_cd(char **args, t_env *env)
+int	ft_cd(char **args, t_mini *mini)
 {
 	int		cd_ret;
 	char	*path;
 
 	if (!args[1])
-		return (go_to_path(0, env));
+		return (go_to_path(0, mini));
 	path = NULL;
 	if (args[1][0] == '~')
 	{
-		path = make_home_path(args, env);
+		path = make_home_path(args, mini);
 		if (path == NULL)
 			return (ERR);
 	}
 	else
 		path = ft_strdup(args[1]);
 	if (ft_strcmp(path, "-") == 0)
-		cd_ret = go_to_path(1, env);
+		cd_ret = go_to_path(1, mini);
 	else
-		cd_ret = make_hyphen_path(env, path);
-	free(path);
+		cd_ret = make_hyphen_path(mini->env, path);
+	my_free(path, mini->m_node);
 	return (cd_ret);
 }

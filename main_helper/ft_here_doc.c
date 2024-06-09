@@ -26,7 +26,7 @@ static void	here_doc_write(t_mini *mini, char *line)
 {
 	ft_putstr_fd(line, mini->heredoc_fd);
 	ft_putstr_fd("\n", mini->heredoc_fd);
-	free(line);
+	my_free(line, mini->m_node);
 }
 
 static void	here_doc_end(t_mini *mini)
@@ -50,7 +50,7 @@ static int	here_doc_loop(t_mini *mini, t_token *token, char *delimiter)
 	while (1)
 	{
 		ft_putstr_fd("> ", 1);
-		line = readline(" \b");
+		line = my_readline(" \b", mini->m_node);
 		if (g_sig == SIGNAL_INT)
 		{
 			token = stop_heredoc(token, line, mini);
@@ -64,7 +64,7 @@ static int	here_doc_loop(t_mini *mini, t_token *token, char *delimiter)
 				ft_close(mini->heredoc_fd);
 				return (1);
 			}
-			free(line);
+			my_free(line, mini->m_node);
 			return (0);
 		}
 		here_doc_write(mini, line);

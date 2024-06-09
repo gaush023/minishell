@@ -46,7 +46,7 @@ char	*chek_prepareation(char *line)
 	return (line);
 }
 
-t_token	*get_tokens_finish(t_token *token)
+t_token	*get_tokens_finish(t_token *token, t_mini *mini)
 {
 	while (token->prev != NULL)
 	{
@@ -55,7 +55,7 @@ t_token	*get_tokens_finish(t_token *token)
 		token = token->prev;
 	}
 	set_type(token);
-	token = confirm_tokens(token);
+	token = confirm_tokens(token, mini);
 	return (token);
 }
 

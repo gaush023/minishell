@@ -27,7 +27,7 @@ int	count_tab(t_token *start)
 	return (i);
 }
 
-char	**cmd_tab(t_token *start)
+char	**cmd_tab(t_token *start, t_mini *mini)
 {
 	t_token	*token;
 	char	**tab;
@@ -36,7 +36,7 @@ char	**cmd_tab(t_token *start)
 	if (!start)
 		return (NULL);
 	i = count_tab(start);
-	tab = (char **)malloc(sizeof(char *) * i);
+	tab = (char **)my_calloc(i, sizeof(char *), mini->m_node);
 	if (!tab)
 		return (NULL);
 	token = start->next;

@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-static void	free_env(t_env **env)
+static void	free_env(t_env **env, t_node *node)
 {
 	t_env	*tmp;
 
@@ -20,15 +20,15 @@ static void	free_env(t_env **env)
 	{
 		tmp = *env;
 		*env = (*env)->next;
-		free(tmp->value);
-		free(tmp);
+		my_free(tmp->value, node);
+		my_free(tmp, node);
 	}
 }
 
 void	free_all(t_mini *mini, int ret)
 {
 	(void)ret;
-	free_env(&(mini->env));
-	free_env(&(mini->secret_env));
+	free_env(&(mini->env), mini->m_node);
+	free_env(&(mini->secret_env), mini->m_node);
 	clear_history();
 }

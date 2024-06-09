@@ -6,7 +6,7 @@
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/07 17:21:39 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/09 18:14:16 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		my_free(void *ptr, t_node *node);
 int		malloc_end(t_node *node);
 void	my_exit(int status, t_node *node);
 char	*my_itoa(int num, t_node *node);
+char	**my_split(const char *s, char c, t_node *node);
 char	*my_strdup(const char *s1, t_node *node);
 char	*my_strjoin(const char *s1, const char *s2, t_node *node);
 char	*my_strmapi(const char *s, char (*f)(unsigned int, char), t_node *node);

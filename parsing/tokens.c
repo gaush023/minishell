@@ -22,6 +22,6 @@ t_token	*get_tokens(char *line, t_mini *mini)
 	str_flag = make_in_sq_flag(line, mini);
 	token = get_token_loops(line, str_flag, mini);
 	my_free(str_flag, mini->m_node);
-	token = get_tokens_finish(token);
+	token = get_tokens_finish(token, mini);
 	return (token);
 }

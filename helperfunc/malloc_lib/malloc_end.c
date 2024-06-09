@@ -6,11 +6,12 @@
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:48:17 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/07 16:00:07 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/09 18:56:54 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc_lib.h"
+#include <stdio.h>
 
 int	malloc_end(t_node *node)
 {

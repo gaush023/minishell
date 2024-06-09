@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-char	**cmd_tab(t_token *start);
+char	**cmd_tab(t_token *start, t_mini *mini);
 
 int	ft_strisnum(char *str)
 {
@@ -77,11 +77,11 @@ void	exec_cmd(t_mini *mini, t_token *token)
 
 	if (mini->charge == 0)
 		return ;
-	cmd = cmd_tab(token);
+	cmd = cmd_tab(token, mini);
 	i = 0;
 	while (cmd && cmd[i])
 	{
-		cmd[i] = expasions(cmd[i], mini->env, mini->ret);
+		cmd[i] = expasions(cmd[i], mini);
 		i++;
 	}
 	if (cmd && ft_strcmp(cmd[0], "exit") == 0 && has_pipe(token) == 0)
@@ -90,7 +90,7 @@ void	exec_cmd(t_mini *mini, t_token *token)
 		mini->ret = exec_builtin(cmd, mini);
 	else if (cmd)
 		mini->ret = exec_bin(cmd, mini->env, mini);
-	free_tab(cmd);
+	free_tab(cmd, mini->m_node);
 	ft_close(mini->pipein);
 	ft_close(mini->pipeout);
 	mini->pipein = -1;

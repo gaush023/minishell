@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-t_token	*confrim_tokens_prepareation(t_token *token)
+t_token	*confrim_tokens_prepareation(t_token *token, t_mini *mini)
 {
 	t_token	*tmp;
 	char	*tmp_str;
@@ -23,7 +23,7 @@ t_token	*confrim_tokens_prepareation(t_token *token)
 		{
 			tmp_str = ft_strjoin(token->content, token->next->content);
 			token->content = ft_strdup(tmp_str);
-			free(tmp_str);
+			my_free(tmp_str, mini->m_node);
 			token->qute_flag = token->next->qute_flag;
 			tmp = token->next;
 			token->next = tmp->next;
@@ -36,11 +36,11 @@ t_token	*confrim_tokens_prepareation(t_token *token)
 	return (token);
 }
 
-t_token	*add_infront_cat(t_token *token)
+t_token	*add_infront_cat(t_token *token, t_mini *mini)
 {
 	t_token	*tmp;
 
-	tmp = malloc(sizeof(t_token));
+	tmp = my_calloc(1, sizeof(t_token), mini->m_node);
 	tmp->content = ft_strdup("cat");
 	tmp->type = CMD;
 	tmp->next = token;
@@ -68,23 +68,23 @@ t_token	*changes_orders_heredoc(t_token *token)
 	return (token);
 }
 
-t_token	*confirm_tokens(t_token *token)
+t_token	*confirm_tokens(t_token *token, t_mini *mini)
 {
 	t_token	*tmp;
 	t_token	*tmp2;
 
-	token = confrim_tokens_prepareation(token);
+	token = confrim_tokens_prepareation(token, mini);
 	if (token->type == HERE_DOC && token->qute_flag == 0)
 	{
 		if (!token->next->next || token->next->next->type != ARG)
-			return (add_infront_cat(token));
+			return (add_infront_cat(token, mini));
 		else if (token->next->next->type == ARG)
 			return (changes_orders_heredoc(token));
 	}
 	else if (token->type == HERE_DOC && token->qute_flag == 1)
 	{
 		ft_putstr_fd("minishell: command not found: <<\n", 2);
-		free_token(token, 0);
+		free_token(token, 0, mini->m_node);
 		token = NULL;
 	}
 	return (token);
