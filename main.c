@@ -6,35 +6,34 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:18:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 20:30:01 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/09 22:00:46 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 #include <libc.h>
 # include <dlfcn.h>
-# define MEMORY_SIZE 1
 
 int	g_sig = 0;
 
-__attribute__((destructor))
-static void	destructor(void)
-{
-	system("leaks -q minishell");
-}
+// __attribute__((destructor))
+// static void	destructor(void)
+// {
+// 	system("leaks -q minishell");
+// }
 
-void *malloc(size_t size)
-{
-	static int i = 0;
+/* void *malloc(size_t size) */
+/* { */
+/* 	static int i = 0; */
 
-	i += size;
-	if (i > MEMORY_SIZE)
-	{
-		return (NULL);
-	}
-	void *(*libc_malloc)(size_t)  = (void *(*)(size_t))dlsym(RTLD_NEXT, "malloc");
-	return(libc_malloc(size));
-}
+/* 	i += size; */
+/* 	if (i > MEMORY_SIZE) */
+/* 	{ */
+/* 		return (NULL); */
+/* 	} */
+/* 	void *(*libc_malloc)(size_t)  = (void *(*)(size_t))dlsym(RTLD_NEXT, "malloc"); */
+/* 	return(libc_malloc(size)); */
+/* } */
 
 void	mini_init(t_mini *mini)
 {

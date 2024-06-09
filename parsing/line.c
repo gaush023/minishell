@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:30 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 19:39:42 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 22:01:03 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*transform_line(char *line, t_mini *mini)
 	new = allo_new(line, mini);
 	while (new && line[i])
 	{
-		if (quotes(line, i) != 2 && line[i] == '$' && i && line[i - 1] != '\\')
+		if (quotes(line, i) != 2 && line[i] == '$' && i && line[i + 1] != ' ')
 			new[j++] = (char)(-line[i++]);
 		else if (quotes(line, i) == 0 && is_sep(line, i))
 		{

@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:24 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/06 20:09:36 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 22:05:14 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	insert_var(t_expasion *ex, char *arg, t_mini *mini)
 	env_value = get_var_value(arg, ex->j, mini);
 	if (env_value)
 		ex->i += var_cpy(ex->str, env_value, ex->i);
+	else
+		ex->i += 0;
 	my_free(env_value, mini->m_node);
 	if (arg[ex->j] == '?')
 		ex->j++;
@@ -39,7 +41,7 @@ void	insert_var(t_expasion *ex, char *arg, t_mini *mini)
 	}
 	else
 	{
-		if (arg[ex->j - 1] != EXPANSION)
+		if (arg[ex->j - 1] != '?')
 			ex->j++;
 	}
 }
