@@ -6,11 +6,12 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:18:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 19:11:45 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:55:05 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+#include <libc.h>
 
 int	g_sig = 0;
 
@@ -19,7 +20,10 @@ void	mini_init(t_mini *mini)
 	mini->in = dup(STDIN);
 	mini->out = dup(STDOUT);
 	if (!mini->in || !mini->out)
-		ft_panic(NULL, "dup", 1);
+	{
+		write(2, "Error\n", 6);
+		my_exit(1, mini->m_node);
+	}
 	mini->flag = 0;
 	mini->ret = 0;
 	mini->no_exec = 0;
@@ -49,10 +53,8 @@ int	main(int ac, char **av, char **ev)
 	(void)av;
 }
 
-#include <libc.h>
-
 __attribute__((destructor))
-static void destructor()
+static void	destructor(void)
 {
 	system("leaks -q minishell");
 }

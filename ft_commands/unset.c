@@ -6,7 +6,7 @@
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:56:47 by etakaham          #+#    #+#             */
-/*   Updated: 2024/04/20 18:56:47 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:47:28 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	unset(char **tokens, t_env *env)
 {
 	if (tokens[1] == NULL)
 	{
-		exit(1);
+		return (1);
 	}
 	if (ft_env_equals(env->value, tokens[1]))
 	{

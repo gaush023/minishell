@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 19:18:17 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:57:33 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 			k = i;
 			while (str_flag[i] == 0)
 				i++;
-			token = make_token(cutout_str(line, i, k, mini), tmp_token, str_flag, i, mini);
+			token = make_token(cutout_str(line, i, k, mini), tmp_token,
+					str_flag, i, mini);
 			tmp_token = token;
 		}
 	}

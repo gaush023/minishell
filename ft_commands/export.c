@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/04/23 17:28:30 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:56:05 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	export(char **tokens, t_mini *mini)
 	if (!is_env_format(tokens[1]))
 		return (1);
 	new_env = my_calloc(1, sizeof(t_env), mini->m_node);
-	new_env->value = my_calloc(ft_strlen(tokens[1]), sizeof(char), mini->m_node);
+	new_env->value = my_calloc(ft_strlen(tokens[1]), 1, mini->m_node);
 	ft_memcpy(new_env->value, tokens[1], ft_strlen(tokens[1]));
 	while (mini->env->next->next != NULL)
 		mini->env = mini->env->next;

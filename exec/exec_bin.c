@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 19:24:20 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:48:00 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 		ret = error_msg(path);
 		free_tab(env_array, mini->m_node);
 		free_token(mini->start, mini->flag, mini->m_node);
-		exit(ret);
+		my_exit(ret, mini->m_node);
 	}
 	else
 		waitpid(pid, &ret, 0);

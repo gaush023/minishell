@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:24:21 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 19:39:36 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:47:02 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	minishell(t_mini *mini)
 		if (mini->parent == 0)
 		{
 			free_token(mini->start, mini->flag, mini->m_node);
-			exit(mini->ret);
+			my_exit(mini->ret, mini->m_node);
 		}
 		mini->no_exec = 0;
 		token = next_run(token, SKIP);
