@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 19:49:32 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 16:29:33 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 18:33:48 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,19 @@
 static t_token	*stop_heredoc(t_token *token, char *line, t_mini *mini)
 {
 	t_token	*tmp;
+	char	*tmp_line;
 
-	(void)mini;
+	tmp_line = ft_strdup(line);
 	line = transform_line(line);
 	tmp = get_tokens(line);
+	if (line == NULL || quote_check(mini, line) == 1)
+		return (token);
+	if (line && line[0] == '$')
+		line[0] = (char)(-line[0]);
 	token->prev->next = tmp;
-	add_history(line);
+	ft_add_history(tmp_line, tmp);
 	ft_free(line);
+	ft_free(tmp_line);
 	return (token);
 }
 
@@ -41,8 +47,6 @@ static void	here_doc_end(t_mini *mini)
 	if (mini->heredoc_fd == -1)
 		return ;
 	dup2(mini->heredoc_fd, STDIN);
-	if (g_sig == SIGNAL_INT)
-		mini->ret = SIGNAL_INT;
 	ft_close(mini->heredoc_fd);
 }
 

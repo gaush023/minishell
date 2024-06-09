@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 16:48:02 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:39:38 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static int	calc_ret(int ret)
 		ret = ret / 256;
 	else
 		ret = !!ret;
+	if (g_sig == SIGNAL_INT || g_sig == SIGNAL_QUIT)
+		ret = g_sig;
 	return (ret);
 }
 
@@ -102,7 +104,6 @@ int	exec_bin(char **args, t_env *env, t_mini *mini)
 		ret = magic_box(path, args, env, mini);
 	else
 		ret = magic_box(args[0], args, env, mini);
-
 	free_tab(bin);
 	ft_free(path);
 	return (ret);

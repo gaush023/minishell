@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:30 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 16:32:52 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 18:29:03 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*transform_line(char *line)
 	i = 0;
 	j = 0;
 	new = allo_new(line);
-	while (new && line[i])
+	while (new &&line[i])
 	{
 		if (quotes(line, i) != 2 && line[i] == '$' && i && line[i - 1] != '\\')
 			new[j++] = (char)(-line[i++]);
@@ -71,22 +71,10 @@ char	*transform_line(char *line)
 	return (new);
 }
 
-int	quote_check(t_mini *mini, char *line)
-{
-	if (quotes(line, INT_MAX) != 0)
-	{
-		ft_putstr_fd("quote error\n", STDERR);
-		ft_free(line);
-		mini->ret = 1;
-		mini->start = NULL;
-		return (1);
-	}
-	return (0);
-}
-
 void	parse(t_mini *mini)
 {
 	char	*line;
+	char	*cmd_line;
 	t_token	*token;
 
 	signal(SIGINT, &sig_int);
@@ -94,17 +82,17 @@ void	parse(t_mini *mini)
 	line = readline(M_PROMPT);
 	if ((line == NULL) && (mini->flag == 1))
 		return ;
-	if (line != NULL)
-		add_history(line);
 	if (g_sig != SIGNAL_OFF)
 		mini->ret = g_sig;
 	if (line == NULL || quote_check(mini, line) == 1)
 		return ;
+	cmd_line = ft_strdup(line);
 	line = transform_line(line);
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
 	token = NULL;
 	token = get_tokens(line);
+	ft_add_history(cmd_line, token);
 	mini->start = token;
 	ft_free(line);
 	return ;

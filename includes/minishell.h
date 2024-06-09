@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 14:49:26 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 18:23:27 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int		check_line(t_mini *mini, t_token *token);
 t_token	*next_sep(t_token *token, int skip);
 t_token	*prev_sep(t_token *token, int skip);
 bool	ft_equals(const char *s1, const char *s2);
+void	ft_add_history(char *line, t_token *token);
+int		quote_check(t_mini *mini, char *line);
 
 // main_helper
 void	here_doc(t_mini *mini, t_token *token);

@@ -6,13 +6,13 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 14:49:41 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:46:57 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	**cmd_tab(t_token *start);
+char		**cmd_tab(t_token *start);
 
 int	ft_strisnum(char *str)
 {
@@ -70,11 +70,24 @@ int	has_pipe(t_token *token)
 	return (0);
 }
 
+static void	exec_cmd_fininsh(t_mini *mini, char **cmd)
+{
+	if (cmd)
+		free_tab(cmd);
+	ft_close(mini->pipein);
+	ft_close(mini->pipeout);
+	mini->pipein = -1;
+	mini->pipeout = -1;
+	mini->charge = 0;
+}
+
 void	exec_cmd(t_mini *mini, t_token *token)
 {
 	char	**cmd;
 	int		i;
+	int		flag;
 
+	flag = g_sig;
 	if (mini->charge == 0)
 		return ;
 	cmd = cmd_tab(token);
@@ -88,12 +101,10 @@ void	exec_cmd(t_mini *mini, t_token *token)
 		mini_exit(mini, cmd);
 	else if (cmd && is_builtin(cmd[0]))
 		mini->ret = exec_builtin(cmd, mini);
-	else if (cmd)
+	else if (cmd && SIGNAL_INT != flag)
 		mini->ret = exec_bin(cmd, mini->env, mini);
-	free_tab(cmd);
-	ft_close(mini->pipein);
-	ft_close(mini->pipeout);
-	mini->pipein = -1;
-	mini->pipeout = -1;
-	mini->charge = 0;
+	if (token->next && ft_strcmp(token->next->content, "<<") == 0
+		&& flag == SIGNAL_INT)
+		mini->ret = 1;
+	exec_cmd_fininsh(mini, cmd);
 }
