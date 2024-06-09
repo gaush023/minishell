@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 14:50:08 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:09:53 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	exec_builtin(char **arg, t_mini *mini)
 	if (ft_strcmp(arg[0], "echo") == 0)
 		ret = ft_echo(arg);
 	else if (ft_strcmp(arg[0], "cd") == 0)
-		ret = ft_cd(arg, mini->env);
+		ret = ft_cd(arg, mini);
 	else if (ft_strcmp(arg[0], "pwd") == 0)
-		ret = pwd(arg);
+		ret = pwd(arg, mini);
 	else if (ft_strcmp(arg[0], "export") == 0)
-		ret = export(arg, mini->env);
+		ret = export(arg, mini);
 	else if (ft_strcmp(arg[0], "unset") == 0)
 		ret = unset(arg, mini->env);
 	else if (ft_strcmp(arg[0], "env") == 0)

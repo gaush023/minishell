@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:26:09 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 17:59:34 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:20:34 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,26 @@ typedef struct s_expasion
 
 typedef struct s_mini
 {
-	int				in;
-	int				out;
-	int				flag;
-	int				ret;
-	int				fdin;
-	int				fdout;
-	int				pipein;
-	int				pipeout;
-	int				m_pid;
-	int				charge;
-	int				parent;
-	int				last;
-	int				no_exec;
-	int				exit;
-	int				heredoc_fd;
-	int				heredoc_flag;
-	t_env			*env;
-	t_env			*secret_env;
-	t_token			*start;
-}					t_mini;
+	int		in;
+	int		out;
+	int		flag;
+	int		ret;
+	int		fdin;
+	int		fdout;
+	int		pipein;
+	int		pipeout;
+	int		m_pid;
+	int		charge;
+	int		parent;
+	int		last;
+	int		no_exec;
+	int		exit;
+	int		heredoc_fd;
+	int		heredoc_flag;
+	t_env	*env;
+	t_env	*secret_env;
+	t_token	*start;
+	t_node	*m_node;
+}			t_mini;
 
 #endif

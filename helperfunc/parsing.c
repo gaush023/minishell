@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 19:41:16 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 18:22:50 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:25:58 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	quote_check(t_mini *mini, char *line)
 	if (quotes(line, INT_MAX) != 0)
 	{
 		ft_putstr_fd("quote error\n", STDERR);
-		ft_free(line);
+		my_free(line, mini->m_node);
 		mini->ret = 1;
 		mini->start = NULL;
 		return (1);

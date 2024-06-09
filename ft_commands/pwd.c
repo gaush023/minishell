@@ -12,17 +12,17 @@
 
 #include "../../includes/minishell.h"
 
-int	pwd(char **tokens)
+int	pwd(char **tokens, t_mini *mini)
 {
 	char	*work_dir;
 
 	if (!ft_equals(tokens[0], "pwd"))
-	{
-		exit(0);
-	}
-	work_dir = ft_calloc(BUF_SIZE, sizeof(char));
+		return (1);
+	work_dir = my_calloc(BUF_SIZE, sizeof(char), mini->m_node);
+	if (!work_dir)
+		return (1);
 	getcwd(work_dir, BUF_SIZE);
 	ft_putendl_fd(work_dir, 1);
-	free(work_dir);
+	my_free(work_dir, mini->m_node);
 	return (0);
 }

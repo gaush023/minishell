@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 17:39:38 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:24:20 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 	if (pid == 0)
 	{
 		g_sig = SIGNAL_OFF;
-		env_array = env_to_array(env);
+		env_array = env_to_array(env, mini);
 		if (ft_strchr(path, '/') != NULL)
 			execve(path, args, env_array);
 		ret = error_msg(path);
-		free_tab(env_array);
-		free_token(mini->start, mini->flag);
+		free_tab(env_array, mini->m_node);
+		free_token(mini->start, mini->flag, mini->m_node);
 		exit(ret);
 	}
 	else
@@ -48,18 +48,18 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 	return (calc_ret(ret));
 }
 
-char	*path_join(const char *s1, char *s2)
+char	*path_join(const char *s1, char *s2, t_node *node)
 {
 	char	*tmp;
 	char	*path;
 
-	tmp = ft_strjoin(s1, "/");
-	path = ft_strjoin(tmp, s2);
-	ft_free(tmp);
+	tmp = my_strjoin(s1, "/", node);
+	path = my_strjoin(tmp, s2, node);
+	my_free(tmp, node);
 	return (path);
 }
 
-char	*check_dir(char *bin, char *cmd)
+char	*check_dir(char *bin, char *cmd, t_mini *mini)
 {
 	DIR				*folder;
 	struct dirent	*item;
@@ -73,7 +73,7 @@ char	*check_dir(char *bin, char *cmd)
 	while (item)
 	{
 		if (ft_strcmp(item->d_name, cmd) == 0)
-			path = path_join(bin, item->d_name);
+			path = path_join(bin, item->d_name, mini->m_node);
 		item = readdir(folder);
 	}
 	closedir(folder);
@@ -93,18 +93,18 @@ int	exec_bin(char **args, t_env *env, t_mini *mini)
 		env = env->next;
 	if (!env || !env->next)
 		return (magic_box(args[0], args, env, mini));
-	bin = ft_split(env->value, ':');
+	bin = my_split(env->value, ':', mini->m_node);
 	if (!args[0] || !bin[0])
 		return (ERR);
 	i = 0;
-	path = check_dir(bin[0] + 5, args[0]);
+	path = check_dir(bin[0] + 5, args[0], mini);
 	while (args[0] && bin[i] && path == NULL)
-		path = check_dir(bin[i++], args[0]);
+		path = check_dir(bin[i++], args[0], mini);
 	if (path != NULL)
 		ret = magic_box(path, args, env, mini);
 	else
 		ret = magic_box(args[0], args, env, mini);
-	free_tab(bin);
-	ft_free(path);
+	free_tab(bin, mini->m_node);
+	my_free(path, mini->m_node);
 	return (ret);
 }

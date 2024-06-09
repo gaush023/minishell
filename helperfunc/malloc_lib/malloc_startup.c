@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   malloc_startup.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 18:21:56 by sagemura          #+#    #+#             */
-/*   Updated: 2024/05/01 10:27:47 by sagemura         ###   ########.fr       */
+/*   Created: 2024/05/26 19:48:27 by etakaham          #+#    #+#             */
+/*   Updated: 2024/06/07 16:00:05 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "malloc_lib.h"
 
-void	*ft_free(void *ptr)
+int	malloc_startup(t_node *head)
 {
-	if (ptr)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
-	return (NULL);
+	head->ptr = NULL;
+	head->is_free = true;
+	head->next = NULL;
+	head->size = 0;
+	return (0);
 }

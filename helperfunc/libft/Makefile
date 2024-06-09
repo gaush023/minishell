@@ -6,7 +6,7 @@
 #    By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/25 09:38:24 by sagemura          #+#    #+#              #
-#    Updated: 2024/05/01 09:20:02 by sagemura         ###   ########.fr        #
+#    Updated: 2024/06/09 17:04:52 by etakaham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS = $(wildcard *.c)
 OBJS = $(SRCS:.c=.o)
 ALL_OBJS = $(OBJS)
 
-CC = gcc 
+CC = cc 
 CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)

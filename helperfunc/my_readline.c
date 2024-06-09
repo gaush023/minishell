@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   library.h                                          :+:      :+:    :+:   */
+/*   my_readline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 20:24:31 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/05 20:24:31 by etakaham         ###   ########.fr       */
+/*   Created: 2024/06/07 19:06:41 by etakaham          #+#    #+#             */
+/*   Updated: 2024/06/07 19:15:43 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBRARY_H
-# define LIBRARY_H
+#include "../includes/minishell.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <limits.h>
-# include <signal.h>
-# include <string.h>
-# include <stdbool.h>
-# include <fcntl.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <dirent.h>
-# include <errno.h> 
-# include "../helperfunc/libft/libft.h"
-# include "../helperfunc/malloc_lib/malloc_lib.h"
+char	*my_readline(const char *prompt, t_node *node)
+{
+	char	*str;
+	char	*str_cpy;
 
-#endif
+	str = readline(prompt);
+	if (!str)
+		return (NULL);
+	str_cpy = my_strdup(str, node);
+	free(str);
+	return (str_cpy);
+}

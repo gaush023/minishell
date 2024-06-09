@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:11:21 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 17:21:20 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:25:01 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	sig_quit(int code)
 	}
 	else
 		ft_putstr_fd("\b\b \b\b", STDERR);
-	ft_free(nbr);
+	free(nbr);
 }
 
 void	ini_sig(void)

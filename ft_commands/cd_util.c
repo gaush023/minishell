@@ -13,9 +13,9 @@
 #include "../../includes/minishell.h"
 
 char	*get_env_path(t_env *env, char *var, int len);
-int		update_oldpwd(t_env *env);
+int		update_oldpwd(t_mini *mini);
 
-int	go_to_path(int opt, t_env *env)
+int	go_to_path(int opt, t_mini *mini)
 {
 	int		ret;
 	char	*env_path;
@@ -23,11 +23,11 @@ int	go_to_path(int opt, t_env *env)
 	env_path = NULL;
 	if (opt == 0)
 	{
-		update_oldpwd(env);
-		env_path = get_env_path(env, "HOME=", 5);
+		update_oldpwd(mini);
+		env_path = get_env_path(mini->env, "HOME=", 5);
 	}
 	else if (opt == 1)
-		env_path = get_env_path(env, "OLDPWD=", 7);
+		env_path = get_env_path(mini->env, "OLDPWD=", 7);
 	if (env_path == NULL)
 	{
 		if (opt == 0)
@@ -37,7 +37,7 @@ int	go_to_path(int opt, t_env *env)
 		return (ERR);
 	}
 	ret = chdir(env_path);
-	ft_free(env_path);
+	my_free(env_path, mini->m_node);
 	if (ret == -1)
 		return (ERR);
 	return (SUCCESS);

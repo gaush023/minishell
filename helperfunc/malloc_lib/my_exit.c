@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   library.h                                          :+:      :+:    :+:   */
+/*   my_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 20:24:31 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/05 20:24:31 by etakaham         ###   ########.fr       */
+/*   Created: 2024/05/26 19:47:33 by etakaham          #+#    #+#             */
+/*   Updated: 2024/06/07 15:59:58 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBRARY_H
-# define LIBRARY_H
+#include "malloc_lib.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <limits.h>
-# include <signal.h>
-# include <string.h>
-# include <stdbool.h>
-# include <fcntl.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <dirent.h>
-# include <errno.h> 
-# include "../helperfunc/libft/libft.h"
-# include "../helperfunc/malloc_lib/malloc_lib.h"
-
-#endif
+void	my_exit(int status, t_node *node)
+{
+	malloc_end(node);
+	exit(status);
+}

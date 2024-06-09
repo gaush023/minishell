@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 19:49:32 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 18:33:48 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:32:56 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static t_token	*stop_heredoc(t_token *token, char *line, t_mini *mini)
 	t_token	*tmp;
 	char	*tmp_line;
 
-	tmp_line = ft_strdup(line);
-	line = transform_line(line);
-	tmp = get_tokens(line);
+	tmp_line = my_strdup(line, mini->m_node);
+	line = transform_line(line, mini);
+	tmp = get_tokens(line, mini);
 	if (line == NULL || quote_check(mini, line) == 1)
 		return (token);
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
 	token->prev->next = tmp;
 	ft_add_history(tmp_line, tmp);
-	ft_free(line);
-	ft_free(tmp_line);
+	my_free(line, mini->m_node);
+	my_free(tmp_line, mini->m_node);
 	return (token);
 }
 
@@ -35,7 +35,7 @@ static void	here_doc_write(t_mini *mini, char *line)
 {
 	ft_putstr_fd(line, mini->heredoc_fd);
 	ft_putstr_fd("\n", mini->heredoc_fd);
-	ft_free(line);
+	my_free(line, mini->m_node);
 }
 
 static void	here_doc_end(t_mini *mini)
@@ -57,7 +57,7 @@ static int	here_doc_loop(t_mini *mini, t_token *token, char *delimiter)
 	while (1)
 	{
 		ft_putstr_fd("> ", 1);
-		line = readline(" \b");
+		line = my_readline(" \b", mini->m_node);
 		if (g_sig == SIGNAL_INT)
 		{
 			token = stop_heredoc(token, line, mini);
@@ -71,7 +71,7 @@ static int	here_doc_loop(t_mini *mini, t_token *token, char *delimiter)
 				ft_close(mini->heredoc_fd);
 				return (1);
 			}
-			ft_free(line);
+			my_free(line, mini->m_node);
 			return (0);
 		}
 		here_doc_write(mini, line);

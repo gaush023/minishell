@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:36 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/06 20:14:26 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:22:04 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	increment_case_quotetaions(int i, char *line, int *str_flag)
 	return (i);
 }
 
-int	*make_in_sq_flag(char *line)
+int	*make_in_sq_flag(char *line, t_mini *mini)
 {
 	int				*str_flag;
 	unsigned int	i;
@@ -59,7 +59,7 @@ int	*make_in_sq_flag(char *line)
 
 	i = 0;
 	flag = 0;
-	str_flag = ft_calloc(ft_strlen(line), sizeof(int));
+	str_flag = my_calloc(ft_strlen(line), sizeof(int), mini->m_node);
 	str_flag[ft_strlen(line)] = -3;
 	while (line[i])
 	{

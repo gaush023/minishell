@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:30 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 18:47:07 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:39:42 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_sep(char *line, int i)
 		return (0);
 }
 
-static char	*allo_new(char *line)
+static char	*allo_new(char *line, t_mini *mini)
 {
 	char	*new;
 	int		count;
@@ -36,13 +36,13 @@ static char	*allo_new(char *line)
 			count++;
 		i++;
 	}
-	new = (char *)malloc(sizeof(char) * (i + 2 * count + 1));
+	new = my_calloc(i + 2 * count + 1, sizeof(char), mini->m_node);
 	if (!new)
 		return (NULL);
 	return (new);
 }
 
-char	*transform_line(char *line)
+char	*transform_line(char *line, t_mini *mini)
 {
 	char	*new;
 	int		i;
@@ -50,8 +50,8 @@ char	*transform_line(char *line)
 
 	i = 0;
 	j = 0;
-	new = allo_new(line);
-	while (new &&line[i])
+	new = allo_new(line, mini);
+	while (new && line[i])
 	{
 		if (quotes(line, i) != 2 && line[i] == '$' && i && line[i - 1] != '\\')
 			new[j++] = (char)(-line[i++]);
@@ -67,7 +67,7 @@ char	*transform_line(char *line)
 			new[j++] = line[i++];
 	}
 	new[j] = '\0';
-	ft_free(line);
+	my_free(line, mini->m_node);
 	return (new);
 }
 
@@ -79,21 +79,21 @@ void	parse(t_mini *mini)
 
 	signal(SIGINT, &sig_int);
 	signal(SIGQUIT, &sig_quit);
-	line = readline(M_PROMPT);
+	line = my_readline(M_PROMPT, mini->m_node);
 	if ((line == NULL) && (mini->flag == 1))
 		return ;
 	if (g_sig != SIGNAL_OFF)
 		mini->ret = g_sig;
 	if (line == NULL || quote_check(mini, line) == 1)
 		return ;
-	cmd_line = ft_strdup(line);
-	line = transform_line(line);
+	cmd_line = my_strdup(line, mini->m_node);
+	line = transform_line(line, mini);
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
 	token = NULL;
-	token = get_tokens(line);
+	token = get_tokens(line, mini);
 	ft_add_history(cmd_line, token);
 	mini->start = token;
-	ft_free(line);
+	my_free(line, mini->m_node);
 	return ;
 }

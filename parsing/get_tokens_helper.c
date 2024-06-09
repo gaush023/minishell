@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 14:05:54 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:18:17 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*chek_prepareation(char *line)
 	return (line);
 }
 
-t_token	*get_tokens_finish(t_token *token)
+t_token	*get_tokens_finish(t_token *token, t_mini *mini)
 {
 	while (token->prev != NULL)
 	{
@@ -55,20 +55,20 @@ t_token	*get_tokens_finish(t_token *token)
 		token = token->prev;
 	}
 	set_type(token);
-	token = confirm_tokens(token);
+	token = confirm_tokens(token, mini);
 	return (token);
 }
 
-char	*cutout_str(char *line, unsigned int i, unsigned int k)
+char	*cutout_str(char *line, unsigned int i, unsigned int k, t_mini *mini)
 {
 	char	*tmp_str;
 
-	tmp_str = ft_calloc(i - k + 1, sizeof(char));
+	tmp_str = my_calloc(i - k + 1, sizeof(char), mini->m_node);
 	ft_memcpy(tmp_str, &line[k], i - k);
 	return (tmp_str);
 }
 
-t_token	*get_token_loops(char *line, int *str_flag)
+t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 {
 	t_token	*token;
 	t_token	*tmp_token;
@@ -86,7 +86,7 @@ t_token	*get_token_loops(char *line, int *str_flag)
 			k = i;
 			while (str_flag[i] == 0)
 				i++;
-			token = make_token(cutout_str(line, i, k), tmp_token, str_flag, i);
+			token = make_token(cutout_str(line, i, k, mini), tmp_token, str_flag, i, mini);
 			tmp_token = token;
 		}
 	}

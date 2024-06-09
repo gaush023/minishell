@@ -22,14 +22,14 @@ size_t	var_cpy(char *dst, const char *src, size_t size)
 	return (i);
 }
 
-void	insert_var(t_expasion *ex, char *arg, t_env *env, int ret)
+void	insert_var(t_expasion *ex, char *arg, t_mini *mini)
 {
 	char	*env_value;
 
-	env_value = get_var_value(arg, ex->j, env, ret);
+	env_value = get_var_value(arg, ex->j, mini);
 	if (env_value)
 		ex->i += var_cpy(ex->str, env_value, ex->i);
-	ft_free(env_value);
+	my_free(env_value, mini->m_node);
 	if (arg[ex->j] == '?')
 		ex->j++;
 	if (ft_isdigit(arg[ex->j]) == 0 && arg[ex->j - 1] != '?')
@@ -44,13 +44,13 @@ void	insert_var(t_expasion *ex, char *arg, t_env *env, int ret)
 	}
 }
 
-char	*expasions(char *arg, t_env *env, int ret)
+char	*expasions(char *arg, t_mini *mini)
 {
 	t_expasion	ex;
 	int			len;
 
-	len = malloc4expassion(arg, env, ret);
-	ex.str = (char *)malloc(sizeof(char) * (len + 1));
+	len = malloc4expassion(arg, mini);
+	ex.str = my_calloc(len + 1, sizeof(char), mini->m_node);
 	if (ex.str == NULL)
 		return (NULL);
 	ex.i = 0;
@@ -64,7 +64,7 @@ char	*expasions(char *arg, t_env *env, int ret)
 				&& arg[ex.j] != '?')
 				ex.str[ex.i++] = '$';
 			else
-				insert_var(&ex, arg, env, ret);
+				insert_var(&ex, arg, mini);
 		}
 		ex.str[ex.i++] = arg[ex.j++];
 	}

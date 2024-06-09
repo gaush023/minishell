@@ -1,42 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   my_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 16:53:40 by sagemura          #+#    #+#             */
-/*   Updated: 2024/05/01 09:13:21 by sagemura         ###   ########.fr       */
+/*   Created: 2024/06/07 16:45:52 by etakaham          #+#    #+#             */
+/*   Updated: 2024/06/07 17:23:39 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "malloc_lib.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+static size_t	ft_strlen(const char *s)
 {
 	size_t	len;
-	char	*ptr;
+
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
+}
+
+char	*my_strjoin(const char *s1, const char *s2, t_node *node)
+{
+	size_t	len;
 	size_t	i;
 	size_t	j;
+	char	*joined_str;
 
 	if (!s1 || !s2)
 		return (NULL);
 	len = ft_strlen(s1) + ft_strlen(s2);
-	ptr = malloc(sizeof(char) * (len + 1));
-	if (ptr == NULL)
+	joined_str = my_calloc(len + 1, sizeof(char), node);
+	if (!joined_str)
 		return (NULL);
 	i = 0;
 	while (s1[i])
 	{
-		ptr[i] = s1[i];
+		joined_str[i] = s1[i];
 		i++;
 	}
 	j = 0;
 	while (s2[j])
 	{
-		ptr[i + j] = s2[j];
+		joined_str[i + j] = s2[j];
 		j++;
 	}
-	ptr[i + j] = '\0';
-	return (ptr);
+	return (joined_str);
 }

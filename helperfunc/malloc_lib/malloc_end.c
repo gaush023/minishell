@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   library.h                                          :+:      :+:    :+:   */
+/*   malloc_end.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 20:24:31 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/05 20:24:31 by etakaham         ###   ########.fr       */
+/*   Created: 2024/05/26 19:48:17 by etakaham          #+#    #+#             */
+/*   Updated: 2024/06/09 18:56:54 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBRARY_H
-# define LIBRARY_H
+#include "malloc_lib.h"
+#include <stdio.h>
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <limits.h>
-# include <signal.h>
-# include <string.h>
-# include <stdbool.h>
-# include <fcntl.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <dirent.h>
-# include <errno.h> 
-# include "../helperfunc/libft/libft.h"
-# include "../helperfunc/malloc_lib/malloc_lib.h"
+int	malloc_end(t_node *node)
+{
+	t_node	*tmp;
 
-#endif
+	while (node)
+	{
+		if (node->size != 0 && node->is_free == false)
+		{
+			free(node->ptr);
+		}
+		tmp = node;
+		node = node->next;
+		free(tmp);
+	}
+	return (0);
+}

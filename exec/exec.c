@@ -6,13 +6,13 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 17:46:57 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:39:07 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char		**cmd_tab(t_token *start);
+char	**cmd_tab(t_token *start, t_mini *mini);
 
 int	ft_strisnum(char *str)
 {
@@ -73,7 +73,7 @@ int	has_pipe(t_token *token)
 static void	exec_cmd_fininsh(t_mini *mini, char **cmd)
 {
 	if (cmd)
-		free_tab(cmd);
+		free_tab(cmd, mini->m_node);
 	ft_close(mini->pipein);
 	ft_close(mini->pipeout);
 	mini->pipein = -1;
@@ -90,11 +90,11 @@ void	exec_cmd(t_mini *mini, t_token *token)
 	flag = g_sig;
 	if (mini->charge == 0)
 		return ;
-	cmd = cmd_tab(token);
+	cmd = cmd_tab(token, mini);
 	i = 0;
 	while (cmd && cmd[i])
 	{
-		cmd[i] = expasions(cmd[i], mini->env, mini->ret);
+		cmd[i] = expasions(cmd[i], mini);
 		i++;
 	}
 	if (cmd && ft_strcmp(cmd[0], "exit") == 0 && has_pipe(token) == 0)

@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:27 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/06 16:45:28 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:01:31 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	env_value_len(char *env)
 	return (size_name);
 }
 
-int	get_var_len(const char *arg, int pos, t_env *env, int ret)
+int	get_var_len(const char *arg, int pos, t_mini *mini)
 {
 	char	var_name[BUFF_SIZE];
 	char	*var_value;
@@ -50,14 +50,14 @@ int	get_var_len(const char *arg, int pos, t_env *env, int ret)
 
 	i = 0;
 	if (arg[pos] == '?')
-		return (ret_size(ret));
+		return (ret_size(mini->ret));
 	if (ft_isdigit(arg[pos]))
 		return (0);
 	while (arg[pos] && is_env_char(arg[pos]) == 1 && i < BUFF_SIZE)
 		var_name[i++] = arg[pos++];
 	var_name[i] = '\0';
-	var_value = get_env_value(var_name, env);
+	var_value = get_env_value(var_name, mini);
 	i = ft_strlen(var_value);
-	ft_free(var_value);
+	my_free(var_value, mini->m_node);
 	return (i);
 }
