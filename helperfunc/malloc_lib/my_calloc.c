@@ -6,11 +6,12 @@
 /*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 19:47:26 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/07 15:59:56 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/09 20:28:38 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc_lib.h"
+#include <unistd.h>
 
 static void	*ft_memset(void *b, int c, size_t len)
 {
@@ -42,7 +43,10 @@ void	*my_calloc(size_t count, size_t size, t_node *node)
 		return (NULL);
 	ptr = my_malloc(count * size, node);
 	if (ptr == NULL)
-		return (NULL);
+	{
+		write(1, "ERROR:insufficient memory\n", 26);
+		my_exit(1, node);
+	}
 	ft_bzero(ptr, size * count);
 	return (ptr);
 }
