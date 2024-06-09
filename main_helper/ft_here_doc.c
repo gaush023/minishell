@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 19:49:32 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/06 19:30:53 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 16:29:33 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static t_token	*stop_heredoc(t_token *token, char *line, t_mini *mini)
 	line = transform_line(line);
 	tmp = get_tokens(line);
 	token->prev->next = tmp;
+	add_history(line);
+	ft_free(line);
 	return (token);
 }
 

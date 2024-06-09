@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/04 16:19:17 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 16:48:02 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 	pid = fork();
 	if (pid == 0)
 	{
-		g_sig = SIGNAL_NORMAL;
+		g_sig = SIGNAL_OFF;
 		env_array = env_to_array(env);
 		if (ft_strchr(path, '/') != NULL)
 			execve(path, args, env_array);
@@ -43,8 +43,6 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 	}
 	else
 		waitpid(pid, &ret, 0);
-	if (g_sig != SIGNAL_OFF)
-		return (g_sig);
 	return (calc_ret(ret));
 }
 
@@ -104,6 +102,7 @@ int	exec_bin(char **args, t_env *env, t_mini *mini)
 		ret = magic_box(path, args, env, mini);
 	else
 		ret = magic_box(args[0], args, env, mini);
+
 	free_tab(bin);
 	ft_free(path);
 	return (ret);

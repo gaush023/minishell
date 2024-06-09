@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:27:15 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/04 16:34:55 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:36:33 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@
 extern int	g_sig;
 # define ON_PID -1
 # define ON_HERE_DOC -2
-# define SIGNAL_NORMAL 0
-# define SIGNAL_OFF -2
-# define SIGNAL_ON -3
+# define SIGNAL_OFF -3
+# define SIGNAL_ON -4
 # define SIGNAL_INT 130
 # define SIGNAL_QUIT 131
 

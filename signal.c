@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:11:21 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/04 16:41:42 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 16:28:01 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@ void	sig_int(int code)
 	rl_replace_line("", 1);
 	if (g_sig == ON_PID || g_sig == ON_HERE_DOC)
 	{
-		g_sig = SIGNAL_INT;
-		if (g_sig == HERE_DOC)
+		if (g_sig == ON_HERE_DOC)
 			ft_putstr_fd(M_PROMPT, STDERR);
-		else
-			ft_putstr_fd("\n", STDERR);
+		g_sig = SIGNAL_INT;
 	}
 	else
 		rl_redisplay();

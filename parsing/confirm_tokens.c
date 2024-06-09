@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/06 17:57:44 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:07:12 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,16 @@ t_token	*changes_orders_heredoc(t_token *token)
 t_token	*confirm_tokens(t_token *token)
 {
 	t_token	*tmp;
-	t_token	*tmp2;
 
+	tmp = token;
 	token = confrim_tokens_prepareation(token);
+	if ((token->type == HERE_DOC || ft_strcmp(token->content, ">") == 0)
+		&& token->next == NULL)
+	{
+		free_token(token, 0);
+		ft_putstr_fd("minishell: syntax error: unexpected \'newline\'\n", 2);
+		return (NULL);
+	}
 	if (token->type == HERE_DOC && token->qute_flag == 0)
 	{
 		if (!token->next->next || token->next->next->type != ARG)
@@ -81,7 +88,7 @@ t_token	*confirm_tokens(t_token *token)
 		else if (token->next->next->type == ARG)
 			return (changes_orders_heredoc(token));
 	}
-	else if (token->type == HERE_DOC && token->qute_flag == 1)
+	else if (token->type == HERE_DOC && (token->qute_flag == 1))
 	{
 		ft_putstr_fd("minishell: command not found: <<\n", 2);
 		free_token(token, 0);

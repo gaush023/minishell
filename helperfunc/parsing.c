@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 19:41:16 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/05 19:41:16 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:06:41 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	check_line_helper(t_token *token)
 {
 	if (is_types(token, "HTAI"))
 	{
-		if (!token->next || is_types(token->next, "TAIPE"))
+		if (token->next == NULL || is_types(token->next, "HTAIPE"))
 			return (true);
 	}
 	return (false);
