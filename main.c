@@ -6,14 +6,35 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:18:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 19:55:05 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/09 20:25:00 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 #include <libc.h>
+# include <dlfcn.h>
+# define MEMORY_SIZE 1024
 
 int	g_sig = 0;
+
+// __attribute__((destructor))
+// static void	destructor(void)
+// {
+// 	system("leaks -q minishell");
+// }
+//
+// void *malloc(size_t size)
+// {
+// 	static int i = 0;
+//
+// 	i += size;
+// 	if (i > MEMORY_SIZE)
+// 	{
+// 		return (NULL);
+// 	}
+// 	void *(*libc_malloc)(size_t)  = (void *(*)(size_t))dlsym(RTLD_NEXT, "malloc");
+// 	return(libc_malloc(size));
+// }
 
 void	mini_init(t_mini *mini)
 {
@@ -35,6 +56,10 @@ int	main(int ac, char **av, char **ev)
 
 	mini_init(&mini);
 	mini.m_node = malloc(sizeof(t_node));
+	if (!mini.m_node)
+	{
+		return (1);
+	}
 	malloc_startup(mini.m_node);
 	env_init(&mini, ev);
 	secret_env_init(&mini, ev);
@@ -51,10 +76,4 @@ int	main(int ac, char **av, char **ev)
 	return (mini.ret);
 	(void)ac;
 	(void)av;
-}
-
-__attribute__((destructor))
-static void	destructor(void)
-{
-	system("leaks -q minishell");
 }
