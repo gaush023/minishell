@@ -60,8 +60,6 @@ static int	increment_i(int i, char *arg, int size)
 		while (arg[i + 1] && is_env_char(arg[i]) == 1)
 			i++;
 	}
-	else
-		size--;
 	return (i);
 }
 

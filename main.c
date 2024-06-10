@@ -71,7 +71,7 @@ int	main(int ac, char **av, char **ev)
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
 		free_token(mini.start, mini.flag, mini.m_node);
-	}
+  }
 	malloc_end(mini.m_node);
 	return (mini.ret);
 	(void)ac;

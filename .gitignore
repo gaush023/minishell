@@ -1,6 +1,8 @@
 .vscode
 .DS_Store
 minishell
+ex_minisehll
+minishell_tester
 playground
 *.out
 *.o

@@ -71,5 +71,5 @@ char	*expasions(char *arg, t_mini *mini)
 		ex.str[ex.i++] = arg[ex.j++];
 	}
 	ex.str[ex.i] = '\0';
-	return (ex.str);
+  return (ex.str);
 }
