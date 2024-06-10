@@ -21,7 +21,7 @@ void	input(t_mini *mini, t_token *token)
 		ft_putstr_fd("minishell: ", STDERR);
 		ft_putstr_fd(token->content, STDERR);
 		ft_putstr_fd(": No such file or directory\n", STDERR);
-		mini->ret = 200;
+		mini->ret = 1;
 		mini->no_exec = 1;
 		return ;
 	}
