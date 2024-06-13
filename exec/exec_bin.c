@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 19:48:00 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:58:22 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,59 +23,59 @@ static int	calc_ret(int ret)
 	return (ret);
 }
 
-static size_t ft_size_env(t_env *lst)
+static size_t	ft_size_env(t_env *lst)
 {
-  size_t size;
+	size_t	size;
 
-  size = 0;
-  while (lst && lst->next != NULL)
-  {
-    if(lst->value != NULL)
-    {
-      size += ft_strlen(lst->value);
-      size++;
-    }
-    lst = lst->next;
-  }
-  return (size);
+	size = 0;
+	while (lst && lst->next != NULL)
+	{
+		if (lst->value != NULL)
+		{
+			size += ft_strlen(lst->value);
+			size++;
+		}
+		lst = lst->next;
+	}
+	return (size);
 }
 
-char *env_to_str(t_env *lst)
+char	*env_to_str(t_env *lst)
 {
-  char *env_str;
-  unsigned int i;
-  unsigned int j;
+	char			*env_str;
+	unsigned int	i;
+	unsigned int	j;
 
-  env_str = (char *)malloc(sizeof(char) * ft_size_env(lst));
-  if(env_str == NULL)
-    return (NULL);
-  i = 0;
-  while(lst && lst->next != NULL)
-  {
-    if(lst->value != NULL)
-    {
-      j = 0;
-      while(lst->value[j] != '\0')
-      {
-        env_str[i] = lst->value[j];
-        i++;
-        j++;
-      }
-      env_str[i] = '\0';
-      i++;
-    }
-    if(lst->next->next != NULL)
-      env_str[i] = '\n';
-    lst = lst->next;
-  }
-  env_str[i] = '\0';
-  return (env_str);
+	env_str = (char *)malloc(sizeof(char) * ft_size_env(lst));
+	if (env_str == NULL)
+		return (NULL);
+	i = 0;
+	while (lst && lst->next != NULL)
+	{
+		if (lst->value != NULL)
+		{
+			j = 0;
+			while (lst->value[j] != '\0')
+			{
+				env_str[i] = lst->value[j];
+				i++;
+				j++;
+			}
+			env_str[i] = '\0';
+			i++;
+		}
+		if (lst->next->next != NULL)
+			env_str[i] = '\n';
+		lst = lst->next;
+	}
+	env_str[i] = '\0';
+	return (env_str);
 }
 
 int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 {
-  char *ptr;
-  char	**env_array;
+	char	*ptr;
+	char	**env_array;
 	int		ret;
 	int		pid;
 
@@ -86,9 +86,9 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 	{
 		g_sig = SIGNAL_OFF;
 		//env_array = env_to_array(env, mini);
-    ptr = env_to_str(env);
-    env_array = ft_split(ptr, '\n');
-    if (ft_strchr(path, '/') != NULL)
+	ptr = env_to_str(env);
+	env_array = ft_split(ptr, '\n');
+	if (ft_strchr(path, '/') != NULL)
 			execve(path, args, env_array);
 		ret = error_msg(path);
 		free_tab(env_array, mini->m_node);
