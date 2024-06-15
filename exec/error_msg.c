@@ -30,7 +30,7 @@ int	error_msg(char *path)
 		ft_putstr_fd(": Permission denied :", STDERR);
 	ft_putstr_fd(path, STDERR);
 	ft_putstr_fd("\n", STDERR);
-	if (ft_strchr(path, '/') != NULL || (fd == -1 && folder == NULL))
+	if (ft_strchr(path, '/') == NULL || (fd == -1 && folder == NULL))
 		ret = UK_CMD;
 	else
 		ret = IS_DIR;
