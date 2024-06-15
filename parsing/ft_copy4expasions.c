@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_copy4expasions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:27 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/06 16:29:52 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:12:58 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ char	*copy_env_name(char *dst, char *src)
 	return (dst);
 }
 
-char	*copy_env_value(t_mini *mini)
+char	*copy_env_value(char *env)
 {
 	int		i;
 	int		j;
 	int		size_alloc;
 	char	*env_value;
 
-	size_alloc = env_value_len(mini->env->value) + 1;
+	size_alloc = env_value_len(env) + 1;
 	env_value = malloc(sizeof(char) * size_alloc);
 	i = 0;
-	while (mini->env->value[i] && mini->env->value[i] != '=')
+	while (env[i] && env[i] != '=')
 		i++;
 	i += 1;
 	j = 0;
-	while (mini->env->value[i])
-		env_value[j++] = mini->env->value[i++];
+	while (env[i])
+		env_value[j++] = env[i++];
 	env_value[j] = '\0';
 	return (env_value);
 }

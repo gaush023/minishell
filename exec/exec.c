@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 19:39:07 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/16 01:02:47 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char	**cmd_tab(t_token *start, t_mini *mini);
 
 int	ft_strisnum(char *str)
 {
@@ -81,6 +79,7 @@ static void	exec_cmd_fininsh(t_mini *mini, char **cmd)
 	mini->charge = 0;
 }
 
+
 void	exec_cmd(t_mini *mini, t_token *token)
 {
 	char	**cmd;
@@ -94,7 +93,7 @@ void	exec_cmd(t_mini *mini, t_token *token)
 	i = 0;
 	while (cmd && cmd[i])
 	{
-		cmd[i] = expasions(cmd[i], mini);
+		cmd[i] = expasions(cmd[i], mini, mini->env);
 		i++;
 	}
 	if (cmd && ft_strcmp(cmd[0], "exit") == 0 && has_pipe(token) == 0)

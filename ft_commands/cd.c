@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:22:49 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 17:02:50 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:29:11 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-
-int		go_to_path(int opt, t_mini *mini);
-char	*get_env_path(t_env *env, char *var, int len);
-int		update_oldpwd(t_env *env);
+#include "../includes/minishell.h"
 
 static void	print_error(char **args)
 {
@@ -53,11 +49,11 @@ char	*make_home_path(char **args, t_mini *mini)
 	return (path);
 }
 
-int	make_hyphen_path(t_env *env, char *path)
+int	make_hyphen_path(t_mini *mini, char *path)
 {
 	int	ret;
 
-	update_oldpwd(env);
+	update_oldpwd(mini);
 	ret = chdir(path);
 	if (ret < 0)
 	{
@@ -86,7 +82,7 @@ int	ft_cd(char **args, t_mini *mini)
 	if (ft_strcmp(path, "-") == 0)
 		cd_ret = go_to_path(1, mini);
 	else
-		cd_ret = make_hyphen_path(mini->env, path);
+		cd_ret = make_hyphen_path(mini, path);
 	my_free(path, mini->m_node);
 	return (cd_ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_bin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/13 15:58:22 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:52:54 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,55 +23,6 @@ static int	calc_ret(int ret)
 	return (ret);
 }
 
-static size_t	ft_size_env(t_env *lst)
-{
-	size_t	size;
-
-	size = 0;
-	while (lst && lst->next != NULL)
-	{
-		if (lst->value != NULL)
-		{
-			size += ft_strlen(lst->value);
-			size++;
-		}
-		lst = lst->next;
-	}
-	return (size);
-}
-
-char	*env_to_str(t_env *lst)
-{
-	char			*env_str;
-	unsigned int	i;
-	unsigned int	j;
-
-	env_str = (char *)malloc(sizeof(char) * ft_size_env(lst));
-	if (env_str == NULL)
-		return (NULL);
-	i = 0;
-	while (lst && lst->next != NULL)
-	{
-		if (lst->value != NULL)
-		{
-			j = 0;
-			while (lst->value[j] != '\0')
-			{
-				env_str[i] = lst->value[j];
-				i++;
-				j++;
-			}
-			env_str[i] = '\0';
-			i++;
-		}
-		if (lst->next->next != NULL)
-			env_str[i] = '\n';
-		lst = lst->next;
-	}
-	env_str[i] = '\0';
-	return (env_str);
-}
-
 int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 {
 	char	**env_array;
@@ -84,11 +35,8 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 	if (pid == 0)
 	{
 		g_sig = SIGNAL_OFF;
-		printf("path: %s\n", path);
-    env_array = env_to_array(env, mini);
-//	ptr = env_to_str(env);
-//	env_array = ft_split(ptr, '\n');
-	if (ft_strchr(path, '/') != NULL)
+		env_array = env_to_array(env, mini);
+		if (ft_strchr(path, '/') != NULL)
 			execve(path, args, env_array);
 		ret = error_msg(path);
 		free_tab(env_array, mini->m_node);
@@ -108,7 +56,6 @@ char	*path_join(const char *s1, char *s2, t_node *node)
 	tmp = my_strjoin(s1, "/", node);
 	path = my_strjoin(tmp, s2, node);
 	my_free(tmp, node);
-  printf("path: %s\n", path)
 	return (path);
 }
 

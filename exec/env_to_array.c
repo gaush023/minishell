@@ -36,7 +36,7 @@ char	**env_to_array(t_env *env, t_mini *mini)
 	env_array = (char **)my_calloc(count + 1, sizeof(char *), mini->m_node);
 	while (env)
 	{
-		env_array[i] = ft_strdup(env->value);
+		env_array[i] = my_strdup(env->value, mini->m_node);
 		env = env->next;
 		i++;
 	}

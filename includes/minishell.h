@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 19:20:30 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:27:16 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		secret_env_init(t_mini *mini, char **env_ar);
 int		get_shlvl_plus(t_mini *mini);
 
 // exec
+char	**cmd_tab(t_token *token, t_mini *mini);
 void	exec_cmd(t_mini *mini, t_token *token);
 int		exec_bin(char **args, t_env *env, t_mini *mini);
 char	**env_to_array(t_env *env, t_mini *mini);
@@ -56,18 +57,19 @@ t_token	*prev_sep(t_token *token, int skip);
 void	squish_content(t_mini *mini);
 void	parse(t_mini *mini);
 void	type_token(t_token *token, int sep);
-char	*expasions(char *arg, t_mini *mini);
-int		malloc4expassion(char *arg, t_mini *mini);
-char	*get_var_value(char *arg, int pos, t_mini *mini);
-int		get_var_len(const char *arg, int pos, t_mini *mini);
-char	*get_env_value(char *var_name, t_mini *mini);
-char	*copy_env_value(t_mini *mini);
+char	*expasions(char *arg, t_mini *mini, t_env *env);
+int		malloc4expassion(char *arg, t_mini *mini, t_env *env);
+char	*get_var_value(char *arg, int pos, t_mini *mini, t_env *env);
+int		get_var_len(const char *arg, int pos, t_mini *mini, t_env *env);
+char	*get_env_value(char *var_name, t_mini *mini, t_env *env);
+char	*copy_env_value(char *env);
 int		env_value_len(char *env);
 char	*copy_env_name(char *dst, char *src);
 int		is_env_char(char c);
 int		ret_size(int ret);
 t_token	*confirm_tokens(t_token *token, t_mini *mini);
-t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos, t_mini *mini);
+t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos,
+			t_mini *mini);
 int		*make_in_sq_flag(char *line, t_mini *mini);
 char	*chek_prepareation(char *line);
 t_token	*get_tokens_finish(t_token *token, t_mini *mini);
@@ -99,6 +101,10 @@ void	minishell(t_mini *mini);
 
 // ft_commands
 int		ft_echo(char **args);
+int		go_to_path(int opt, t_mini *mini);
+char	*get_env_path(t_env *env, char *var, int len);
+int		update_oldpwd(t_mini *mini);
+
 int		ft_cd(char **args, t_mini *mini);
 int		unset(char **tokens, t_env *env);
 int		env(char **tokens, t_env *env);

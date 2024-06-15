@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   confirm_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 22:31:21 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/16 01:01:26 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_token	*confrim_tokens_prepareation(t_token *token, t_mini *mini)
 {
 	t_token	*tmp;
 	char	*tmp_str;
-
+	
 	while (token->next != NULL)
 	{
 		if (token->qute_flag == 1)

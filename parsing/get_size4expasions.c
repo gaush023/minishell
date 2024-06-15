@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_size4expasions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:27 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 17:01:31 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/15 23:54:43 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	env_value_len(char *env)
 	return (size_name);
 }
 
-int	get_var_len(const char *arg, int pos, t_mini *mini)
+int	get_var_len(const char *arg, int pos, t_mini *mini, t_env *env)
 {
 	char	var_name[BUFF_SIZE];
 	char	*var_value;
@@ -56,7 +56,7 @@ int	get_var_len(const char *arg, int pos, t_mini *mini)
 	while (arg[pos] && is_env_char(arg[pos]) == 1 && i < BUFF_SIZE)
 		var_name[i++] = arg[pos++];
 	var_name[i] = '\0';
-	var_value = get_env_value(var_name, mini);
+	var_value = get_env_value(var_name, mini, env);
 	i = ft_strlen(var_value);
 	my_free(var_value, mini->m_node);
 	return (i);

@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd_util.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 19:03:07 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/05 19:03:07 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:27:40 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-
-char	*get_env_path(t_env *env, char *var, int len);
-int		update_oldpwd(t_mini *mini);
+#include "../includes/minishell.h"
 
 int	go_to_path(int opt, t_mini *mini)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expasions.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:24 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 22:05:14 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:14:32 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ size_t	var_cpy(char *dst, const char *src, size_t size)
 	return (i);
 }
 
-void	insert_var(t_expasion *ex, char *arg, t_mini *mini)
+void	insert_var(t_expasion *ex, char *arg, t_mini *mini, t_env *env)
 {
 	char	*env_value;
 
-	env_value = get_var_value(arg, ex->j, mini);
+	env_value = get_var_value(arg, ex->j, mini, env);
 	if (env_value)
 		ex->i += var_cpy(ex->str, env_value, ex->i);
 	else
@@ -46,12 +46,12 @@ void	insert_var(t_expasion *ex, char *arg, t_mini *mini)
 	}
 }
 
-char	*expasions(char *arg, t_mini *mini)
+char	*expasions(char *arg, t_mini *mini, t_env *env)
 {
 	t_expasion	ex;
 	int			len;
 
-	len = malloc4expassion(arg, mini);
+	len = malloc4expassion(arg, mini, env);
 	ex.str = my_calloc(len + 1, sizeof(char), mini->m_node);
 	if (ex.str == NULL)
 		return (NULL);
@@ -66,10 +66,10 @@ char	*expasions(char *arg, t_mini *mini)
 				&& arg[ex.j] != '?')
 				ex.str[ex.i++] = '$';
 			else
-				insert_var(&ex, arg, mini);
+				insert_var(&ex, arg, mini, env);
 		}
 		ex.str[ex.i++] = arg[ex.j++];
 	}
 	ex.str[ex.i] = '\0';
-  return (ex.str);
+	return (ex.str);
 }

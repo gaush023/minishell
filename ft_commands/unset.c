@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:56:47 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 19:47:28 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:20:38 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include <stdbool.h>
+#include "../includes/minishell.h"
 
 bool	ft_env_equals(char *value, char *token)
 {

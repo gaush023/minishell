@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   update_oldpwd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 19:13:18 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 14:58:19 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:20:43 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 static char	*get_env_name(char *dest, char *src)
 {
