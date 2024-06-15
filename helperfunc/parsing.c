@@ -81,7 +81,7 @@ int	check_line(t_mini *mini, t_token *token)
 			else
 				ft_putstr_fd("newline", STDERR);
 			ft_putstr_fd("'\n", STDERR);
-			mini->ret = 258;
+			mini->ret = 2;
 			return (0);
 		}
 		if (check_line_helper2(token))
@@ -89,7 +89,7 @@ int	check_line(t_mini *mini, t_token *token)
 			ft_putstr_fd(SYNTAX_ERR, STDERR);
 			ft_putstr_fd(token->content, STDERR);
 			write(STDERR, "'\n", 2);
-			mini->ret = 258;
+			mini->ret = 2;
 			return (0);
 		}
 		token = token->next;

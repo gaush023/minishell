@@ -74,12 +74,12 @@ t_token	*confirm_tokens(t_token *token, t_mini *mini)
 
 	tmp = token;
 	token = confrim_tokens_prepareation(token, mini);
-	if ((token->type == HERE_DOC || ft_strcmp(token->content, ">") == 0)
-		&& token->next == NULL)
+	if ((token->type == HERE_DOC || ft_strcmp(token->content, ">") == 0 ) && token->next == NULL)
 	{
 		free_token(token, 0, mini->m_node);
 		ft_putstr_fd("minishell: syntax error: unexpected \'newline\'\n", 2);
-		return (NULL);
+    mini->ret = 2;
+    return (NULL);
 	}
 	if (token->type == HERE_DOC && token->qute_flag == 0)
 	{

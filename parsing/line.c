@@ -59,9 +59,21 @@ char	*transform_line(char *line, t_mini *mini)
 		{
 			new[j++] = ' ';
 			new[j++] = line[i++];
-			if (quotes(line, i) == 0 && (line[i] == '>' || line[i] == '<'))
+			if(quotes(line, i) == 0 && (line[i] == '>' || line[i] == '<'))
 				new[j++] = line[i++];
-			new[j++] = ' ';
+	    if (line[i] == '>')
+      {
+        ft_putstr_fd("minishell: syntax error near unexpected token `>'\n", 2);
+        mini->ret = 2;
+        return (NULL);
+      }
+      if (line[i] == '<')
+      {
+        ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+        mini->ret = 2;
+        return (NULL);
+      }
+      new[j++] = ' ';
 		}
 		else
 			new[j++] = line[i++];
@@ -88,12 +100,11 @@ void	parse(t_mini *mini)
 		return ;
 	cmd_line = my_strdup(line, mini->m_node);
 	line = transform_line(line, mini);
-	if (line && line[0] == '$')
+  if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
-	token = NULL;
-	token = get_tokens(line, mini);
+  token = get_tokens(line, mini);
 	ft_add_history(cmd_line, token);
 	mini->start = token;
 	my_free(line, mini->m_node);
-	return ;
 }
+
