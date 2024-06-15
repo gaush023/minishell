@@ -74,7 +74,6 @@ char	*env_to_str(t_env *lst)
 
 int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 {
-	char	*ptr;
 	char	**env_array;
 	int		ret;
 	int		pid;
@@ -85,9 +84,10 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 	if (pid == 0)
 	{
 		g_sig = SIGNAL_OFF;
-		//env_array = env_to_array(env, mini);
-	ptr = env_to_str(env);
-	env_array = ft_split(ptr, '\n');
+		printf("path: %s\n", path);
+    env_array = env_to_array(env, mini);
+//	ptr = env_to_str(env);
+//	env_array = ft_split(ptr, '\n');
 	if (ft_strchr(path, '/') != NULL)
 			execve(path, args, env_array);
 		ret = error_msg(path);
@@ -108,6 +108,7 @@ char	*path_join(const char *s1, char *s2, t_node *node)
 	tmp = my_strjoin(s1, "/", node);
 	path = my_strjoin(tmp, s2, node);
 	my_free(tmp, node);
+  printf("path: %s\n", path)
 	return (path);
 }
 
