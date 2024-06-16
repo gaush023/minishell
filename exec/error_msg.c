@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/05/03 15:47:03 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/16 03:12:16 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	error_msg(char *path)
 	int	fd;
 	int	ret;
 
-	fd = open(path, O_RDONLY);
+	fd = open(path, O_WRONLY);
 	folder = opendir(path);
 	if (ft_strchr(path, '/') == NULL)
 		ft_putstr_fd("command not found :", STDERR);

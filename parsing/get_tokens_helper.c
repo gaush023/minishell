@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens_helper.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 22:31:04 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/16 03:19:47 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	*chek_prepareation(char *line)
 
 t_token	*get_tokens_finish(t_token *token, t_mini *mini)
 {
+	if (token == NULL)
+		return (NULL);
 	while (token->prev != NULL)
 	{
 		set_type(token);
@@ -77,6 +79,7 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 
 	i = 0;
 	tmp_token = NULL;
+	token = NULL;
 	while (line[i])
 	{
 		while (str_flag[i] == -1 || str_flag[i] == -2)
@@ -86,9 +89,26 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 			k = i;
 			while (str_flag[i] == 0)
 				i++;
-			token = make_token(cutout_str(line, i, k, mini), tmp_token,
-					str_flag, i, mini);
-			tmp_token = token;
+			mini->pos = i;
+			char *tmp_str = cutout_str(line, i, k, mini);
+			if(tmp_str[0] == EXPANSION)
+			{
+				tmp_str++;
+				if (ft_strcmp(tmp_str, "EMPTY") != 0)
+				{	
+					tmp_str = cutout_str(line, i, k, mini);
+					token = make_token(tmp_str, tmp_token, str_flag, mini);
+					tmp_token = token;
+				}
+				else
+					my_free(tmp_str, mini->m_node);
+			}
+			else
+			{
+				token = make_token(tmp_str, tmp_token,
+					str_flag, mini);
+				tmp_token = token;
+			}
 		}
 	}
 	return (token);

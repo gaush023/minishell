@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_input.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:23:18 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/03 20:23:27 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/16 03:34:10 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	input(t_mini *mini, t_token *token)
 {
 	ft_close(mini->fdin);
-	mini->fdin = open(token->content, O_RDONLY, S_IRUSR);
-	if (mini->fdin < 0)
+	mini->fdin = open(token->content, O_RDONLY, S_IRWXU);
+	if (mini->fdin == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR);
 		ft_putstr_fd(token->content, STDERR);

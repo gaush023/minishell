@@ -6,7 +6,7 @@
 /*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:24:31 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/16 01:07:47 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/16 01:20:33 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include "../helperfunc/libft/libft.h"
 # include "../helperfunc/malloc_lib/malloc_lib.h"
 # include <dirent.h>
+# include <dlfcn.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <libc.h>
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>

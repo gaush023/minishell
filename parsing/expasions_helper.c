@@ -6,7 +6,7 @@
 /*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:27 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/16 01:13:57 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/16 01:21:44 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*get_env_value(char *var_name, t_mini *mini, t_env *env)
 		}
 		env = env->next;
 	}
-	printf("env_value: %s\n", env_value);
 	return (env_value);
 }
 

@@ -6,7 +6,7 @@
 /*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:26:09 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/16 01:08:38 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/16 01:26:36 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_mini
 	int				no_exec;
 	int				exit;
 	int				heredoc_fd;
+	int pos;
 	t_env			*env;
 	t_env			*secret_env;
 	t_token			*start;

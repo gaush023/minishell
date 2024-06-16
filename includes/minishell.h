@@ -6,7 +6,7 @@
 /*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/16 00:27:16 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/16 01:27:37 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*copy_env_name(char *dst, char *src);
 int		is_env_char(char c);
 int		ret_size(int ret);
 t_token	*confirm_tokens(t_token *token, t_mini *mini);
-t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos,
+t_token	*make_token(char *str, t_token *prev_token, int *quote_flag,
 			t_mini *mini);
 int		*make_in_sq_flag(char *line, t_mini *mini);
 char	*chek_prepareation(char *line);

@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:18:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 22:00:46 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/16 01:20:14 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-#include <libc.h>
-# include <dlfcn.h>
+#include <stdio.h>
 
-int	g_sig = 0;
+int		g_sig = 0;
 
 // __attribute__((destructor))
 // static void	destructor(void)
@@ -31,7 +30,8 @@ int	g_sig = 0;
 /* 	{ */
 /* 		return (NULL); */
 /* 	} */
-/* 	void *(*libc_malloc)(size_t)  = (void *(*)(size_t))dlsym(RTLD_NEXT, "malloc"); */
+/* 	void *(*libc_malloc)(size_t)  = (void *(*)(size_t))dlsym(RTLD_NEXT,
+			"malloc"); */
 /* 	return(libc_malloc(size)); */
 /* } */
 
@@ -71,7 +71,7 @@ int	main(int ac, char **av, char **ev)
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
 		free_token(mini.start, mini.flag, mini.m_node);
-  }
+	}
 	malloc_end(mini.m_node);
 	return (mini.ret);
 	(void)ac;

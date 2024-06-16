@@ -6,7 +6,7 @@
 /*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:36 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/16 01:04:42 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/16 01:37:24 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,16 @@ int	is_next_quote(int *quote_flag, int pos)
 	return (0);
 }
 
-t_token	*make_token(char *str, t_token *prev_token, int *quote_flag, int pos,
+t_token	*make_token(char *str, t_token *prev_token, int *quote_flag,
 		t_mini *mini)
 {
+	int pos;
 	t_token	*token;
 	t_token	*tmp;
+	char	*tmp_str;
 
+	pos = mini->pos;
+	tmp_str = str;
 	token = my_calloc(1, sizeof(t_token), mini->m_node);
 	token->prev = prev_token;
 	if (quote_flag[pos] == -2)
