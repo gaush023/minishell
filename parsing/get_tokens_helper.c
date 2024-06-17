@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens_helper.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/16 03:19:47 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/18 00:49:32 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,13 @@ t_token	*get_tokens_finish(t_token *token, t_mini *mini)
 		token = token->prev;
 	}
 	set_type(token);
+	t_token	*tmp = token;
+	while (tmp)
+	{
+		printf("token->content: %s\n", tmp->content);
+		printf("token->qute_flag: %d\n", tmp->qute_flag);
+		tmp = tmp->next;
+	}
 	token = confirm_tokens(token, mini);
 	return (token);
 }
@@ -80,6 +87,12 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 	i = 0;
 	tmp_token = NULL;
 	token = NULL;
+	int  tmp = 0;
+	while (str_flag[tmp] != -3)
+	{
+		printf("%d", str_flag[tmp]);
+		tmp++;
+	}
 	while (line[i])
 	{
 		while (str_flag[i] == -1 || str_flag[i] == -2)

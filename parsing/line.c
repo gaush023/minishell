@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:30 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 22:01:03 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/18 00:29:57 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*transform_line(char *line, t_mini *mini)
 	i = 0;
 	j = 0;
 	new = allo_new(line, mini);
-	while (new && line[i])
+	while (new &&line[i])
 	{
 		if (quotes(line, i) != 2 && line[i] == '$' && i && line[i + 1] != ' ')
 			new[j++] = (char)(-line[i++]);
@@ -59,21 +59,21 @@ char	*transform_line(char *line, t_mini *mini)
 		{
 			new[j++] = ' ';
 			new[j++] = line[i++];
-			if(quotes(line, i) == 0 && (line[i] == '>' || line[i] == '<'))
+			if (quotes(line, i) == 0 && (line[i] == '>' || line[i] == '<'))
 				new[j++] = line[i++];
-	    if (line[i] == '>')
-      {
-        ft_putstr_fd("minishell: syntax error near unexpected token `>'\n", 2);
-        mini->ret = 2;
-        return (NULL);
-      }
-      if (line[i] == '<')
-      {
-        ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
-        mini->ret = 2;
-        return (NULL);
-      }
-      new[j++] = ' ';
+			if (line[i] == '>')
+			{
+				ft_putstr_fd("minishell: syntax error near unexpected token `>'\n", 2);
+				mini->ret = 2;
+				return (NULL);
+			}
+			if (line[i] == '<')
+			{
+				ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+				mini->ret = 2;
+				return (NULL);
+			}
+			new[j++] = ' ';
 		}
 		else
 			new[j++] = line[i++];
@@ -100,11 +100,10 @@ void	parse(t_mini *mini)
 		return ;
 	cmd_line = my_strdup(line, mini->m_node);
 	line = transform_line(line, mini);
-  if (line && line[0] == '$')
+	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
-  token = get_tokens(line, mini);
+	token = get_tokens(line, mini);
 	ft_add_history(cmd_line, token);
 	mini->start = token;
 	my_free(line, mini->m_node);
 }
-

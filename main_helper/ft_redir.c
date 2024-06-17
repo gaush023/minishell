@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:24:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/03 20:24:42 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/18 00:21:16 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	redir(t_mini *mini, t_token *token, int type)
 {
 	ft_close(mini->fdout);
+	printf("token->content: %s\n", token->content);
 	if (type == TRUNC)
 		mini->fdout = open(token->content, O_WRONLY | O_CREAT | O_TRUNC,
 				S_IRWXU);
