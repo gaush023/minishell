@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 01:07:29 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:45:22 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,27 @@ t_token	*changes_orders_heredoc(t_token *token)
 	return (token);
 }
 
-t_token	*confirm_tokens(t_token *token, t_mini *mini)
+static bool	confirm_tokens_helper(t_token *token, t_mini *mini)
 {
-	t_token	*tmp;
-
-	tmp = token;
-	token = confrim_tokens_prepareation(token, mini);
 	if ((token->type == HERE_DOC || ft_strcmp(token->content, ">") == 0)
 		&& token->next == NULL)
 	{
 		free_token(token, 0, mini->m_node);
 		ft_putstr_fd("minishell: syntax error: unexpected \'newline\'\n", 2);
 		mini->ret = 2;
-		return (NULL);
+		return (false);
 	}
+	return (true);
+}
+
+t_token	*confirm_tokens(t_token *token, t_mini *mini)
+{
+	t_token	*tmp;
+
+	tmp = token;
+	token = confrim_tokens_prepareation(token, mini);
+	if (!confirm_tokens_helper(token, mini))
+		return (NULL);
 	if (token->type == HERE_DOC && token->qute_flag == 0)
 	{
 		if (!token->next->next || token->next->next->type != ARG)

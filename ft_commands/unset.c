@@ -34,19 +34,19 @@ int	unset(char **tokens, t_env *env)
 {
 	if (tokens[1] == NULL)
 	{
-		return (1);
+		return (0);
 	}
 	if (ft_env_equals(env->value, tokens[1]))
 	{
 		env = env->next;
-		return (1);
+		return (0);
 	}
 	while (env->next->next != NULL)
 	{
 		if (ft_env_equals(env->next->value, tokens[1]))
 		{
 			env->next = env->next->next;
-			return (1);
+			return (0);
 		}
 		env = env->next;
 	}

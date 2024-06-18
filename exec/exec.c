@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/18 02:13:12 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:39:19 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static void	exec_cmd_fininsh(t_mini *mini, char **cmd)
 	mini->pipeout = -1;
 	mini->charge = 0;
 }
-
 
 void	exec_cmd(t_mini *mini, t_token *token)
 {

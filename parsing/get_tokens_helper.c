@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 02:20:52 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:51:01 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ char	*cutout_str(char *line, unsigned int i, unsigned int k, t_mini *mini)
 	return (tmp_str);
 }
 
+
+
+
+
 t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 {
 	t_token	*token;
@@ -81,7 +85,7 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 	i = 0;
 	tmp_token = NULL;
 	token = NULL;
-
+	
 	while (line[i])
 	{
 		while (str_flag[i] == -1 || str_flag[i] == -2)

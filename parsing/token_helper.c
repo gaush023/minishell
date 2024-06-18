@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:36 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 02:04:09 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:24:10 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ t_token	*make_token(char *str, t_token *prev_token, int *quote_flag,
 	pos = mini->pos;
 	tmp_str = str;
 	token = my_calloc(1, sizeof(t_token), mini->m_node);
-	// printf("str: %s\n", str);
-	// printf("quote_flag: %d\n", quote_flag[pos]);
-	// printf("pos: %d\n", pos);
 	token->prev = prev_token;
 	if (quote_flag[pos] == -2)
 	{
@@ -77,8 +74,6 @@ t_token	*make_token(char *str, t_token *prev_token, int *quote_flag,
 		token->qute_flag = 0;
 	token->content = my_strdup(str, mini->m_node);
 	token->next = NULL;
-	// printf("token->content: %s\n", token->content);
-	// printf("token->qute_flag: %d\n", token->qute_flag);
 	my_free(str, mini->m_node);
 	return (token);
 }

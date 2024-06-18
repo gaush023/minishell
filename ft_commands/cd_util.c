@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   cd_util.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 19:03:07 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 16:36:24 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:47:45 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static int	go_to_path_helper(int opt)
+{
+	if (opt == 0)
+		ft_putstr_fd("cd: HOME not set\n", STDERR);
+	else
+		ft_putstr_fd("cd: OLDPWD not set\n", STDERR);
+	return (ERR);
+}
 
 int	go_to_path(int opt, t_mini *mini)
 {
@@ -28,13 +37,7 @@ int	go_to_path(int opt, t_mini *mini)
 	else if (opt == 1)
 		env_path = get_env_path(cpy_env, "OLDPWD=", 7);
 	if (env_path == NULL)
-	{
-		if (opt == 0)
-			ft_putstr_fd("cd: HOME not set\n", STDERR);
-		else
-			ft_putstr_fd("cd: OLDPWD not set\n", STDERR);
-		return (ERR);
-	}
+		return (go_to_path_helper(opt));
 	ret = chdir(env_path);
 	my_free(env_path, mini->m_node);
 	if (ret == -1)

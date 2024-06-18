@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 19:49:32 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 19:32:56 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:37:50 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,16 @@ static t_token	*stop_heredoc(t_token *token, char *line, t_mini *mini)
 	t_token	*tmp;
 	char	*tmp_line;
 
-  g_sig = SIGNAL_OFF;
-  tmp_line = my_strdup(line, mini->m_node);
+	tmp_line = my_strdup(line, mini->m_node);
 	line = transform_line(tmp_line, mini);
 	tmp = get_tokens(line, mini);
 	if (line == NULL || quote_check(mini, line) == 1)
 		return (token);
 	if (line && line[0] == '$')
 		line[0] = (char)(-line[0]);
-  token->prev->next = tmp;
-  ft_add_history(tmp_line, tmp);
-  my_free(line, mini->m_node);
+	token->prev->next = tmp;
+	ft_add_history(tmp_line, tmp);
+	my_free(line, mini->m_node);
 	my_free(tmp_line, mini->m_node);
 	return (token);
 }
@@ -51,19 +50,19 @@ static void	here_doc_end(t_mini *mini)
 	ft_close(mini->heredoc_fd);
 }
 
-static void here_doc_loop(t_mini *mini, t_token *token, char *delimiter)
+static void	here_doc_loop(t_mini *mini, t_token *token, char *delimiter)
 {
 	char	*line;
 
 	while (1)
 	{
 		ft_putstr_fd("here_doc> ", 1);
-		line = readline(" \b" );
-    if (g_sig == SIGNAL_INT)
+		line = readline(" \b");
+		if (g_sig == SIGNAL_INT)
 		{
-      token = stop_heredoc(token, line, mini);
-      return ;
-    }
+			token = stop_heredoc(token, line, mini);
+			return ;
+		}
 		if (!line || ft_strcmp(line, delimiter) == 0)
 		{
 			if (!line)
@@ -72,7 +71,7 @@ static void here_doc_loop(t_mini *mini, t_token *token, char *delimiter)
 			return ;
 		}
 		here_doc_write(mini, line);
-  }
+	}
 }
 
 void	here_doc(t_mini *mini, t_token *token)
