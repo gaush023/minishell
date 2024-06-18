@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 22:42:37 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/09 13:14:17 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:41:19 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	is_types(t_token *token, char *types)
 	else if (ft_strchr(types, 'X') && is_type(token, CMD))
 		return (1);
 	else if (ft_strchr(types, 'x') && is_type(token, ARG))
+		return (1);
+	else if (ft_strchr(types, 'T') && is_type(token, TRUNC))
 		return (1);
 	else if (ft_strchr(types, 'R') && is_type(token, TRUNC))
 		return (1);

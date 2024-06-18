@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 19:41:16 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/09 19:25:58 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:41:57 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ bool	check_line_helper(t_token *token)
 
 bool	check_line_helper2(t_token *token)
 {
+	if (token->qute_flag == 1 && token->type != ARG)
+		token->type = CMD;
 	if (is_types(token, "PE"))
 	{
 		if (!token->prev || !token->next || is_types(token->prev, "TAIPE"))

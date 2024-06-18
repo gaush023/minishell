@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:30 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 01:34:11 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:42:06 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,15 @@ char	*transform_line(char *line, t_mini *mini)
 				new[j++] = line[i++];
 			if (line[i] == '>')
 			{
-				ft_putstr_fd("minishell: syntax error near unexpected token `>'\n", 2);
+				ft_putstr_fd("minishell: syntax error near unexpected token `>'\n",
+					2);
 				mini->ret = 2;
 				return (NULL);
 			}
 			if (line[i] == '<')
 			{
 				ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
-2);
+					2);
 				mini->ret = 2;
 				return (NULL);
 			}
