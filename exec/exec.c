@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/18 19:18:43 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:55:46 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	ft_strisnum(char *str)
 void	mini_exit(t_mini *mini, char **cmd)
 {
 	mini->flag = 1;
-	// ft_putstr_fd("exit\n", STDERR);
 	if (cmd[1] && cmd[2])
 	{
 		mini->ret = 1;
