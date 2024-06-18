@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 17:48:32 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:24:14 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ int	export(char **tokens, t_mini *mini)
 		return (1);
 	res = is_include_equal(tokens[1]);
 	if (res == -1)
+	{
+		write(2, " not a valid identifier", 23);
 		return (1);
+	}
 	else if (res == 1)
 		return (0);
 	if (!is_env_format(tokens[1]))
