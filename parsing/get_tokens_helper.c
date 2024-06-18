@@ -6,11 +6,13 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 19:56:59 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:56:43 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	get_token_loops_helper(t_args *a);
 
 static void	set_type(t_token *token)
 {
@@ -72,44 +74,22 @@ char	*cutout_str(char *line, unsigned int i, unsigned int k, t_mini *mini)
 
 t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 {
-	t_token	*token;
-	t_token	*tmp_token;
-	int		i;
-	int		k;
-	char	*tmp_str;
+	t_args	tmp_args;
 
-	i = 0;
-	tmp_token = NULL;
-	token = NULL;
-	while (line[i])
+	tmp_args.l = line;
+	tmp_args.flag = str_flag;
+	tmp_args.mini = mini;
+	tmp_args.token = NULL;
+	tmp_args.tmp_t = NULL;
+	tmp_args.i = 0;
+	while (line[tmp_args.i])
 	{
-		while (str_flag[i] == -1 || str_flag[i] == -2)
-			i++;
-		if (str_flag[i] == 0)
+		while (str_flag[tmp_args.i] == -1 || str_flag[tmp_args.i] == -2)
+			tmp_args.i++;
+		if (str_flag[tmp_args.i] == 0)
 		{
-			k = i;
-			while (str_flag[i] == 0)
-				i++;
-			mini->pos = i;
-			tmp_str = cutout_str(line, i, k, mini);
-			if (tmp_str[0] == EXPANSION)
-			{
-				tmp_str++;
-				if (ft_strcmp(tmp_str, "EMPTY") != 0)
-				{
-					tmp_str = cutout_str(line, i, k, mini);
-					token = make_token(tmp_str, tmp_token, str_flag, mini);
-					tmp_token = token;
-				}
-				else
-					my_free(tmp_str, mini->m_node);
-			}
-			else
-			{
-				token = make_token(tmp_str, tmp_token, str_flag, mini);
-				tmp_token = token;
-			}
+			get_token_loops_helper(&tmp_args);
 		}
 	}
-	return (token);
+	return (tmp_args.token);
 }
