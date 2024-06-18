@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:26:09 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 17:40:33 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:52:54 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,15 @@ typedef struct s_mini
 	t_token			*start;
 	t_node			*m_node;
 }					t_mini;
+
+typedef struct s_args
+{
+	char	*l;
+	int		*flag;
+	t_mini	*mini;
+	int		i;
+	t_token	*token;
+	t_token	*tmp_t;
+}			t_args;
 
 #endif
