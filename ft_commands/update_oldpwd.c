@@ -6,7 +6,7 @@
 /*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 19:13:18 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/16 00:20:43 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/18 16:49:03 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,24 @@ static char	*get_env_name(char *dest, char *src)
 	return (dest);
 }
 
-// static bool	is_in_env(t_env *env, char *args)
 static bool	is_in_env(t_mini *mini, char *args)
 {
 	char	var_name[BUFF_SIZE];
 	char	env_var[BUFF_SIZE];
+	t_env	*cpy_env;
 
+	cpy_env = mini->env;
 	get_env_name(var_name, args);
-	while (mini->env && mini->env->next)
+	while (cpy_env && cpy_env->next)
 	{
-		get_env_name(env_var, mini->env->value);
+		get_env_name(env_var, cpy_env->value);
 		if (ft_strcmp(env_var, var_name) == 0)
 		{
-			my_free(mini->env->value, mini->m_node);
-			mini->env->value = my_strdup(args, mini->m_node);
+			my_free(cpy_env->value, mini->m_node);
+			cpy_env->value = my_strdup(args, mini->m_node);
 			return (ERR);
 		}
-		mini->env = mini->env->next;
+		cpy_env = cpy_env->next;
 	}
 	return (SUCCESS);
 }
@@ -51,18 +52,20 @@ static int	env_add(char *value, t_mini *mini)
 {
 	t_env	*new;
 	t_env	*tmp;
+	t_env	*cpy_env;
 
-	if (mini->env && mini->env->value == NULL)
+	cpy_env = mini->env;
+	if (cpy_env && cpy_env->value == NULL)
 	{
-		mini->env->value = ft_strdup(value);
+		cpy_env->value = ft_strdup(value);
 		return (SUCCESS);
 	}
 	new = my_calloc(1, sizeof(t_env), mini->m_node);
 	new->value = ft_strdup(value);
-	while (mini->env && mini->env->next && mini->env->next->next)
-		mini->env = mini->env->next;
-	tmp = mini->env->next;
-	mini->env->next = new;
+	while (cpy_env && cpy_env->next && cpy_env->next->next)
+		cpy_env = cpy_env->next;
+	tmp = cpy_env->next;
+	cpy_env->next = new;
 	new->next = tmp;
 	return (SUCCESS);
 }
@@ -73,9 +76,7 @@ int	update_oldpwd(t_mini *mini)
 	char	*oldpwd;
 
 	if (getcwd(cwd, PATH_MAX) == NULL)
-	{
 		return (ERR);
-	}
 	oldpwd = my_strjoin("OLDPWD=", cwd, mini->m_node);
 	if (is_in_env(mini, oldpwd) == SUCCESS)
 	{

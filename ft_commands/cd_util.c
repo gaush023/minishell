@@ -6,7 +6,7 @@
 /*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 19:03:07 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/16 00:27:40 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/18 16:36:24 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 int	go_to_path(int opt, t_mini *mini)
 {
 	int		ret;
+	t_env	*cpy_env;
 	char	*env_path;
 
 	env_path = NULL;
+	cpy_env = mini->env;
 	if (opt == 0)
 	{
 		update_oldpwd(mini);
-		env_path = get_env_path(mini->env, "HOME=", 5);
+		env_path = get_env_path(cpy_env, "HOME=", 5);
 	}
 	else if (opt == 1)
-		env_path = get_env_path(mini->env, "OLDPWD=", 7);
+		env_path = get_env_path(cpy_env, "OLDPWD=", 7);
 	if (env_path == NULL)
 	{
 		if (opt == 0)
