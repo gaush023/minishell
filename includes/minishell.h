@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/16 01:27:37 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/18 20:27:34 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int		*make_in_sq_flag(char *line, t_mini *mini);
 char	*chek_prepareation(char *line);
 t_token	*get_tokens_finish(t_token *token, t_mini *mini);
 t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini);
+char	*transform_line(char *line, t_mini *mini);
 
 // helper_func
 void	reset_fds(t_mini *mini);
