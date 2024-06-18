@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/16 03:00:53 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/18 02:13:12 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,7 @@ int	ft_strisnum(char *str)
 void	mini_exit(t_mini *mini, char **cmd)
 {
 	mini->flag = 1;
-	ft_putstr_fd("exit", STDERR);
-	if (cmd[1])
-		ft_putstr_fd("☻\n", STDERR);
-	else
-		ft_putstr_fd("☹︎\n", STDERR);
+	ft_putstr_fd("exit\n", STDERR);
 	if (cmd[1] && cmd[2])
 	{
 		mini->ret = 1;
@@ -43,7 +39,7 @@ void	mini_exit(t_mini *mini, char **cmd)
 	}
 	else if (cmd[1] && ft_strisnum(cmd[1]) == 0)
 	{
-		mini->ret = 2;
+		mini->ret = 255;
 		ft_putstr_fd("minishell: exit: ", STDERR);
 		ft_putstr_fd(cmd[1], STDERR);
 		ft_putstr_fd(": numeric argument required\n", STDERR);

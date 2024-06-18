@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 00:49:32 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/18 02:20:52 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,6 @@ t_token	*get_tokens_finish(t_token *token, t_mini *mini)
 		token = token->prev;
 	}
 	set_type(token);
-	t_token	*tmp = token;
-	while (tmp)
-	{
-		printf("token->content: %s\n", tmp->content);
-		printf("token->qute_flag: %d\n", tmp->qute_flag);
-		tmp = tmp->next;
-	}
 	token = confirm_tokens(token, mini);
 	return (token);
 }
@@ -83,16 +76,12 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 	t_token	*tmp_token;
 	int		i;
 	int		k;
+	char	*tmp_str;
 
 	i = 0;
 	tmp_token = NULL;
 	token = NULL;
-	int  tmp = 0;
-	while (str_flag[tmp] != -3)
-	{
-		printf("%d", str_flag[tmp]);
-		tmp++;
-	}
+
 	while (line[i])
 	{
 		while (str_flag[i] == -1 || str_flag[i] == -2)
@@ -103,12 +92,12 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 			while (str_flag[i] == 0)
 				i++;
 			mini->pos = i;
-			char *tmp_str = cutout_str(line, i, k, mini);
-			if(tmp_str[0] == EXPANSION)
+			tmp_str = cutout_str(line, i, k, mini);
+			if (tmp_str[0] == EXPANSION)
 			{
 				tmp_str++;
 				if (ft_strcmp(tmp_str, "EMPTY") != 0)
-				{	
+				{
 					tmp_str = cutout_str(line, i, k, mini);
 					token = make_token(tmp_str, tmp_token, str_flag, mini);
 					tmp_token = token;
@@ -118,8 +107,7 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 			}
 			else
 			{
-				token = make_token(tmp_str, tmp_token,
-					str_flag, mini);
+				token = make_token(tmp_str, tmp_token, str_flag, mini);
 				tmp_token = token;
 			}
 		}
