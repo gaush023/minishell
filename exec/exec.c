@@ -38,7 +38,7 @@ void	mini_exit(t_mini *mini, char **cmd)
 	}
 	else if (cmd[1] && ft_strisnum(cmd[1]) == 0)
 	{
-		mini->ret = 255;
+		mini->ret = 2;
 		ft_putstr_fd("minishell: exit: ", STDERR);
 		ft_putstr_fd(cmd[1], STDERR);
 		ft_putstr_fd(": numeric argument required\n", STDERR);

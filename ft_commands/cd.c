@@ -6,7 +6,7 @@
 /*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:22:49 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/16 00:29:11 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/24 10:21:25 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,12 @@ int	ft_cd(char **args, t_mini *mini)
 	int		cd_ret;
 	char	*path;
 
-	if (!args[1])
+  	if(args[2])
+  	{
+    	ft_putstr_fd("cd: too many arguments\n", STDERR);
+   		return (ERR);
+  	}
+  	if (!args[1])
 		return (go_to_path(0, mini));
 	path = NULL;
 	if (args[1][0] == '~')
