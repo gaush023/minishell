@@ -69,10 +69,7 @@ int	ft_cd(char **args, t_mini *mini)
 	char	*path;
 
 	if (args[2])
-	{
-		ft_putstr_fd("cd: too many arguments\n", STDERR);
-		return (ERR);
-	}
+		return (0);
 	if (!args[1])
 		return (go_to_path(0, mini));
 	path = NULL;
