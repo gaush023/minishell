@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_bin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/16 00:52:54 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/25 20:31:05 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 	{
 		g_sig = SIGNAL_OFF;
 		env_array = env_to_array(env, mini);
+		printf("path: %s\n", path);
 		if (ft_strchr(path, '/') != NULL)
 			execve(path, args, env_array);
+		printf("path: %s\n", path);
+		if(env_array)
+			printf("env_array: %s\n", env_array[0]);
 		ret = error_msg(path);
 		free_tab(env_array, mini->m_node);
 		free_token(mini->start, mini->flag, mini->m_node);
@@ -92,7 +96,10 @@ int	exec_bin(char **args, t_env *env, t_mini *mini)
 	while (env && env->value && ft_strncmp(env->value, "PATH=", 5) != 0)
 		env = env->next;
 	if (!env || !env->next)
-		return (magic_box(args[0], args, env, mini));
+	{
+		printf("nothing\n");
+		bin = my_split(env->value, ':', mini->m_node);
+	}
 	bin = my_split(env->value, ':', mini->m_node);
 	if (!args[0] || !bin[0])
 		return (ERR);

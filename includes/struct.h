@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:26:09 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 20:52:54 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:05:14 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ enum				e_err
 typedef struct s_env
 {
 	char			*value;
+	struct s_env	*prev;
 	struct s_env	*next;
 }					t_env;
 

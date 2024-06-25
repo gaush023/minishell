@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 19:24:14 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:32:07 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ int	export(char **tokens, t_mini *mini)
 	ft_memcpy(new_env->value, tokens[1], ft_strlen(tokens[1]));
 	while (mini->env->next->next != NULL)
 		mini->env = mini->env->next;
-	tmp = create_node(mini->env->next->value, mini->m_node);
+	tmp = mini->env->next;
 	new_env->next = tmp;
 	mini->env->next = new_env;
 	return (0);
+	(void)create_node;
 }

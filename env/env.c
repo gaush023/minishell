@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:03:46 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/15 23:13:39 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/25 20:25:58 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	env_init(t_mini *mini, char **env_ar)
 	t_env	*new;
 	int		i;
 
+	if (!env_ar)
+		return (1);
 	env = my_calloc(1, sizeof(t_env), mini->m_node);
 	env->value = my_strdup(env_ar[0], mini->m_node);
 	env->next = NULL;
@@ -31,6 +33,16 @@ int	env_init(t_mini *mini, char **env_ar)
 		env->next = new;
 		env = new;
 		i++;
+	}
+	env = mini->env;
+	new = NULL;
+	while (true)
+	{
+		new = env;
+		env = env->next;
+		if (!env)
+			break ;
+		env->prev = new;
 	}
 	return (0);
 }
