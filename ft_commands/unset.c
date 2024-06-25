@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:56:47 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/16 00:20:38 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/25 21:18:07 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,45 @@ bool	ft_env_equals(char *value, char *token)
 	return (true);
 }
 
-int	unset(char **tokens, t_env *env)
+int	unset(char **tokens, t_mini *mini)
 {
+	t_env *env;
+
+	env = mini->env;
 	if (tokens[1] == NULL)
 	{
 		return (0);
 	}
-	if (ft_env_equals(env->value, tokens[1]))
+	while (env->prev)
+		env = env->prev;
+	while (env->next)
 	{
-		env = env->next;
-		return (0);
-	}
-	while (env->next->next != NULL)
-	{
-		if (ft_env_equals(env->next->value, tokens[1]))
+		if (ft_env_equals(env->value, tokens[1]))
 		{
-			env->next = env->next->next;
-			return (0);
+			printf("hit this is %s\n", env->value);
+			if (env->prev)
+				printf("hit prev is %s\n", env->prev->value);
+			else
+				printf("hit prev is null\n");
+			if (env->next)
+				printf("hit next is %s\n", env->next->value);
+			else
+				printf("hit next is null\n");
+			if (env->prev)
+				env->prev->next = env->next;
+			if (env->next)
+			{
+				env->next->prev = env->prev;
+				if (env->next->prev == NULL)
+					printf("this is null\n");
+				else
+					printf("false\n");
+			}
 		}
 		env = env->next;
 	}
+	mini->env = env;
+	while (mini->env->prev)
+		mini->env = mini->env->prev;
 	return (0);
 }

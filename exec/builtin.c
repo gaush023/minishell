@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/16 03:50:36 by shuga            ###   ########.fr       */
+/*   Updated: 2024/06/25 21:13:01 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	exec_builtin(char **arg, t_mini *mini)
 	else if (ft_strcmp(arg[0], "export") == 0)
 		ret = export(arg, mini);
 	else if (ft_strcmp(arg[0], "unset") == 0)
-		ret = unset(arg, mini->env);
+		ret = unset(arg, mini);
 	else if (ft_strcmp(arg[0], "env") == 0)
 		ret = env(arg, mini->env);
 	return (ret);

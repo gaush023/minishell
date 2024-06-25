@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/18 20:27:34 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/06/25 21:14:19 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*get_env_path(t_env *env, char *var, int len);
 int		update_oldpwd(t_mini *mini);
 
 int		ft_cd(char **args, t_mini *mini);
-int		unset(char **tokens, t_env *env);
+int	unset(char **tokens, t_mini *mini);
 int		env(char **tokens, t_env *env);
 int		export(char **tokens, t_mini *mini);
 int		pwd(char **tokens, t_mini *mini);
