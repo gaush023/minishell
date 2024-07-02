@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/02 16:01:54 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:23:10 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,72 @@ static bool	confirm_tokens_helper(t_token *token, t_mini *mini)
 t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 {
 	t_token	*tmp;
+	t_token *tmp2;
+	int		is_correct;
 
-	tmp = token;
-	while (tmp)
+	is_correct = 0;
+	while (token->next)
 	{
-		printf("confirm=content: %s ", tmp->content);
-		printf("confirm=type: %d\n", tmp->type);
-		tmp = tmp->next;
+		if (token->type == TRUNC || token->type == APPEND || token->type == INPUT || token->type == HERE_DOC)
+		{
+			tmp = token;
+			if (token->prev && token->next->next)
+			{
+				is_correct = 2;
+				token->prev->next = token->prev->next->next->next;
+				token->next->next->prev = token->prev;
+			}
+			else if (token->next->next)
+			{
+				is_correct = 2;
+				token->next->next->prev = NULL;
+			}
+			else if (token->prev)
+			{
+				is_correct = 1;
+				break ;
+			}
+		}
+		if (token->next->type != PIPE)
+		{
+			printf("パイプあるよ\n");
+			token = token->next;
+			tmp2 = NULL;
+		}
+		else
+		{
+			tmp2 = token->next;
+			break ;
+		}
 	}
+	if (is_correct == 2)
+	{
+		token->next = tmp;
+		tmp->prev = token;
+		tmp->next->next = tmp2;
+		if (tmp2)
+		{
+			tmp2->prev = tmp->next;
+			token = token->next->next->next->next;
+			token = confirm_final_orders(token, mini);
+		}
+	}
+	else if (is_correct == 1)
+	{
+		while (token->prev != NULL)
+			token = token->prev;
+		return (token);
+	}
+	while (token->prev != NULL)
+		token = token->prev;
+	while (token->next)
+	{
+		set_type(token);
+		token = token->next;
+		set_type(token);
+	}
+	while (token->prev != NULL)
+		token = token->prev;
 	return (token);
 }
 
@@ -119,5 +177,15 @@ t_token	*confirm_tokens(t_token *token, t_mini *mini)
 		token = NULL;
 	}
 	final_orders = confirm_final_orders(token, mini);
+	while (token->prev)
+	{
+		token = token->prev;
+	}
+	while (token)
+	{
+		printf("token->content: %s\n", token->content);
+		token = token->next;
+	}
+	exit(0);
 	return (token);
 }
