@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/02 19:23:10 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:01:40 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 		}
 		if (token->next->type != PIPE)
 		{
-			printf("パイプあるよ\n");
 			token = token->next;
 			tmp2 = NULL;
 		}
@@ -177,13 +176,19 @@ t_token	*confirm_tokens(t_token *token, t_mini *mini)
 		token = NULL;
 	}
 	final_orders = confirm_final_orders(token, mini);
+	if (token->prev == NULL) printf("this is null\n");
 	while (token->prev)
 	{
 		token = token->prev;
 	}
 	while (token)
 	{
-		printf("token->content: %s\n", token->content);
+		if (token->prev && token->prev->content) printf("prev   : %s\t", token->prev->content);
+		else printf("prev   : NULL\t");
+		if (token->content) printf("content: %s\t", token->content);
+		else printf("content: NULL\t");
+		if (token->next && token->next->content) printf("next   : %s\n", token->next->content);
+		else printf("next   : NULL\n");
 		token = token->next;
 	}
 	exit(0);
