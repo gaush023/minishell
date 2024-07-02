@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/02 20:01:40 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/02 21:37:35 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,57 +88,58 @@ t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 	t_token *tmp2;
 	int		is_correct;
 
+	tmp2 = NULL;
 	is_correct = 0;
 	while (token->next)
 	{
 		if (token->type == TRUNC || token->type == APPEND || token->type == INPUT || token->type == HERE_DOC)
 		{
+			printf("token:%s\n", token->content);
 			tmp = token;
-			if (token->prev && token->next->next)
+			if ((token->prev && token->prev->type != PIPE) && (token->next->next && token->next->next->type != PIPE))
 			{
 				is_correct = 2;
 				token->prev->next = token->prev->next->next->next;
 				token->next->next->prev = token->prev;
 			}
-			else if (token->next->next)
+			else if (token->next->next && token->next->next->type != PIPE)
 			{
 				is_correct = 2;
 				token->next->next->prev = NULL;
 			}
-			else if (token->prev)
+			else if (token->prev && token->prev->type != PIPE)
 			{
-				is_correct = 1;
+				token = token->prev;
+				is_correct = 2;
 				break ;
 			}
 		}
-		if (token->next->type != PIPE)
+		if (token->type == PIPE)
 		{
-			token = token->next;
-			tmp2 = NULL;
-		}
-		else
-		{
-			tmp2 = token->next;
+			printf("pipe:%s\n", token->content);
+			tmp2 = token;
 			break ;
 		}
+		token = token->next;
 	}
 	if (is_correct == 2)
 	{
-		token->next = tmp;
-		tmp->prev = token;
-		tmp->next->next = tmp2;
 		if (tmp2)
 		{
+			token->prev->next = tmp;
+			tmp->prev = token->prev;
+			tmp->next->next = token;
 			tmp2->prev = tmp->next;
-			token = token->next->next->next->next;
+			token = token->next;
+			printf("token is %s\n", token->content);
 			token = confirm_final_orders(token, mini);
 		}
-	}
-	else if (is_correct == 1)
-	{
-		while (token->prev != NULL)
-			token = token->prev;
-		return (token);
+		else
+		{
+			token->next = tmp;
+			tmp->prev = token;
+			tmp->next->next = tmp2;
+		}
 	}
 	while (token->prev != NULL)
 		token = token->prev;
@@ -148,7 +149,7 @@ t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 		token = token->next;
 		set_type(token);
 	}
-	while (token->prev != NULL)
+	while (token->prev)
 		token = token->prev;
 	return (token);
 }
@@ -176,21 +177,19 @@ t_token	*confirm_tokens(t_token *token, t_mini *mini)
 		token = NULL;
 	}
 	final_orders = confirm_final_orders(token, mini);
-	if (token->prev == NULL) printf("this is null\n");
 	while (token->prev)
 	{
 		token = token->prev;
 	}
-	while (token)
-	{
-		if (token->prev && token->prev->content) printf("prev   : %s\t", token->prev->content);
-		else printf("prev   : NULL\t");
-		if (token->content) printf("content: %s\t", token->content);
-		else printf("content: NULL\t");
-		if (token->next && token->next->content) printf("next   : %s\n", token->next->content);
-		else printf("next   : NULL\n");
-		token = token->next;
-	}
-	exit(0);
+	// while (token)
+	// {
+	// 	if (token->prev && token->prev->content) printf("prev   : %s\t", token->prev->content);
+	// 	else printf("prev   : NULL\t");
+	// 	if (token->content) printf("content: %s\t", token->content);
+	// 	else printf("content: NULL\t");
+	// 	if (token->next && token->next->content) printf("next   : %s\n", token->next->content);
+	// 	else printf("next   : NULL\n");
+	// 	token = token->next;
+	// }
 	return (token);
 }
