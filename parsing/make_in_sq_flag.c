@@ -54,12 +54,13 @@ int	increment_case_quotetaions(int i, char *line, int *str_flag)
 int	*make_in_sq_flag(char *line, t_mini *mini)
 {
 	int				*str_flag;
-	unsigned int	i;
+  unsigned int	i;
 	int				flag;
 
 	i = 0;
 	flag = 0;
-	str_flag = my_calloc(ft_strlen(line) + 1, sizeof(int), mini->m_node);
+ 
+  str_flag = my_calloc(ft_strlen(line) + 2, sizeof(int), mini->m_node);
 	str_flag[ft_strlen(line)] = -3;
 	while (line[i])
 	{
@@ -77,5 +78,6 @@ int	*make_in_sq_flag(char *line, t_mini *mini)
 		flag = 0;
 		i++;
 	}
-	return (str_flag);
+  str_flag[0] = -3;
+  return (str_flag);
 }

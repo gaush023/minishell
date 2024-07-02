@@ -30,7 +30,7 @@ void	get_token_loops_helper(t_args *a)
 		if (ft_strcmp(tmp_str, "EMPTY") != 0)
 		{
 			tmp_str = cutout_str(a->l, a->i, k, a->mini);
-			a->token = make_token(tmp_str, a->tmp_t, a->flag, a->mini);
+      a->token = make_token(tmp_str, a->tmp_t, a->flag, a->mini);
 			a->tmp_t = a->token;
 		}
 		else

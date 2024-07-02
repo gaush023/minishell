@@ -82,9 +82,24 @@ static bool	confirm_tokens_helper(t_token *token, t_mini *mini)
 	return (true);
 }
 
+t_token *confirm_final_orders(t_token *token, t_mini *mini)
+{
+  t_token *tmp;
+
+  tmp = token;
+  while(tmp)
+  {
+    printf("content: %s ", tmp->content);
+    printf("type: %d\n", tmp->type);
+    tmp = tmp->next;
+  }
+  return (token);
+}
+
 t_token	*confirm_tokens(t_token *token, t_mini *mini)
 {
 	t_token	*tmp;
+  t_token *final_orders;
 
 	tmp = token;
 	token = confrim_tokens_prepareation(token, mini);
@@ -103,5 +118,6 @@ t_token	*confirm_tokens(t_token *token, t_mini *mini)
 		free_token(token, 0, mini->m_node);
 		token = NULL;
 	}
+  final_orders = confirm_final_orders(token, mini);
 	return (token);
 }

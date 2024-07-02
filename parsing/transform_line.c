@@ -26,13 +26,13 @@ static bool	transform_line_loop_helper(char *line, t_mini *mini, int i)
 {
 	if (line[i] == '>')
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `>'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token `>' 1\n", 2);
 		mini->ret = 2;
 		return (FALSE);
 	}
 	if (line[i] == '<')
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
+		ft_putstr_fd("minishell: syntax error near unexpected token `newline 2'\n",
 			2);
 		mini->ret = 2;
 		return (FALSE);
@@ -75,7 +75,7 @@ static char	*transform_line_loop(char *line, t_mini *mini, int i, int j)
 		{
 			new[j++] = ' ';
 			new[j++] = line[i++];
-			if (quotes(line, i) == 0 && (line[i] == '>' || line[i] == '<'))
+			if (quotes(line, i) == 0 && line[i - 1] != '|' && (line[i] == '>' || line[i] == '<'))
 				new[j++] = line[i++];
 			if (transform_line_loop_helper(line, mini, i) != TRUE)
 				return (NULL);

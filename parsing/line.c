@@ -30,7 +30,7 @@ void	parse(t_mini *mini)
 
 	signal(SIGINT, &sig_int);
 	signal(SIGQUIT, &sig_quit);
-	line = my_readline(M_PROMPT, mini->m_node);
+	line = my_readline(M_PROMPT, mini->m_node, mini);
 	if ((line == NULL) && (mini->flag == 1))
 		return ;
 	if (g_sig != SIGNAL_OFF)

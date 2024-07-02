@@ -57,7 +57,7 @@ static void	here_doc_loop(t_mini *mini, t_token *token, char *delimiter)
 	while (1)
 	{
 		ft_putstr_fd("here_doc> ", 1);
-		line = readline(" \b");
+		line = my_readline(" \b", mini->m_node, mini);
 		if (g_sig == SIGNAL_INT)
 		{
 			token = stop_heredoc(token, line, mini);

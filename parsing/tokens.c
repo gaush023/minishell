@@ -19,6 +19,7 @@ t_token	*get_tokens(char *line, t_mini *mini)
 
 	if (line == NULL || chek_prepareation(line) == NULL)
 		return (NULL);
+  line = my_strjoin(" ", line, mini->m_node);
 	str_flag = make_in_sq_flag(line, mini);
 	token = get_token_loops(line, str_flag, mini);
 	my_free(str_flag, mini->m_node);

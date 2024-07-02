@@ -12,17 +12,17 @@
 
 #include "../includes/minishell.h"
 
-char	*my_readline(const char *prompt, t_node *node)
+char	*my_readline(const char *prompt, t_node *node, t_mini *mini)
 {
 	char	*str;
 	char	*str_cpy;
 
 	str = readline(prompt);
-	if (!str)
-	{
-		my_exit(1, node);
-	}
+	if(!str && g_sig == ON_HERE_DOC)
+    return (NULL);
+  if (!str)
+		my_exit(mini->ret, node);
 	str_cpy = my_strdup(str, node);
-	free(str);
+  my_free(str, node);
 	return (str_cpy);
 }

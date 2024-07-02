@@ -36,12 +36,8 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 	{
 		g_sig = SIGNAL_OFF;
 		env_array = env_to_array(env, mini);
-		printf("path: %s\n", path);
 		if (ft_strchr(path, '/') != NULL)
 			execve(path, args, env_array);
-		printf("path: %s\n", path);
-		if(env_array)
-			printf("env_array: %s\n", env_array[0]);
 		ret = error_msg(path);
 		free_tab(env_array, mini->m_node);
 		free_token(mini->start, mini->flag, mini->m_node);

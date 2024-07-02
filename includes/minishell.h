@@ -91,7 +91,7 @@ t_token	*prev_sep(t_token *token, int skip);
 bool	ft_equals(const char *s1, const char *s2);
 void	ft_add_history(char *line, t_token *token);
 int		quote_check(t_mini *mini, char *line);
-char	*my_readline(const char *prompt, t_node *node);
+char	*my_readline(const char *prompt, t_node *node, t_mini *mini);
 
 // main_helper
 void	here_doc(t_mini *mini, t_token *token);
