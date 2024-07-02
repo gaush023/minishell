@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 20:56:43 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:09:04 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,31 +72,29 @@ char	*cutout_str(char *line, unsigned int i, unsigned int k, t_mini *mini)
 	return (tmp_str);
 }
 
-void covert_blank_char(t_args *a)
+void	covert_blank_char(t_args *a)
 {
-  printf("covert_blank_char\n");
-  int counter;
-  int pos;
+	int	counter;
+	int	pos;
 
-  pos = 0;
-  counter = 0;
-    
-  while (a->i != pos)
-  {
-    if(a->flag[pos] == -2)
-      counter++;
-    pos++;
-  }
-  if (counter % 2 != 0)
-    return ;
-  printf("counter: %d\n", counter);
-  a->token = make_token("\0", a->tmp_t, a->flag, a->mini);
-  a->tmp_t = a->token;
+	pos = 0;
+	counter = 0;
+	while (a->i != pos)
+	{
+		if (a->flag[pos] == -2)
+			counter++;
+		pos++;
+	}
+	if (counter % 2 != 0)
+		return ;
+	a->token = make_token("\0", a->tmp_t, a->flag, a->mini);
+	a->tmp_t = a->token;
 }
 
 t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 {
 	t_args	tmp_args;
+	int		i;
 
 	tmp_args.l = line;
 	tmp_args.flag = str_flag;
@@ -106,26 +104,26 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 	tmp_args.i = 1;
 	while (line[tmp_args.i])
 	{
-		while (str_flag[tmp_args.i] == -1 || str_flag[tmp_args.i] == -2 )
-    {
-      if (str_flag[tmp_args.i + 1] == -2)
-        covert_blank_char(&tmp_args);
-      tmp_args.i++;
-    }
-    if (str_flag[tmp_args.i] == 0)
+		while (str_flag[tmp_args.i] == -1 || str_flag[tmp_args.i] == -2)
+		{
+			if (str_flag[tmp_args.i + 1] == -2)
+				covert_blank_char(&tmp_args);
+			tmp_args.i++;
+		}
+		if (str_flag[tmp_args.i] == 0)
 		{
 			get_token_loops_helper(&tmp_args);
 		}
 	}
-  int i = 0;
-  while(str_flag[i] != -3)
-  {
-    printf("str_flag[%d]: %d\n", i, str_flag[i]);
-    i++;
-  }
-  if (tmp_args.token == NULL)
-    printf("tmp_args.token is NULL\n");
-  else
-    printf("get_token_loops: %s\n", tmp_args.token->content);
+	i = 0;
+	while (str_flag[i] != -3)
+	{
+		printf("str_flag[%d]: %d\n", i, str_flag[i]);
+		i++;
+	}
+	if (tmp_args.token == NULL)
+		printf("tmp_args.token is NULL\n");
+	else
+		printf("get_token_loops: %s\n", tmp_args.token->content);
 	return (tmp_args.token);
 }
