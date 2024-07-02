@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/02 16:04:14 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/02 21:37:35 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static bool	confirm_tokens_helper(t_token *token, t_mini *mini)
 	return (true);
 }
 
-t_token *confirm_final_orders(t_token *token, t_mini *mini)
+t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 {
   t_token *tmp;
   t_token *tmp2;
@@ -120,13 +120,6 @@ t_token *confirm_final_orders(t_token *token, t_mini *mini)
 t_token *check_double_redirect(t_token *token, t_mini *mini)
 {
 
-  while(token)
-  {
-    token = token->next;  
-  }
-  while(token && token->prev != NULL)
-    token = token->prev;
-  return (token);
 }
 
 t_token	*confirm_tokens(t_token *token, t_mini *mini)

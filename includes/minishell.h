@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/25 21:14:19 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:07:19 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ bool	is_builtin(char *cmd);
 int		exec_builtin(char **arg, t_mini *mini);
 
 // parsing
+void	set_type(t_token *token);
 t_token	*get_tokens(char *line, t_mini *mini);
 char	*transform_line(char *line, t_mini *mini);
 t_token	*prev_sep(t_token *token, int skip);

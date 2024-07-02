@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/02 16:09:04 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:03:09 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	get_token_loops_helper(t_args *a);
 
-static void	set_type(t_token *token)
+void	set_type(t_token *token)
 {
 	if (ft_strcmp(token->content, "") == 0)
 		token->type = EMPTY;
@@ -121,9 +121,5 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 		printf("str_flag[%d]: %d\n", i, str_flag[i]);
 		i++;
 	}
-	if (tmp_args.token == NULL)
-		printf("tmp_args.token is NULL\n");
-	else
-		printf("get_token_loops: %s\n", tmp_args.token->content);
 	return (tmp_args.token);
 }
