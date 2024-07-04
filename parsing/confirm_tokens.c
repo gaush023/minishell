@@ -82,44 +82,73 @@ static bool	confirm_tokens_helper(t_token *token, t_mini *mini)
 	return (true);
 }
 
+t_token *goback_ini_pos(t_token *token)
+{
+  if(token != NULL)
+  {
+    printf("token->content: %s\n", token->content);
+    printf("token->type: %d\n", token->type);
+  }
+  else
+    printf("token is NULL\n");
+  while(token->prev != NULL)
+  {
+    token = token->prev;
+    set_type(token);
+  }
+  set_type(token);
+  return (token);
+}
+
 t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 {
   t_token *tmp;
   t_token *tmp2;
 
   printf("start\n");
-  while(token)
+  while(token && token->next != NULL)
   {
-    printf("token->content: %s\n", token->content);
     if(token->type == INPUT || token->type == APPEND || token->type == TRUNC || token->type == HERE_DOC)
     {
-      tmp = token;    
-      tmp->next = token->next;
-      tmp2 = token->prev;
-      if(token->next->next)
-        token = token->next->next;;
-      tmp2->next = token->prev; 
-      token->prev = tmp2;
+      tmp = my_calloc(1, sizeof(t_token), mini->m_node);
+      tmp->content = ft_strdup(token->content);
+      tmp->type = token->type;
+      tmp->next = my_calloc(1, sizeof(t_token), mini->m_node);
+      token->prev = token->next->prev;
+      tmp->next->content = ft_strdup(token->next->content);
+      tmp->next->type = token->next->type;
+      tmp->prev = NULL;
+      tmp->next->next = NULL;
+      tmp2 = token;
+      printf("done copy\n");
       while(token->next != NULL && token->next->type == PIPE)
         token = token->next;
+      tmp2->next = token->prev;
+      token->prev = tmp2;
+      token->next = tmp;
+      tmp->prev = token;
+      token->next = tmp;
+      if(token)
+        printf("token->content: %s\n", token->content);
+      else {
+        printf("token is NULL\n");
+        exit(0);
+      }
+      printf("done if excute\n");
+      while(token->prev != NULL)
+        token = token->prev;
+      while (token->next != NULL)
+      {
+        printf("token->content: %s\n", token->content);
+        printf("token->type: %d\n", token->type);
+        token = token->next;
+      }
+      exit(0);
     }
     token = token->next;
   }
-  printf("done\n");
-  while(token && token->prev != NULL)
-    token = token->prev;
-  while(token)
-  {
-    printf("aa token->content: %s\n", token->content);
-    token = token->next;
-  }
-  exit(0);
-  return (token);
-}
-
-t_token *check_double_redirect(t_token *token, t_mini *mini)
-{
-
+  printf("end loops\n");
+  return (goback_ini_pos(token));
 }
 
 t_token	*confirm_tokens(t_token *token, t_mini *mini)
@@ -144,6 +173,13 @@ t_token	*confirm_tokens(t_token *token, t_mini *mini)
 		token = NULL;
 	}
 	token = confirm_final_orders(token, mini);
-  token = check_double_redirect(token, mini);
-	return (token);
+  t_token *tmp2 = token;
+  while(tmp2)
+  {
+    printf("final_token->content: %s\n", tmp2->content);
+    printf("final_token->type: %d\n", tmp2->type);
+    tmp2 = tmp2->next;
+  }
+  return (token);
 }
+
