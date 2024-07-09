@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/09 18:24:59 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:46:13 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@ void	set_type(t_token *token)
 		token->type = ARG;
 }
 
+char	*chek_prepareation(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] == ' ')
+		i++;
+	if (line[i] == '\0')
+		return (NULL);
+	return (line);
+}
+
 int	set_type_all(t_token *token)
 {
 	t_token	*tmp;
@@ -48,27 +60,19 @@ int	set_type_all(t_token *token)
 		token = tmp;
 		tmp = token->prev;
 	}
+	tmp = token->prev;
 	tmp = token;
+	printf("start\n");
 	while (tmp)
 	{
 		token = tmp;
+		printf("cont:%s\n", token->content);
 		set_type(token);
 		tmp = token->next;
 	}
+	printf("cont:%s\n", token->content);
 	token = start_ptr;
 	return (0);
-}
-
-char	*chek_prepareation(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] == ' ')
-		i++;
-	if (line[i] == '\0')
-		return (NULL);
-	return (line);
 }
 
 t_token	*get_tokens_finish(t_token *token, t_mini *mini)
@@ -117,7 +121,6 @@ void	covert_blank_char(t_args *a)
 t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 {
 	t_args	tmp_args;
-	int		i;
 
 	tmp_args.l = line;
 	tmp_args.flag = str_flag;
@@ -134,15 +137,7 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 			tmp_args.i++;
 		}
 		if (str_flag[tmp_args.i] == 0)
-		{
 			get_token_loops_helper(&tmp_args);
-		}
-	}
-	i = 0;
-	while (str_flag[i] != -3)
-	{
-		printf("str_flag[%d]: %d\n", i, str_flag[i]);
-		i++;
 	}
 	return (tmp_args.token);
 }

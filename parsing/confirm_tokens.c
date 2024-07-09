@@ -6,11 +6,13 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/09 17:45:03 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:36:42 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int set_type_all(t_token *token);
 
 t_token	*confrim_tokens_prepareation(t_token *token, t_mini *mini)
 {
@@ -82,16 +84,7 @@ static bool	confirm_tokens_helper(t_token *token, t_mini *mini)
 	return (true);
 }
 
-t_token	*goback_ini_pos(t_token *token)
-{
-	while (token->prev != NULL)
-	{
-		token = token->prev;
-		set_type(token);
-	}
-	set_type(token);
-	return (token);
-}
+
 
 static t_token	*copy_two_tokens(t_token *token, t_mini *mini)
 {
@@ -110,9 +103,11 @@ static t_token	*copy_two_tokens(t_token *token, t_mini *mini)
 		return (NULL);
 	tmp = my_calloc(1, sizeof(t_token), mini->m_node);
 	tmp->content = ft_strdup(token->content);
+	tmp->type = token->type;
 	tmp->next = my_calloc(1, sizeof(t_token), mini->m_node);
+	tmp->next->type = token->next->type;
 	tmp->next->content = ft_strdup(token->next->content);
-	printf("done copying 2\n");
+	printf("copying 2\n");
 	return (tmp);
 }
 
@@ -130,7 +125,10 @@ t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 			copied_two_tokens = copy_two_tokens(token, mini);
 			if (!copied_two_tokens)
 				return (token);
-			tmp2 = token->next->next;
+			if(token->next->next != NULL)
+				tmp2 = token->next->next;
+			else
+				break;
 			if (token->prev != NULL)
 			{
 				token = token->prev;
@@ -156,20 +154,19 @@ t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 				token->next = copied_two_tokens;
 				copied_two_tokens->prev = token;
 				token->next->next->next = NULL;
-				return (goback_ini_pos(token));
+				return (token);
 			}
 		}
 		token = token->next;
 	}
-	return (goback_ini_pos(token));
+	set_type_all(token);
+	return (token);
 }
 
 t_token	*confirm_tokens(t_token *token, t_mini *mini)
 {
-	t_token	*tmp;
-	t_token	*tmp2;
+	t_token	*new_token_list;
 
-	tmp = token;
 	token = confrim_tokens_prepareation(token, mini);
 	if (!confirm_tokens_helper(token, mini))
 		return (NULL);
@@ -186,13 +183,7 @@ t_token	*confirm_tokens(t_token *token, t_mini *mini)
 		free_token(token, 0, mini->m_node);
 		token = NULL;
 	}
-	token = confirm_final_orders(token, mini);
-	tmp2 = token;
-	while (tmp2)
-	{
-		printf("final_token->content: %s\n", tmp2->content);
-		printf("final_token->type: %d\n", tmp2->type);
-		tmp2 = tmp2->next;
-	}
-	return (token);
+	new_token_list = confirm_final_orders(token, mini);
+	printf("done\n");
+	return (new_token_list);
 }
