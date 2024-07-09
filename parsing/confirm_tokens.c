@@ -112,35 +112,46 @@ t_token	*confirm_final_orders(t_token *token, t_mini *mini)
     {
       tmp = my_calloc(1, sizeof(t_token), mini->m_node);
       tmp->content = ft_strdup(token->content);
-      tmp->type = token->type;
       tmp->next = my_calloc(1, sizeof(t_token), mini->m_node);
-      token->prev = token->next->prev;
       tmp->next->content = ft_strdup(token->next->content);
-      tmp->next->type = token->next->type;
-      tmp->prev = NULL;
       tmp->next->next = NULL;
-      tmp2 = token;
-      printf("done copy\n");
-      while(token->next != NULL && token->next->type == PIPE)
-        token = token->next;
-      tmp2->next = token->prev;
-      token->prev = tmp2;
-      token->next = tmp;
-      tmp->prev = token;
-      token->next = tmp;
-      if(token)
-        printf("token->content: %s\n", token->content);
+      printf("finished copying\n");
+      if(token->next->next != NULL)
+        tmp2 = token->next->next;
+      else 
+      {
+        tmp2 = my_calloc(1, sizeof(t_token), mini->m_node);
+        tmp2->content = NULL;
+        tmp2->type = 0;
+        tmp2->next = NULL;
+        tmp2->prev = NULL;
+      }
+      tmp2->prev = NULL;
+      token = token->prev;
+      token->next = NULL;
+      token->next = tmp2;
+      tmp2->prev = token;
+      printf("tmp->content: %s\n", tmp->content);
+      printf("tmp->next->content: %s\n", tmp->next->content);
+      printf("token->content: %s\n", token->content);
+      if(token->next)
+        printf("token->next->content: %s\n", token->next->content);
       else {
-        printf("token is NULL\n");
+        printf("token->next is NULL\n");
         exit(0);
       }
-      printf("done if excute\n");
+      while(token->next != NULL || token->next->type == PIPE)
+      {
+        printf("loop1 token->content: %s\n", token->content);
+        token = token->next;
+      }
+      token->next = tmp;
+      tmp->prev = token->next;
       while(token->prev != NULL)
         token = token->prev;
       while (token->next != NULL)
       {
-        printf("token->content: %s\n", token->content);
-        printf("token->type: %d\n", token->type);
+        printf("loop2 token->content: %s\n", token->content);
         token = token->next;
       }
       exit(0);
