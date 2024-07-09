@@ -6,7 +6,7 @@
 /*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:27 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/16 01:21:44 by shuga            ###   ########.fr       */
+/*   Updated: 2024/07/09 17:39:25 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_var_value(char *arg, int pos, t_mini *mini, t_env *env)
 	return (var_value);
 }
 
-static int	increment_i(int i, char *arg, int size)
+static int	increment_i(int i, char *arg)
 {
 	if (ft_isdigit(arg[i]) == 0)
 	{
@@ -65,7 +65,6 @@ static int	increment_i(int i, char *arg, int size)
 
 int	malloc4expassion(char *arg, t_mini *mini, t_env *env)
 {
-	char	*env_value;
 	int		i;
 	int		size;
 
@@ -81,7 +80,7 @@ int	malloc4expassion(char *arg, t_mini *mini, t_env *env)
 			else
 				size += get_var_len(arg, i, mini, env);
 			if (ft_isdigit(arg[i]) == 0)
-				i += increment_i(i, arg, size);
+				i += increment_i(i, arg);
 			else
 				size--;
 		}

@@ -3,6 +3,7 @@ SRCS = main.c signal.c env/env.c env/shlvl.c exec/builtin.c exec/cmd_tab.c exec/
 LIBFT = libft.a
 MALLOC = malloc_lib.a
 CC = cc
+CFLAGS = -Wall -Wextra -Werror
 OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = ./helperfunc/libft
 MALLOC_DIR = ./helperfunc/malloc_lib
@@ -12,7 +13,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR)
 	$(MAKE) -C $(MALLOC_DIR)
-	$(CC) $(LIBFT_DIR)/$(LIBFT) $(MALLOC_DIR)/$(MALLOC) $(OBJS) -lreadline -o $@
+	$(CC) $(CFLAGS) $(LIBFT_DIR)/$(LIBFT) $(MALLOC_DIR)/$(MALLOC) $(OBJS) -lreadline -o $@
 
 clean:
 	$(MAKE) clean -C $(LIBFT_DIR)

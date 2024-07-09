@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:36 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 20:15:11 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:39:43 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ t_token	*make_token(char *str, t_token *prev_token, int *quote_flag,
 {
 	int		pos;
 	t_token	*token;
-	t_token	*tmp;
 	char	*tmp_str;
 
 	pos = mini->pos;
