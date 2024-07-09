@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/02 19:03:09 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:24:59 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,29 @@ void	set_type(t_token *token)
 		token->type = CMD;
 	else
 		token->type = ARG;
+}
+
+int	set_type_all(t_token *token)
+{
+	t_token	*tmp;
+	t_token	*start_ptr;
+
+	start_ptr = token;
+	tmp = token;
+	while (tmp)
+	{
+		token = tmp;
+		tmp = token->prev;
+	}
+	tmp = token;
+	while (tmp)
+	{
+		token = tmp;
+		set_type(token);
+		tmp = token->next;
+	}
+	token = start_ptr;
+	return (0);
 }
 
 char	*chek_prepareation(char *line)
