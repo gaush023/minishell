@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/02 21:37:35 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:34:54 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,89 +82,103 @@ static bool	confirm_tokens_helper(t_token *token, t_mini *mini)
 	return (true);
 }
 
-t_token *goback_ini_pos(t_token *token)
+t_token	*goback_ini_pos(t_token *token)
 {
-  if(token != NULL)
-  {
-    printf("token->content: %s\n", token->content);
-    printf("token->type: %d\n", token->type);
-  }
-  else
-    printf("token is NULL\n");
-  while(token->prev != NULL)
-  {
-    token = token->prev;
-    set_type(token);
-  }
-  set_type(token);
-  return (token);
+	while (token->prev != NULL)
+	{
+		token = token->prev;
+		set_type(token);
+	}
+	set_type(token);
+	return (token);
 }
+
+static t_token	*copy_two_tokens(t_token *token, t_mini *mini)
+{
+	t_token *count_tokens;
+	int len;
+	t_token	*tmp;
+
+	count_tokens = token;
+	len = 0;
+	while(count_tokens && len < 2)
+	{
+		count_tokens = count_tokens->next;
+		len++;
+	}
+	if(len < 1)
+		return (NULL);
+	tmp = my_calloc(1, sizeof(t_token), mini->m_node);
+	tmp->content = ft_strdup(token->content);
+	tmp->next = my_calloc(1, sizeof(t_token), mini->m_node);
+	tmp->next->content = ft_strdup(token->next->content);
+	printf("done copying 2\n"); 
+	return (tmp);
+}
+
 
 t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 {
-  t_token *tmp;
-  t_token *tmp2;
+	t_token	*copied_two_tokens;
+	t_token	*tmp2;
 
-  printf("start\n");
-  while(token && token->next != NULL)
-  {
-    if(token->type == INPUT || token->type == APPEND || token->type == TRUNC || token->type == HERE_DOC)
-    {
-      tmp = my_calloc(1, sizeof(t_token), mini->m_node);
-      tmp->content = ft_strdup(token->content);
-      tmp->next = my_calloc(1, sizeof(t_token), mini->m_node);
-      tmp->next->content = ft_strdup(token->next->content);
-      tmp->next->next = NULL;
-      printf("finished copying\n");
-      if(token->next->next != NULL)
-        tmp2 = token->next->next;
-      else 
-      {
-        tmp2 = my_calloc(1, sizeof(t_token), mini->m_node);
-        tmp2->content = NULL;
-        tmp2->type = 0;
-        tmp2->next = NULL;
-        tmp2->prev = NULL;
-      }
-      tmp2->prev = NULL;
-      token = token->prev;
-      token->next = NULL;
-      token->next = tmp2;
-      tmp2->prev = token;
-      printf("tmp->content: %s\n", tmp->content);
-      printf("tmp->next->content: %s\n", tmp->next->content);
-      printf("token->content: %s\n", token->content);
-      if(token->next)
-        printf("token->next->content: %s\n", token->next->content);
-      else {
-        printf("token->next is NULL\n");
-        exit(0);
-      }
-      while(token->next != NULL || token->next->type == PIPE)
-      {
-        printf("loop1 token->content: %s\n", token->content);
-        token = token->next;
-      }
-      token->next = tmp;
-      tmp->prev = token->next;
-      while(token->prev != NULL)
-        token = token->prev;
-      while (token->next != NULL)
-      {
-        printf("loop2 token->content: %s\n", token->content);
-        token = token->next;
-      }
-      exit(0);
-    }
-    token = token->next;
-  }
-  printf("end loops\n");
-  return (goback_ini_pos(token));
+	printf("start\n");
+	while (token && token->next != NULL)
+	{
+		if (token->type == INPUT || token->type == APPEND
+			|| token->type == TRUNC || token->type == HERE_DOC)
+		{
+			copied_two_tokens = copy_two_tokens(token, mini);
+			if(!copied_two_tokens)
+				return (token);
+			tmp2 = token->next->next;
+			if(token->prev != NULL)
+			{
+				token = token->prev;
+				token->next = tmp2;
+				tmp2->prev = token;
+			}
+			else
+			{
+				token = tmp2;
+				token->prev = NULL;
+			}
+			while (token->next && token->next->type != PIPE)
+				token = token->next;
+			if(token->next && token->next->type != PIPE)
+			{
+				token->next = copied_two_tokens;
+				copied_two_tokens->prev = token;
+			}
+			else
+			{
+				copied_two_tokens->next = token->next;
+				token->next = copied_two_tokens;
+			}
+			while (token->prev != NULL)
+				token = token->prev;
+			while (token)
+			{
+				printf("loop2 token->content: %s\n", token->content);
+				if(token->next != NULL)
+					printf("loop2 token->next->content: %s\n", token->next->content);
+				if(token->prev != NULL)
+					printf("token->prev->content: %s\n", token->prev->content);
+				printf("\n");
+				token = token->next;
+			}
+			exit(0);
+		}
+		token = token->next;
+	}
+	printf("end loops\n");
+	return (goback_ini_pos(token));
 }
 
 t_token	*confirm_tokens(t_token *token, t_mini *mini)
 {
 	t_token	*tmp;
+	t_token	*tmp2;
 
 	tmp = token;
 	token = confrim_tokens_prepareation(token, mini);
@@ -184,13 +198,12 @@ t_token	*confirm_tokens(t_token *token, t_mini *mini)
 		token = NULL;
 	}
 	token = confirm_final_orders(token, mini);
-  t_token *tmp2 = token;
-  while(tmp2)
-  {
-    printf("final_token->content: %s\n", tmp2->content);
-    printf("final_token->type: %d\n", tmp2->type);
-    tmp2 = tmp2->next;
-  }
-  return (token);
+	tmp2 = token;
+	while (tmp2)
+	{
+		printf("final_token->content: %s\n", tmp2->content);
+		printf("final_token->type: %d\n", tmp2->type);
+		tmp2 = tmp2->next;
+	}
+	return (token);
 }
-

@@ -6,11 +6,11 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:11:21 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/18 17:35:25 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:28:16 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "includes/minishell.h"
 
 void	sig_int(int code)
 {
