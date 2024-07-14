@@ -14,6 +14,7 @@
 #include <stdio.h>
 
 int		g_sig = 0;
+int   count = 0;
 
 // __attribute__((destructor))
 // static void	destructor(void)
@@ -71,6 +72,7 @@ int	main(int ac, char **av, char **ev)
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
 		free_token(mini.start, mini.flag, mini.m_node);
+    count = 0;
 	}
 	malloc_end(mini.m_node);
 	return (mini.ret);

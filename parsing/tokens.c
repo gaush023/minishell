@@ -24,14 +24,5 @@ t_token	*get_tokens(char *line, t_mini *mini)
 	token = get_token_loops(line, str_flag, mini);
 	my_free(str_flag, mini->m_node);
 	token = get_tokens_finish(token, mini);
-	t_token *tmp = token;
-	printf("\n=========tokens==============\n");
-	while(tmp)
-	{
-		printf("content: %s\n", tmp->content);
-		printf("type: %d\n", tmp->type);
-		tmp = tmp->next;
-	}
-	printf("=============================\n");
 	return (token);
 }

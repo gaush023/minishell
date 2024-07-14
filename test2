@@ -1,0 +1,16 @@
+exec_cmd
+count: 1
+test1
+exec_cmd
+count: 1
+test1
+exec_cmd
+count: 1
+token->content: echo
+token->type: 1
+test1
+exec_cmd
+count: 1
+token->content: echo
+token->type: 1
+test1

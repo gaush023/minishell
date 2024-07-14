@@ -35,10 +35,10 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 
 	prev = prev_sep(token, SKIP);
 	next = next_sep(token, SKIP);
-	pipe = 0;
+  pipe = 0;
 	if (is_type(prev, TRUNC))
-		redir(mini, token, TRUNC);
-	else if (is_type(prev, APPEND))
+    redir(mini, token, TRUNC);
+  else if (is_type(prev, APPEND))
 		redir(mini, token, APPEND);
 	else if (is_type(prev, INPUT))
 		input(mini, token);
@@ -50,7 +50,7 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 		redir_and_exec(mini, next->next);
 	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1
 		&& mini->no_exec == 0)
-		exec_cmd(mini, token);
+    exec_cmd(mini, token);
 }
 
 static void	prepare_rerun(t_mini *mini)
@@ -66,8 +66,6 @@ void	minishell(t_mini *mini)
 	int		status;
 
 	token = next_run(mini->start, NOSKIP);
-	if (is_types(token, "TAIH"))
-		token = mini->start->next;
 	while (mini->flag == 0 && token)
 	{
 		mini->charge = 1;

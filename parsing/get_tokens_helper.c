@@ -48,32 +48,17 @@ char	*chek_prepareation(char *line)
 	return (line);
 }
 
-int	set_type_all(t_token *token)
+t_token *set_type_all(t_token *token)
 {
-	t_token	*tmp;
-	t_token	*start_ptr;
-
-	start_ptr = token;
-	tmp = token;
-	while (tmp)
-	{
-		token = tmp;
-		tmp = token->prev;
-	}
-	tmp = token->prev;
-	tmp = token;
-	printf("start\n");
-	while (tmp)
-	{
-		token = tmp;
-		printf("cont:%s\n", token->content);
-		set_type(token);
-		tmp = token->next;
-	}
-	printf("cont:%s\n", token->content);
-	token = start_ptr;
-	return (0);
+  while (token->prev != NULL)
+  {
+    set_type(token);
+    token = token->prev;
+  }
+  set_type(token);
+  return (token);
 }
+
 
 t_token	*get_tokens_finish(t_token *token, t_mini *mini)
 {
@@ -106,6 +91,8 @@ void	covert_blank_char(t_args *a)
 
 	pos = 0;
 	counter = 0;
+  if (a->flag[a->i - 1] == 0 && a->flag[a->i + 2] == 0)
+    return ;
 	while (a->i != pos)
 	{
 		if (a->flag[pos] == -2)
@@ -132,7 +119,7 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 	{
 		while (str_flag[tmp_args.i] == -1 || str_flag[tmp_args.i] == -2)
 		{
-			if (str_flag[tmp_args.i + 1] == -2)
+			if (str_flag[tmp_args.i + 1] == -2 && str_flag[tmp_args.i -1] == 0)
 				covert_blank_char(&tmp_args);
 			tmp_args.i++;
 		}

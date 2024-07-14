@@ -12,8 +12,6 @@
 
 #include "../includes/minishell.h"
 
-int set_type_all(t_token *token);
-
 t_token	*confrim_tokens_prepareation(t_token *token, t_mini *mini)
 {
 	t_token	*tmp;
@@ -105,9 +103,9 @@ static t_token	*copy_two_tokens(t_token *token, t_mini *mini)
 	tmp->content = ft_strdup(token->content);
 	tmp->type = token->type;
 	tmp->next = my_calloc(1, sizeof(t_token), mini->m_node);
-	tmp->next->type = token->next->type;
+	tmp->next->prev = tmp;
+  tmp->next->type = token->next->type;
 	tmp->next->content = ft_strdup(token->next->content);
-	printf("copying 2\n");
 	return (tmp);
 }
 
@@ -116,7 +114,6 @@ t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 	t_token	*copied_two_tokens;
 	t_token	*tmp2;
 
-	printf("start\n");
 	while (token && token->next != NULL)
 	{
 		if (token->type == INPUT || token->type == APPEND
@@ -154,13 +151,13 @@ t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 				token->next = copied_two_tokens;
 				copied_two_tokens->prev = token;
 				token->next->next->next = NULL;
-				return (token);
-			}
+			  break;
+      }
 		}
 		token = token->next;
 	}
-	set_type_all(token);
-	return (token);
+  token = set_type_all(token);
+  return (token);
 }
 
 t_token	*confirm_tokens(t_token *token, t_mini *mini)
@@ -184,6 +181,5 @@ t_token	*confirm_tokens(t_token *token, t_mini *mini)
 		token = NULL;
 	}
 	new_token_list = confirm_final_orders(token, mini);
-	printf("done\n");
-	return (new_token_list);
+  return (new_token_list);
 }

@@ -56,10 +56,8 @@ t_token	*make_token(char *str, t_token *prev_token, int *quote_flag,
 {
 	int		pos;
 	t_token	*token;
-	char	*tmp_str;
 
 	pos = mini->pos;
-	tmp_str = str;
 	token = my_calloc(1, sizeof(t_token), mini->m_node);
 	token->prev = prev_token;
 	if (quote_flag[pos] == -2)

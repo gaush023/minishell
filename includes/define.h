@@ -21,6 +21,7 @@
 # define STDERR 2
 
 // signal
+extern int  count;
 extern int	g_sig;
 # define ON_PID -1
 # define ON_HERE_DOC -2

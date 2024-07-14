@@ -45,25 +45,10 @@ int	unset(char **tokens, t_mini *mini)
 	{
 		if (ft_env_equals(env->value, tokens[1]))
 		{
-			printf("hit this is %s\n", env->value);
-			if (env->prev)
-				printf("hit prev is %s\n", env->prev->value);
-			else
-				printf("hit prev is null\n");
-			if (env->next)
-				printf("hit next is %s\n", env->next->value);
-			else
-				printf("hit next is null\n");
 			if (env->prev)
 				env->prev->next = env->next;
 			if (env->next)
-			{
 				env->next->prev = env->prev;
-				if (env->next->prev == NULL)
-					printf("this is null\n");
-				else
-					printf("false\n");
-			}
 		}
 		env = env->next;
 	}
