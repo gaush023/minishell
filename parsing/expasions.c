@@ -27,7 +27,9 @@ void	insert_var(t_expasion *ex, char *arg, t_mini *mini, t_env *env)
 	char	*env_value;
 
 	env_value = get_var_value(arg, ex->j, mini, env);
-	if (env_value)
+	printf("env_value: %s\n", env_value);
+  printf("env_value_len: %zu\n", ft_strlen(env_value));
+  if (env_value)
 		ex->i += var_cpy(ex->str, env_value, ex->i);
 	else
 		ex->i += 0;
@@ -53,6 +55,7 @@ char	*expasions(char *arg, t_mini *mini, t_env *env)
 
 	len = malloc4expassion(arg, mini, env);
 	ex.str = my_calloc(len + 1, sizeof(char), mini->m_node);
+  printf("len: %d\n", len);
 	if (ex.str == NULL)
 		return (NULL);
 	ex.i = 0;
@@ -71,5 +74,9 @@ char	*expasions(char *arg, t_mini *mini, t_env *env)
 		ex.str[ex.i++] = arg[ex.j++];
 	}
 	ex.str[ex.i] = '\0';
+  printf("expasions: %s\n", ex.str);
+  printf("len ex.str: %zu\n", ft_strlen(ex.str));
+  printf("%d ex.i\n", ex.i);
+  printf("%d ex.j\n", ex.j);
 	return (ex.str);
 }

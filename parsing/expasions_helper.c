@@ -55,12 +55,18 @@ char	*get_var_value(char *arg, int pos, t_mini *mini, t_env *env)
 
 static int	increment_i(int i, char *arg)
 {
+  int count;
+
+  count = 0;
 	if (ft_isdigit(arg[i]) == 0)
 	{
 		while (arg[i + 1] && is_env_char(arg[i]) == 1)
-			i++;
+		{
+      i++;
+      count++;
+    }
 	}
-	return (i);
+	return (count);
 }
 
 int	malloc4expassion(char *arg, t_mini *mini, t_env *env)
