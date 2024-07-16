@@ -63,13 +63,29 @@ int	make_hyphen_path(t_mini *mini, char *path)
 	return (ret);
 }
 
+int go_home(t_mini *mini)
+{
+  char	*home_path;
+  int		cd_ret;
+
+  home_path = get_env_path(mini->env, "HOME", 4);
+  if (!home_path)
+  {
+    ft_putstr_fd("cd: HOME not set\n", STDERR);
+    return (ERR);
+  }
+  cd_ret = make_hyphen_path(mini, home_path);
+  my_free(home_path, mini->m_node);
+  return (cd_ret);
+}
+
 int	ft_cd(char **args, t_mini *mini)
 {
 	int		cd_ret;
 	char	*path;
 
-	if (args[2])
-		return (0);
+  if(args[0])
+    return (go_home(mini));
 	if (!args[1])
 		return (go_to_path(0, mini));
 	path = NULL;
