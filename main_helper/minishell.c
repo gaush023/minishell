@@ -6,7 +6,7 @@
 /*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:24:21 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/16 03:52:11 by shuga            ###   ########.fr       */
+/*   Updated: 2024/07/23 22:43:19 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 
 	prev = prev_sep(token, SKIP);
 	next = next_sep(token, SKIP);
-  pipe = 0;
+	pipe = 0;
 	if (is_type(prev, TRUNC))
-    redir(mini, token, TRUNC);
-  else if (is_type(prev, APPEND))
+		redir(mini, token, TRUNC);
+	else if (is_type(prev, APPEND))
 		redir(mini, token, APPEND);
 	else if (is_type(prev, INPUT))
 		input(mini, token);
@@ -50,7 +50,7 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 		redir_and_exec(mini, next->next);
 	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1
 		&& mini->no_exec == 0)
-    exec_cmd(mini, token);
+		exec_cmd(mini, token);
 }
 
 static void	prepare_rerun(t_mini *mini)

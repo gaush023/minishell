@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:30 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 20:44:48 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:46:44 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ static bool	transform_line_loop_helper(char *line, t_mini *mini, int i)
 	}
 	if (line[i] == '<')
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `newline 2'\n",
-			2);
+		ft_putstr_fd(SYNTAX_ERR2, 2);
 		mini->ret = 2;
 		return (FALSE);
 	}
@@ -75,7 +74,8 @@ static char	*transform_line_loop(char *line, t_mini *mini, int i, int j)
 		{
 			new[j++] = ' ';
 			new[j++] = line[i++];
-			if (quotes(line, i) == 0 && line[i - 1] != '|' && (line[i] == '>' || line[i] == '<'))
+			if (quotes(line, i) == 0 && line[i - 1] != '|'
+					&& (line[i] == '>' || line[i] == '<'))
 				new[j++] = line[i++];
 			if (transform_line_loop_helper(line, mini, i) != TRUE)
 				return (NULL);

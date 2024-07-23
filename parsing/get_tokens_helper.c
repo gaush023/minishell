@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/10 00:46:13 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:41:34 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ char	*chek_prepareation(char *line)
 	return (line);
 }
 
-t_token *set_type_all(t_token *token)
+t_token	*set_type_all(t_token *token)
 {
-  while (token->prev != NULL)
-  {
-    set_type(token);
-    token = token->prev;
-  }
-  set_type(token);
-  return (token);
+	while (token->prev != NULL)
+	{
+		set_type(token);
+		token = token->prev;
+	}
+	set_type(token);
+	return (token);
 }
 
 

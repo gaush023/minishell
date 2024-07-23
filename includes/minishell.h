@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/23 22:27:25 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:39:07 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		exec_builtin(char **arg, t_mini *mini);
 
 // parsing
 void	set_type(t_token *token);
-t_token *set_type_all(t_token *token);
+t_token	*set_type_all(t_token *token);
 t_token	*get_tokens(char *line, t_mini *mini);
 char	*transform_line(char *line, t_mini *mini);
 t_token	*prev_sep(t_token *token, int skip);
@@ -107,7 +107,7 @@ int		go_to_path(int opt, t_mini *mini);
 int		update_oldpwd(t_mini *mini);
 
 int		ft_cd(char **args, t_mini *mini);
-int	unset(char **tokens, t_mini *mini);
+int		unset(char **tokens, t_mini *mini);
 int		env(char **tokens, t_env *env);
 int		export(char **tokens, t_mini *mini);
 int		pwd(char **tokens, t_mini *mini);

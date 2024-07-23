@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:56:47 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/25 21:18:07 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:38:18 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	ft_env_equals(char *value, char *token)
 
 int	unset(char **tokens, t_mini *mini)
 {
-	t_env *env;
+	t_env	*env;
 
 	env = mini->env;
 	if (tokens[1] == NULL)

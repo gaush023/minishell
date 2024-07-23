@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:18:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/23 18:31:34 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:36:16 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,6 @@
 #include <stdio.h>
 
 int		g_sig = 0;
-int   count = 0;
-
-// __attribute__((destructor))
-// static void	destructor(void)
-// {
-// 	system("leaks -q minishell");
-// }
-
-/* void *malloc(size_t size) */
-/* { */
-/* 	static int i = 0; */
-
-/* 	i += size; */
-/* 	if (i > MEMORY_SIZE) */
-/* 	{ */
-/* 		return (NULL); */
-/* 	} */
-/* 	void *(*libc_malloc)(size_t)  = (void *(*)(size_t))dlsym(RTLD_NEXT,
-			"malloc"); */
-/* 	return(libc_malloc(size)); */
-/* } */
 
 void	mini_init(t_mini *mini)
 {
@@ -72,7 +51,6 @@ int	main(int ac, char **av, char **ev)
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
 		free_token(mini.start, mini.flag, mini.m_node);
-    count = 0;
 	}
 	malloc_end(mini.m_node);
 	return (mini.ret);

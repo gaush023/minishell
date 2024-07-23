@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/23 18:17:56 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:40:49 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ static bool	confirm_tokens_helper(t_token *token, t_mini *mini)
 	return (true);
 }
 
-
-
 static t_token	*copy_two_tokens(t_token *token, t_mini *mini)
 {
 	t_token	*count_tokens;
@@ -104,7 +102,7 @@ static t_token	*copy_two_tokens(t_token *token, t_mini *mini)
 	tmp->type = token->type;
 	tmp->next = my_calloc(1, sizeof(t_token), mini->m_node);
 	tmp->next->prev = tmp;
-  tmp->next->type = token->next->type;
+	tmp->next->type = token->next->type;
 	tmp->next->content = my_strdup(token->next->content, mini->m_node);
 	return (tmp);
 }
@@ -151,13 +149,13 @@ t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 				token->next = copied_two_tokens;
 				copied_two_tokens->prev = token;
 				token->next->next->next = NULL;
-			  break;
-      }
+				break;
+			}
 		}
 		token = token->next;
 	}
-  token = set_type_all(token);
-  return (token);
+	token = set_type_all(token);
+	return (token);
 }
 
 t_token	*confirm_tokens(t_token *token, t_mini *mini)
@@ -181,5 +179,5 @@ t_token	*confirm_tokens(t_token *token, t_mini *mini)
 		token = NULL;
 	}
 	new_token_list = confirm_final_orders(token, mini);
-  return (new_token_list);
+	return (new_token_list);
 }

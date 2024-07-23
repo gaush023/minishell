@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/25 16:03:56 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:42:42 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_strisnum(char *str)
 void	mini_exit(t_mini *mini, char **cmd)
 {
 	mini->flag = 1;
-	if (cmd[1] && cmd[2]) 
+	if (cmd[1] && cmd[2])
 	{
 		mini->ret = 1;
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR);
@@ -45,8 +45,8 @@ void	mini_exit(t_mini *mini, char **cmd)
 	}
 	else if (cmd[1])
 		mini->ret = ft_atoi(cmd[1]);
-  else 
-    mini->ret = 0;
+	else
+		mini->ret = 0;
 }
 
 int	has_pipe(t_token *token)
