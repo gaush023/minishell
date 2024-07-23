@@ -6,20 +6,20 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/25 20:43:25 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:16:53 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_env	*create_node(char *val, t_node *node)
+t_env	*create_node(char *val, t_node *node, t_mini *mini)
 {
 	t_env	*new_node;
 
 	new_node = my_calloc(1, sizeof(t_env), node);
 	if (new_node == NULL)
 		return (NULL);
-	new_node->value = ft_strdup(val);
+	new_node->value = my_strdup(val, mini->m_node);
 	new_node->next = NULL;
 	return (new_node);
 }

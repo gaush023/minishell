@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_readline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 19:06:41 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/02 16:04:55 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:26:53 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ char	*my_readline(const char *prompt, t_node *node, t_mini *mini)
 	if (!str)
 		my_exit(mini->ret, node);
 	str_cpy = my_strdup(str, node);
-	my_free(str, node);
+	free(str);
 	return (str_cpy);
 }

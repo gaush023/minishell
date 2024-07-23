@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_token_loops_helper.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 20:05:45 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 20:56:37 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/23 20:32:32 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	get_token_loops_helper(t_args *a)
 		if (ft_strcmp(tmp_str, "EMPTY") != 0)
 		{
 			tmp_str = cutout_str(a->l, a->i, k, a->mini);
-      a->token = make_token(tmp_str, a->tmp_t, a->flag, a->mini);
+			a->token = make_token(tmp_str, a->tmp_t, a->flag, a->mini);
 			a->tmp_t = a->token;
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/02 17:07:19 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:44:35 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	minishell(t_mini *mini);
 // ft_commands
 int		ft_echo(char **args);
 int		go_to_path(int opt, t_mini *mini);
-char	*get_env_path(t_env *env, char *var, int len);
+char	*get_env_path(t_mini *mini, char *var, int len);
 int		update_oldpwd(t_mini *mini);
 
 int		ft_cd(char **args, t_mini *mini);

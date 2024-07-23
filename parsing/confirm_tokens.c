@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/09 18:36:42 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:17:56 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_token	*confrim_tokens_prepareation(t_token *token, t_mini *mini)
 			&& token->next->qute_flag == 1 && token->next->type == ARG)
 		{
 			tmp_str = ft_strjoin(token->content, token->next->content);
-			token->content = ft_strdup(tmp_str);
+			token->content = my_strdup(tmp_str, mini->m_node);
 			my_free(tmp_str, mini->m_node);
 			token->qute_flag = token->next->qute_flag;
 			tmp = token->next;
@@ -42,7 +42,7 @@ t_token	*add_infront_cat(t_token *token, t_mini *mini)
 	t_token	*tmp;
 
 	tmp = my_calloc(1, sizeof(t_token), mini->m_node);
-	tmp->content = ft_strdup("cat");
+	tmp->content = my_strdup("cat", mini->m_node);
 	tmp->type = CMD;
 	tmp->next = token;
 	tmp->prev = NULL;
@@ -100,12 +100,12 @@ static t_token	*copy_two_tokens(t_token *token, t_mini *mini)
 	if (len < 1)
 		return (NULL);
 	tmp = my_calloc(1, sizeof(t_token), mini->m_node);
-	tmp->content = ft_strdup(token->content);
+	tmp->content = my_strdup(token->content, mini->m_node);
 	tmp->type = token->type;
 	tmp->next = my_calloc(1, sizeof(t_token), mini->m_node);
 	tmp->next->prev = tmp;
   tmp->next->type = token->next->type;
-	tmp->next->content = ft_strdup(token->next->content);
+	tmp->next->content = my_strdup(token->next->content, mini->m_node);
 	return (tmp);
 }
 

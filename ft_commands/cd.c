@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:22:49 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/25 03:52:24 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:53:07 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ char	*make_home_path(char **args, t_mini *mini)
 	char	*home_path;
 	char	*temp;
 
-	home_path = get_env_path(mini->env, "HOME", 4);
+	home_path = get_env_path(mini, "HOME", 4);
 	if (!home_path)
 	{
-		ft_putstr_fd("cd: HOME not set\n", STDERR);
+		ft_putstr_fd("cd: HOME not seet\n", STDERR);
 		return (NULL);
 	}
 	if (args[1][1] != '/')
@@ -63,20 +63,20 @@ int	make_hyphen_path(t_mini *mini, char *path)
 	return (ret);
 }
 
-int go_home(t_mini *mini)
+int	go_home(t_mini *mini)
 {
-  char	*home_path;
-  int		cd_ret;
+	char	*home_path;
+	int		cd_ret;
 
-  home_path = get_env_path(mini->env, "HOME", 4);
-  if (!home_path)
-  {
-    ft_putstr_fd("cd: HOME not set\n", STDERR);
-    return (ERR);
-  }
-  cd_ret = make_hyphen_path(mini, home_path);
-  my_free(home_path, mini->m_node);
-  return (cd_ret);
+	home_path = get_env_path(mini, "HOME", 4);
+	if (!home_path)
+	{
+		ft_putstr_fd("cd: HOME not set\n", STDERR);
+		return (ERR);
+	}
+	cd_ret = make_hyphen_path(mini, home_path);
+	my_free(home_path, mini->m_node);
+	return (cd_ret);
 }
 
 int	ft_cd(char **args, t_mini *mini)
@@ -84,8 +84,6 @@ int	ft_cd(char **args, t_mini *mini)
 	int		cd_ret;
 	char	*path;
 
-  if(args[0])
-    return (go_home(mini));
 	if (!args[1])
 		return (go_to_path(0, mini));
 	path = NULL;
@@ -96,7 +94,7 @@ int	ft_cd(char **args, t_mini *mini)
 			return (ERR);
 	}
 	else
-		path = ft_strdup(args[1]);
+		path = my_strdup(args[1], mini->m_node);
 	if (ft_strcmp(path, "-") == 0)
 		cd_ret = go_to_path(1, mini);
 	else

@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:11:21 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/09 17:28:16 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:18:46 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ void	sig_int(int code)
 	{
 		if (g_sig == ON_HERE_DOC)
 			ft_putstr_fd(M_PROMPT, STDERR);
-		g_sig = SIGNAL_INT;
-		return ;
 	}
 	else
 		rl_redisplay();
+	g_sig = SIGNAL_INT;
 }
 
 void	sig_quit(int code)

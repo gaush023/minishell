@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_oldpwd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 19:13:18 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 16:49:03 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:18:27 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ static int	env_add(char *value, t_mini *mini)
 	cpy_env = mini->env;
 	if (cpy_env && cpy_env->value == NULL)
 	{
-		cpy_env->value = ft_strdup(value);
+		cpy_env->value = my_strdup(value, mini->m_node);
 		return (SUCCESS);
 	}
 	new = my_calloc(1, sizeof(t_env), mini->m_node);
-	new->value = ft_strdup(value);
+	new->value = my_strdup(value, mini->m_node);
 	while (cpy_env && cpy_env->next && cpy_env->next->next)
 		cpy_env = cpy_env->next;
 	tmp = cpy_env->next;

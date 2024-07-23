@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expasions.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:24 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/16 00:14:32 by shuga            ###   ########.fr       */
+/*   Updated: 2024/07/23 20:16:45 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ void	insert_var(t_expasion *ex, char *arg, t_mini *mini, t_env *env)
 {
 	char	*env_value;
 
+	printf("in insert_var\n");
 	env_value = get_var_value(arg, ex->j, mini, env);
-	printf("env_value: %s\n", env_value);
-  printf("env_value_len: %zu\n", ft_strlen(env_value));
-  if (env_value)
+	if (env_value)
 		ex->i += var_cpy(ex->str, env_value, ex->i);
 	else
 		ex->i += 0;
@@ -46,6 +45,7 @@ void	insert_var(t_expasion *ex, char *arg, t_mini *mini, t_env *env)
 		if (arg[ex->j - 1] != '?')
 			ex->j++;
 	}
+	printf("out insert_var\n");
 }
 
 char	*expasions(char *arg, t_mini *mini, t_env *env)
@@ -53,9 +53,9 @@ char	*expasions(char *arg, t_mini *mini, t_env *env)
 	t_expasion	ex;
 	int			len;
 
+	printf("in expasions\n");
 	len = malloc4expassion(arg, mini, env);
 	ex.str = my_calloc(len + 1, sizeof(char), mini->m_node);
-  printf("len: %d\n", len);
 	if (ex.str == NULL)
 		return (NULL);
 	ex.i = 0;
@@ -74,9 +74,6 @@ char	*expasions(char *arg, t_mini *mini, t_env *env)
 		ex.str[ex.i++] = arg[ex.j++];
 	}
 	ex.str[ex.i] = '\0';
-  printf("expasions: %s\n", ex.str);
-  printf("len ex.str: %zu\n", ft_strlen(ex.str));
-  printf("%d ex.i\n", ex.i);
-  printf("%d ex.j\n", ex.j);
+	printf("out expasions\n");
 	return (ex.str);
 }
