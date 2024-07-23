@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/23 22:40:49 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:49:16 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,10 @@ t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 			copied_two_tokens = copy_two_tokens(token, mini);
 			if (!copied_two_tokens)
 				return (token);
-			if(token->next->next != NULL)
+			if (token->next->next != NULL)
 				tmp2 = token->next->next;
 			else
-				break;
+				break ;
 			if (token->prev != NULL)
 			{
 				token = token->prev;
@@ -141,7 +141,7 @@ t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 			{
 				copied_two_tokens->next->next = token->next;
 				token->next = copied_two_tokens;
-				while(token->next->type != PIPE)
+				while (token->next->type != PIPE)
 					token = token->next;
 			}
 			else
@@ -149,7 +149,7 @@ t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 				token->next = copied_two_tokens;
 				copied_two_tokens->prev = token;
 				token->next->next->next = NULL;
-				break;
+				break ;
 			}
 		}
 		token = token->next;

@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/23 22:41:34 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:50:05 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ t_token	*set_type_all(t_token *token)
 	return (token);
 }
 
-
 t_token	*get_tokens_finish(t_token *token, t_mini *mini)
 {
 	if (token == NULL)
@@ -91,8 +90,8 @@ void	covert_blank_char(t_args *a)
 
 	pos = 0;
 	counter = 0;
-  if (a->flag[a->i - 1] == 0 && a->flag[a->i + 2] == 0)
-    return ;
+	if (a->flag[a->i - 1] == 0 && a->flag[a->i + 2] == 0)
+		return ;
 	while (a->i != pos)
 	{
 		if (a->flag[pos] == -2)
