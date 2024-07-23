@@ -6,11 +6,14 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 19:03:07 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/23 19:50:40 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:27:57 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+char	*get_oldpwd(t_mini *mini);
+char	*get_home(t_mini *mini);
 
 static int	go_to_path_helper(int opt)
 {
@@ -30,10 +33,12 @@ int	go_to_path(int opt, t_mini *mini)
 	if (opt == 0)
 	{
 		update_oldpwd(mini);
-		env_path = get_env_path(mini, "HOME=", 5);
+		env_path = get_home(mini);
 	}
 	else if (opt == 1)
-		env_path = get_env_path(mini, "OLDPWD=", 7);
+	{
+		env_path = get_oldpwd(mini);
+	}
 	if (env_path == NULL)
 		return (go_to_path_helper(opt));
 	ret = chdir(env_path);
@@ -43,24 +48,38 @@ int	go_to_path(int opt, t_mini *mini)
 	return (SUCCESS);
 }
 
-char	*get_env_path(t_mini *mini, char *var, int len)
+char	*get_oldpwd(t_mini *mini)
 {
 	t_env	*env;
+	char	*result;
 
-	printf("Var: %s\n", var);
-	printf("len: %d\n", len);
-	printf("mini->env->value: %s\n", mini->env->value);
 	env = mini->env;
-	while (env && env->next != NULL)
+	while (env)
 	{
-		printf("env->value: %s\n", env->value);
-		printf("ft_strncmp: %d\n", ft_strncmp(mini->env->value, var, len));
-		if (ft_strncmp(env->value, var, len) == 0 && env->value[len] == '=')
+		if (!ft_strncmp(env->value, "OLDPWD=", 7) && env->value[6] == '=')
 		{
-			return (my_strdup(env->value + len + 1, mini->m_node));
+			result = my_strdup(env->value, mini->m_node);
+			return (&result[7]);
 		}
 		env = env->next;
 	}
-	printf("done\n");
+	return (NULL);
+}
+
+char	*get_home(t_mini *mini)
+{
+	t_env	*env;
+	char	*result;
+
+	env = mini->env;
+	while (env)
+	{
+		if (!ft_strncmp(env->value, "HOME=", 5) && env->value[4] == '=')
+		{
+			result = my_strdup(env->value, mini->m_node);
+			return (&result[5]);
+		}
+		env = env->next;
+	}
 	return (NULL);
 }
