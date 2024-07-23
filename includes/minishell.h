@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/23 18:44:35 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:51:21 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int		malloc4expassion(char *arg, t_mini *mini, t_env *env);
 char	*get_var_value(char *arg, int pos, t_mini *mini, t_env *env);
 int		get_var_len(const char *arg, int pos, t_mini *mini, t_env *env);
 char	*get_env_value(char *var_name, t_mini *mini, t_env *env);
-char	*copy_env_value(char *env);
 int		env_value_len(char *env);
 char	*copy_env_name(char *dst, char *src);
 int		is_env_char(char c);
