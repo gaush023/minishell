@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/23 18:16:53 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/27 18:51:17 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-t_env	*create_node(char *val, t_node *node, t_mini *mini)
-{
-	t_env	*new_node;
-
-	new_node = my_calloc(1, sizeof(t_env), node);
-	if (new_node == NULL)
-		return (NULL);
-	new_node->value = my_strdup(val, mini->m_node);
-	new_node->next = NULL;
-	return (new_node);
-}
 
 int	is_include_equal(const char *str)
 {
@@ -63,24 +51,28 @@ bool	is_env_format(char *str)
 	return (true);
 }
 
-int	export(char **tokens, t_mini *mini)
+static int	print_export_declare(t_mini *mini)
+{
+	t_env	*tmp;
+
+	tmp = mini->env;
+	while (tmp->next)
+	{
+		if (tmp->value)
+		{
+			ft_putstr_fd("declare -x ", 1);
+			ft_putstr_fd(tmp->value, 1);
+			ft_putstr_fd("\n", 1);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+static void	insert_new_env(t_mini *mini, char **tokens)
 {
 	t_env	*new_env;
-	t_env	*tmp;
-	int		res;
 
-	if (!ft_equals(tokens[0], "export") || tokens[1] == NULL)
-		return (1);
-	res = is_include_equal(tokens[1]);
-	if (res == -1)
-	{
-		write(2, " not a valid identifier", 23);
-		return (1);
-	}
-	else if (res == 1)
-		return (0);
-	if (!is_env_format(tokens[1]))
-		return (1);
 	new_env = my_calloc(1, sizeof(t_env), mini->m_node);
 	new_env->value = my_calloc(ft_strlen(tokens[1]), 1, mini->m_node);
 	ft_memcpy(new_env->value, tokens[1], ft_strlen(tokens[1]));
@@ -92,7 +84,26 @@ int	export(char **tokens, t_mini *mini)
 	new_env->prev = mini->env;
 	while (mini->env->prev)
 		mini->env = mini->env->prev;
+}
+
+int	export(char **tokens, t_mini *mini)
+{
+	int	res;
+
+	if (tokens[1] == NULL)
+		return (print_export_declare(mini));
+	if (!ft_equals(tokens[0], "export"))
+		return (1);
+	res = is_include_equal(tokens[1]);
+	if (res == -1)
+	{
+		write(2, " not a valid identifier", 23);
+		return (1);
+	}
+	else if (res == 1)
+		return (0);
+	if (!is_env_format(tokens[1]))
+		return (1);
+	insert_new_env(mini, tokens);
 	return (0);
-	(void)create_node;
-	(void)tmp;
 }

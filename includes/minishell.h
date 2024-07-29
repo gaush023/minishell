@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/23 22:39:07 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:31:05 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char	*chek_prepareation(char *line);
 t_token	*get_tokens_finish(t_token *token, t_mini *mini);
 t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini);
 char	*transform_line(char *line, t_mini *mini);
+t_token	*confirm_final_orders(t_token *token, t_mini *mini);
 
 // helper_func
 void	reset_fds(t_mini *mini);
@@ -105,7 +106,7 @@ void	minishell(t_mini *mini);
 int		ft_echo(char **args);
 int		go_to_path(int opt, t_mini *mini);
 int		update_oldpwd(t_mini *mini);
-
+int		print_error_cd(void);
 int		ft_cd(char **args, t_mini *mini);
 int		unset(char **tokens, t_mini *mini);
 int		env(char **tokens, t_env *env);

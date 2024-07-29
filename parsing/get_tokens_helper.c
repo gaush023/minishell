@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens_helper.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/23 22:50:05 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:49:39 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,32 +46,6 @@ char	*chek_prepareation(char *line)
 	if (line[i] == '\0')
 		return (NULL);
 	return (line);
-}
-
-t_token	*set_type_all(t_token *token)
-{
-	while (token->prev != NULL)
-	{
-		set_type(token);
-		token = token->prev;
-	}
-	set_type(token);
-	return (token);
-}
-
-t_token	*get_tokens_finish(t_token *token, t_mini *mini)
-{
-	if (token == NULL)
-		return (NULL);
-	while (token->prev != NULL)
-	{
-		set_type(token);
-		token->prev->next = token;
-		token = token->prev;
-	}
-	set_type(token);
-	token = confirm_tokens(token, mini);
-	return (token);
 }
 
 char	*cutout_str(char *line, unsigned int i, unsigned int k, t_mini *mini)
@@ -118,7 +92,7 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 	{
 		while (str_flag[tmp_args.i] == -1 || str_flag[tmp_args.i] == -2)
 		{
-			if (str_flag[tmp_args.i + 1] == -2 && str_flag[tmp_args.i -1] == 0)
+			if (str_flag[tmp_args.i + 1] == -2 && str_flag[tmp_args.i - 1] == 0)
 				covert_blank_char(&tmp_args);
 			tmp_args.i++;
 		}
