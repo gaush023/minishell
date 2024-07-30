@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 19:49:32 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/18 17:37:50 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:18:51 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_token	*stop_heredoc(t_token *token, char *line, t_mini *mini)
 	char	*tmp_line;
 
 	tmp_line = my_strdup(line, mini->m_node);
-	line = transform_line(tmp_line, mini);
+	line = transform_line(line, mini);
 	tmp = get_tokens(line, mini);
 	if (line == NULL || quote_check(mini, line) == 1)
 		return (token);
@@ -61,6 +61,7 @@ static void	here_doc_loop(t_mini *mini, t_token *token, char *delimiter)
 		if (g_sig == SIGNAL_INT)
 		{
 			token = stop_heredoc(token, line, mini);
+			mini->ret = 130;
 			return ;
 		}
 		if (!line || ft_strcmp(line, delimiter) == 0)

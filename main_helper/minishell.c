@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:24:21 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/23 22:43:19 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:13:19 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 		redir_and_exec(mini, next->next);
 	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1
 		&& mini->no_exec == 0)
+	{
 		exec_cmd(mini, token);
+	}
 }
 
 static void	prepare_rerun(t_mini *mini)

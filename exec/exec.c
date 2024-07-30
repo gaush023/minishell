@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/23 22:42:42 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:17:15 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ void	exec_cmd(t_mini *mini, t_token *token)
 		mini_exit(mini, cmd);
 	else if (cmd && is_builtin(cmd[0]))
 		mini->ret = exec_builtin(cmd, mini);
-	else if (cmd && SIGNAL_INT != flag)
+	else if (cmd)
 		mini->ret = exec_bin(cmd, mini->env, mini);
 	if (token->next && ft_strcmp(token->next->content, "<<") == 0
 		&& flag == SIGNAL_INT)
-		mini->ret = 1;
+		mini->ret = 130;
 	exec_cmd_fininsh(mini, cmd);
 }

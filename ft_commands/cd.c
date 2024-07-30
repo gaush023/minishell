@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:22:49 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/30 17:01:02 by shuga            ###   ########.fr       */
+/*   Updated: 2024/07/30 18:45:23 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ char	*make_home_path(char **args, t_mini *mini)
 	char	*temp;
 
 	home_path = get_home(mini);
-	printf("start\n");
-	printf("home_path: %s\n", home_path);
 	if (!home_path)
 	{
 		ft_putstr_fd("cd: HOME not set\n", STDERR);
