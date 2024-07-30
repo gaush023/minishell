@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_input.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:23:18 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/18 02:21:00 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:35:56 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	input(t_mini *mini, t_token *token)
 	{
 		ft_putstr_fd("minishell: ", STDERR);
 		ft_putstr_fd(token->content, STDERR);
-		ft_putstr_fd(": No such file or directory\n", STDERR);
+		ft_putstr_fd(" No such file or directory\n", STDERR);
 		mini->ret = 1;
 		mini->no_exec = 1;
 		return ;

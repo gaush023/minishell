@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/18 19:29:14 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/30 03:43:55 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	error_msg(char *path)
 	if (ft_strchr(path, '/') == NULL)
 		ft_putstr_fd("command not found", STDERR);
 	else if (fd == -1 && folder == NULL)
-		ft_putstr_fd(":  No such file or directory", STDERR);
+		ft_putstr_fd(": a No such file or directory", STDERR);
 	else if (fd == -1 && folder != NULL)
 		ft_putstr_fd(": is a directory", STDERR);
 	else if (fd != -1 && folder == NULL)

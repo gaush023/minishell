@@ -6,7 +6,7 @@
 /*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:27:15 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/23 22:47:46 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:22:44 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ extern int	g_sig;
 
 // string
 # define SYNTAX_ERR " minishell: syntax error near unexpected token `"
-# define SYNTAX_ERR2 "minishell: syntax error near unexpected token `newline 2'\n"
-
+# define SYNTAX_ERR2 "minishell: syntax error near\
+unexpected token `newline'\n"
 // token type
 # define EMPTY 0
 # define CMD 1

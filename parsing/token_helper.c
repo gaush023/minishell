@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:36 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/09 17:39:43 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:21:36 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,15 @@ int	is_next_quote(int *quote_flag, int pos)
 	return (0);
 }
 
-static void	determine_flag_typea(int *quote_flag, int pos, t_token *token,
-		t_token *prev_token)
+static void	determine_flag_typea(int *quote_flag, int pos, t_token *token)
 {
 	if (quote_flag[pos + 1] == -3)
 		token->qute_flag = 1;
-	else if (quote_flag[pos + 1] == -2 || quote_flag[pos + 1] == 0)
+	else if ((quote_flag[pos + 1] == -2 || quote_flag[pos + 1] == 0)
+		&& quote_flag[pos + 1] != -1)
 		token->qute_flag = 1;
-	token->qute_flag = 0;
-	if (prev_token != NULL && quote_flag[pos - 1] == 0)
-		token->qute_flag = 1;
+	else
+		token->qute_flag = 0;
 }
 
 static void	determine_flag_typeb(int pos, t_token *token, int *quote_flag)
@@ -61,7 +60,7 @@ t_token	*make_token(char *str, t_token *prev_token, int *quote_flag,
 	token = my_calloc(1, sizeof(t_token), mini->m_node);
 	token->prev = prev_token;
 	if (quote_flag[pos] == -2)
-		determine_flag_typea(quote_flag, pos, token, prev_token);
+		determine_flag_typea(quote_flag, pos, token);
 	else if (quote_flag[pos] == -3)
 		determine_flag_typeb(pos, token, quote_flag);
 	else if (quote_flag[pos] == -1 && prev_token != NULL)
