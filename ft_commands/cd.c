@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:22:49 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/30 18:45:23 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:29:21 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int	ft_cd(char **args, t_mini *mini)
 	char	*path;
 
 	path = NULL;
-	if (args[0] && args[1] && args[2] != NULL)
-		return (print_error_cd());
+	if (args[0] && args[1] && args[2])
+		return (0);
 	if (!args[1])
 		return (go_to_path(0, mini));
 	else if (args[1][0] == '~')
