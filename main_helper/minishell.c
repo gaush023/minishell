@@ -33,6 +33,7 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 	t_token	*next;
 	int		pipe;
 
+  printf("redir_and_exec\n");
 	prev = prev_sep(token, SKIP);
 	next = next_sep(token, SKIP);
 	pipe = 0;
@@ -50,9 +51,8 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 		redir_and_exec(mini, next->next);
 	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1
 		&& mini->no_exec == 0)
-	{
 		exec_cmd(mini, token);
-	}
+  printf("redir_and_exec end\n");
 }
 
 static void	prepare_rerun(t_mini *mini)

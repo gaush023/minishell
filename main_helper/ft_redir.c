@@ -14,6 +14,11 @@
 
 void	redir(t_mini *mini, t_token *token, int type)
 {
+  printf("redir\n");
+  if(type == TRUNC)
+    printf("TRUNC\n");
+  else
+    printf("APPEND\n");
 	ft_close(mini->fdout);
 	if (type == TRUNC)
 		mini->fdout = open(token->content, O_WRONLY | O_CREAT | O_TRUNC,
@@ -21,6 +26,7 @@ void	redir(t_mini *mini, t_token *token, int type)
 	else
 		mini->fdout = open(token->content, O_WRONLY | O_CREAT | O_APPEND,
 				S_IRWXU);
+  printf("open\n");
 	if (mini->fdout == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR);
@@ -30,5 +36,7 @@ void	redir(t_mini *mini, t_token *token, int type)
 		mini->no_exec = 1;
 		return ;
 	}
+  printf("dup2\n");
 	dup2(mini->fdout, STDOUT);
+  printf("exit redir\n");
 }

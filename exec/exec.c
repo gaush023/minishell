@@ -80,6 +80,7 @@ void	exec_cmd(t_mini *mini, t_token *token)
 	int		i;
 	int		flag;
 
+  printf("exec_cmd\n");
 	flag = g_sig;
 	if (mini->charge == 0)
 		return ;

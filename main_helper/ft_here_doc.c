@@ -46,7 +46,7 @@ static void	here_doc_end(t_mini *mini)
 		mini->heredoc_fd = open("/dev/null", O_RDONLY);
 	if (mini->heredoc_fd == -1)
 		return ;
-	dup2(mini->heredoc_fd, STDIN);
+  dup2(mini->heredoc_fd, STDIN);
 	ft_close(mini->heredoc_fd);
 }
 
@@ -79,6 +79,8 @@ void	here_doc(t_mini *mini, t_token *token)
 {
 	char	*delimiter;
 
+  printf("here_doc\n");
+  printf("mini->g_sig: %d\n", g_sig);
 	g_sig = ON_HERE_DOC;
 	delimiter = token->content;
 	mini->heredoc_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC,

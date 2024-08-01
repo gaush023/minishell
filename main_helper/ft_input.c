@@ -14,6 +14,7 @@
 
 void	input(t_mini *mini, t_token *token)
 {
+  printf("input\n");
 	ft_close(mini->fdin);
 	mini->fdin = open(token->content, O_RDONLY, S_IRWXU);
 	if (mini->fdin == -1)
