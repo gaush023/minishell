@@ -13,7 +13,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR)
 	$(MAKE) -C $(MALLOC_DIR)
-	$(CC) $(CFLAGS) $(LIBFT_DIR)/$(LIBFT) $(MALLOC_DIR)/$(MALLOC) $(OBJS) -lreadline -fsanitize=address -o $@
+	$(CC) $(CFLAGS) $(LIBFT_DIR)/$(LIBFT) $(MALLOC_DIR)/$(MALLOC) $(OBJS) -lreadline  -o $@
 
 clean:
 	$(MAKE) clean -C $(LIBFT_DIR)

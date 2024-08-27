@@ -69,6 +69,19 @@ static int	print_export_declare(t_mini *mini)
 	return (0);
 }
 
+
+static bool ft_eqaul_env(char *s1, char *s2)
+{ 
+    size_t i;
+
+    i = 0;
+    while(s1[i] == s2[i] && s1[i] != '=')
+        i++;
+    if (s1[i] == '=' && s2[i] == '=')
+        return (true);
+    return (false);
+}
+
 static void	insert_new_env(t_mini *mini, char **tokens)
 {
 	t_env	*new_env;
@@ -76,13 +89,23 @@ static void	insert_new_env(t_mini *mini, char **tokens)
 	new_env = my_calloc(1, sizeof(t_env), mini->m_node);
 	new_env->value = my_calloc(ft_strlen(tokens[1]), 1, mini->m_node);
 	ft_memcpy(new_env->value, tokens[1], ft_strlen(tokens[1]));
-	while (mini->env->next->next != NULL)
+	while (mini->env->next->next != NULL && !ft_eqaul_env(mini->env->next->value, new_env->value))
 		mini->env = mini->env->next;
-	mini->env->next->prev = new_env;
+    if (ft_eqaul_env(mini->env->next->value, new_env->value))
+    {
+        new_env->next = mini->env->next->next;
+        new_env->prev = mini->env;
+        mini->env->next->next->prev = new_env;
+        mini->env->next = new_env;
+        while (mini->env->prev)
+            mini->env = mini->env->prev;
+        return ;
+    }
+    mini->env->next->prev = new_env;
 	new_env->next = mini->env->next;
 	mini->env->next = new_env;
 	new_env->prev = mini->env;
-	while (mini->env->prev)
+    while (mini->env->prev)
 		mini->env = mini->env->prev;
 }
 

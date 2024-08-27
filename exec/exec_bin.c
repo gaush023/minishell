@@ -92,8 +92,8 @@ int	exec_bin(char **args, t_env *env, t_mini *mini)
 	while (env && env->value && ft_strncmp(env->value, "PATH=", 5) != 0)
 		env = env->next;
 	if (!env || !env->next)
-		bin = my_split(env->value, ':', mini->m_node);
-	bin = my_split(env->value, ':', mini->m_node);
+	    return(magic_box(args[0], args, env, mini));
+    bin = my_split(env->value, ':', mini->m_node);
 	if (!args[0] || !bin[0])
 		return (ERR);
 	i = 0;
