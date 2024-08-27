@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:18:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/23 22:36:16 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:21:58 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	mini_init(t_mini *mini)
 	mini->flag = 0;
 	mini->ret = 0;
 	mini->no_exec = 0;
-    mini->is_printable = 0;
+	mini->is_printable = 0;
 }
 
 int	main(int ac, char **av, char **ev)
@@ -52,8 +52,8 @@ int	main(int ac, char **av, char **ev)
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
 		free_token(mini.start, mini.flag, mini.m_node);
-        mini.is_printable = 0;
-    }
+		mini.is_printable = 0;
+	}
 	malloc_end(mini.m_node);
 	return (mini.ret);
 	(void)ac;

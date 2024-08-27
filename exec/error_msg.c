@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/30 03:43:55 by shuga            ###   ########.fr       */
+/*   Updated: 2024/08/27 18:23:08 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	error_msg(char *path, t_mini *mini)
 	if (ft_strchr(path, '/') == NULL)
 		ft_putstr_fd("command not found", STDERR);
 	else if (fd == -1 && folder == NULL && mini->is_printable == 0)
-    {
+	{
 		ft_putstr_fd(": No such file or directory", STDERR);
-        mini->is_printable = 1;
-    }
-    else if (fd == -1 && folder != NULL)
+		mini->is_printable = 1;
+	}
+	else if (fd == -1 && folder != NULL)
 		ft_putstr_fd(": is a directory", STDERR);
 	else if (fd != -1 && folder == NULL)
 		ft_putstr_fd(": Permission denied", STDERR);

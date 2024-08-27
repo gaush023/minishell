@@ -29,7 +29,8 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 	int		ret;
 	int		pid;
 
-	ret = SUCCESS;
+
+  ret = SUCCESS;
 	g_sig = ON_PID;
 	pid = fork();
 	if (pid == 0)
@@ -39,7 +40,7 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 		if (ft_strchr(path, '/') != NULL)
 			execve(path, args, env_array);
 		ret = error_msg(path, mini);
-		free_tab(env_array, mini->m_node);
+    free_tab(env_array, mini->m_node);
 		free_token(mini->start, mini->flag, mini->m_node);
 		my_exit(ret, mini->m_node);
 	}
@@ -92,8 +93,13 @@ int	exec_bin(char **args, t_env *env, t_mini *mini)
 	while (env && env->value && ft_strncmp(env->value, "PATH=", 5) != 0)
 		env = env->next;
 	if (!env || !env->next)
-	    return(magic_box(args[0], args, env, mini));
-    bin = my_split(env->value, ':', mini->m_node);
+  {
+    write(2, "minishell: ", 11);
+    write(2, args[0], ft_strlen(args[0]));
+    write(2, ": No such file or directly\n", 27); 
+    return(127);
+  }
+  bin = my_split(env->value, ':', mini->m_node);
 	if (!args[0] || !bin[0])
 		return (ERR);
 	i = 0;

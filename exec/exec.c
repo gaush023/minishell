@@ -31,6 +31,8 @@ int	ft_strisnum(char *str)
 void	mini_exit(t_mini *mini, char **cmd)
 {
 	mini->flag = 1;
+  printf("cmd[1]: %s\n", cmd[1]);
+  printf("ret: %d\n", mini->ret);
 	if (cmd[1] && cmd[2])
 	{
 		mini->ret = 1;
@@ -45,8 +47,6 @@ void	mini_exit(t_mini *mini, char **cmd)
 	}
 	else if (cmd[1])
 		mini->ret = ft_atoi(cmd[1]);
-	else
-		mini->ret = 0;
 }
 
 int	has_pipe(t_token *token)

@@ -1,5 +1,0 @@
-exit redir
-redir
-TRUNC
-open
-dup2
