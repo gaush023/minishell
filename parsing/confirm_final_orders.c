@@ -76,15 +76,21 @@ static t_token	*add_two_tokens_last(t_token *token, t_token *copied_two_tokens)
 	return (token);
 }
 
+static bool is_sep_type(t_token *token)
+{
+    if(token->type == TRUNC || token->type == APPEND || token->type == INPUT || token->type == HERE_DOC)
+        return (true);
+    return (false);
+}
+
 t_token	*confirm_final_orders(t_token *token, t_mini *mini)
 {
 	t_token	*copied_two_tokens;
 
 	while (token && token->next != NULL)
 	{
-		if (token->type == INPUT || token->type == APPEND
-			|| token->type == TRUNC || token->type == HERE_DOC)
-		{
+		if (is_sep_type(token) && token->next->next != NULL && !is_sep_type(token->next->next)) 
+	  {
 			copied_two_tokens = copy_two_tokens(token, mini);
 			if (token->next->next != NULL && copied_two_tokens)
 				token = cutout_two_tokens(token);

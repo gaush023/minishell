@@ -38,7 +38,7 @@ int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
 		env_array = env_to_array(env, mini);
 		if (ft_strchr(path, '/') != NULL)
 			execve(path, args, env_array);
-		ret = error_msg(path);
+		ret = error_msg(path, mini);
 		free_tab(env_array, mini->m_node);
 		free_token(mini->start, mini->flag, mini->m_node);
 		my_exit(ret, mini->m_node);

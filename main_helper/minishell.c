@@ -7,7 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:24:21 by sagemura          #+#    #+#             */
 /*   Updated: 2024/07/30 19:13:19 by sagemura         ###   ########.fr       */
-/*                                                                            */
+/*                                                                             */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
@@ -33,12 +33,11 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 	t_token	*next;
 	int		pipe;
 
-  printf("redir_and_exec\n");
 	prev = prev_sep(token, SKIP);
 	next = next_sep(token, SKIP);
 	pipe = 0;
-	if (is_type(prev, TRUNC))
-		redir(mini, token, TRUNC);
+	if (is_type(prev, TRUNC)) 
+    redir(mini, token, TRUNC);
 	else if (is_type(prev, APPEND))
 		redir(mini, token, APPEND);
 	else if (is_type(prev, INPUT))
@@ -52,7 +51,6 @@ void	redir_and_exec(t_mini *mini, t_token *token)
 	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev) && pipe != 1
 		&& mini->no_exec == 0)
 		exec_cmd(mini, token);
-  printf("redir_and_exec end\n");
 }
 
 static void	prepare_rerun(t_mini *mini)

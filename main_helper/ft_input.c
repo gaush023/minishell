@@ -12,19 +12,41 @@
 
 #include "../includes/minishell.h"
 
+
+static bool is_echo(t_token *token)
+{
+    t_token *tmp;   
+
+    return (false);
+    tmp = token;
+    while (tmp->type != CMD)
+        tmp = tmp->prev;
+
+    if (tmp->prev && ft_strncmp(tmp->prev->content, "echo", 5) == 0)
+            return (true);
+    return (false);
+}
+
+
+
 void	input(t_mini *mini, t_token *token)
 {
-  printf("input\n");
 	ft_close(mini->fdin);
 	mini->fdin = open(token->content, O_RDONLY, S_IRWXU);
 	if (mini->fdin == -1)
 	{
-		ft_putstr_fd("minishell: ", STDERR);
-		ft_putstr_fd(token->content, STDERR);
-		ft_putstr_fd(" No such file or directory\n", STDERR);
-		mini->ret = 1;
+        if(mini->is_printable == 0)
+        {
+		    ft_putstr_fd("minishell: ", STDERR);
+            ft_putstr_fd(token->content, STDERR); 
+		    ft_putstr_fd(" :No such file or directory\n", STDERR); 
+            mini->is_printable = 1;
+        }
+        mini->ret = 1;
 		mini->no_exec = 1;
-		return ;
+        if(is_echo(token))
+            mini->ret = 2;  
+        return ;
 	}
 	dup2(mini->fdin, STDIN);
 }

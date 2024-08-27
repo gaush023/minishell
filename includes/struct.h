@@ -62,7 +62,8 @@ typedef struct s_mini
 	int				parent;
 	int				last;
 	int				no_exec;
-	int				exit;
+    int             is_printable;
+    int				exit;
 	int				heredoc_fd;
 	int				pos;
 	t_env			*env;

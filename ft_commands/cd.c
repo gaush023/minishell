@@ -83,7 +83,7 @@ int	ft_cd(char **args, t_mini *mini)
 
 	path = NULL;
 	if (args[0] && args[1] && args[2])
-		return (0);
+		return (1);
 	if (!args[1])
 		return (go_to_path(0, mini));
 	else if (args[1][0] == '~')

@@ -46,7 +46,7 @@ char	**cmd_tab(t_token *token, t_mini *mini);
 void	exec_cmd(t_mini *mini, t_token *token);
 int		exec_bin(char **args, t_env *env, t_mini *mini);
 char	**env_to_array(t_env *env, t_mini *mini);
-int		error_msg(char *path);
+int		error_msg(char *path, t_mini *mini);
 bool	is_builtin(char *cmd);
 int		exec_builtin(char **arg, t_mini *mini);
 

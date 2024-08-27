@@ -79,8 +79,6 @@ void	here_doc(t_mini *mini, t_token *token)
 {
 	char	*delimiter;
 
-  printf("here_doc\n");
-  printf("mini->g_sig: %d\n", g_sig);
 	g_sig = ON_HERE_DOC;
 	delimiter = token->content;
 	mini->heredoc_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC,

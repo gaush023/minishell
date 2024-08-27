@@ -17,3 +17,10 @@ redir_and_exec
 here_doc
 mini->g_sig: -3
 here_doc> [?2004h ^C[?2004l[?2004h[?2004l
+exit redir
+exec_cmd
+pwd
+pwd
+ls
+ls
+pwd

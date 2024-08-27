@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	error_msg(char *path)
+int	error_msg(char *path, t_mini *mini)
 {
 	DIR	*folder;
 	int	fd;
@@ -23,9 +23,12 @@ int	error_msg(char *path)
 	ft_putstr_fd("minishell: ", STDERR);
 	if (ft_strchr(path, '/') == NULL)
 		ft_putstr_fd("command not found", STDERR);
-	else if (fd == -1 && folder == NULL)
-		ft_putstr_fd(": a No such file or directory", STDERR);
-	else if (fd == -1 && folder != NULL)
+	else if (fd == -1 && folder == NULL && mini->is_printable == 0)
+    {
+		ft_putstr_fd(": No such file or directory", STDERR);
+        mini->is_printable = 1;
+    }
+    else if (fd == -1 && folder != NULL)
 		ft_putstr_fd(": is a directory", STDERR);
 	else if (fd != -1 && folder == NULL)
 		ft_putstr_fd(": Permission denied", STDERR);

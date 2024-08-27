@@ -27,6 +27,7 @@ void	mini_init(t_mini *mini)
 	mini->flag = 0;
 	mini->ret = 0;
 	mini->no_exec = 0;
+    mini->is_printable = 0;
 }
 
 int	main(int ac, char **av, char **ev)
@@ -51,7 +52,8 @@ int	main(int ac, char **av, char **ev)
 		if (mini.start != NULL && check_line(&mini, mini.start))
 			minishell(&mini);
 		free_token(mini.start, mini.flag, mini.m_node);
-	}
+        mini.is_printable = 0;
+    }
 	malloc_end(mini.m_node);
 	return (mini.ret);
 	(void)ac;

@@ -22,32 +22,13 @@ static int	nb_args(char **args)
 	return (size);
 }
 
-static bool	is_echo_option(char *s)
-{
-	size_t	i;
-
-	if (ft_strncmp(s, "-n", 2))
-	{
-		i = 2;
-		while (s[i])
-		{
-			if (s[i] != 'n')
-				return (false);
-			i++;
-		}
-	}
-	else
-		return (false);
-	return (true);
-}
 
 int	ft_echo(char **args)
 {
 	int	i;
 	int	n_option;
 
-	(void)is_echo_option;
-	i = 1;
+    i = 1;
 	n_option = 0;
 	if (nb_args(args) > 1)
 	{
