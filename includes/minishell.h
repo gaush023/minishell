@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/27 17:31:05 by shuga            ###   ########.fr       */
+/*   Updated: 2024/08/27 20:01:44 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	**env_to_array(t_env *env, t_mini *mini);
 int		error_msg(char *path, t_mini *mini);
 bool	is_builtin(char *cmd);
 int		exec_builtin(char **arg, t_mini *mini);
+int		magic_box(char *path, char **args, t_env *env, t_mini *mini);
 
 // parsing
 void	set_type(t_token *token);
@@ -112,5 +113,7 @@ int		unset(char **tokens, t_mini *mini);
 int		env(char **tokens, t_env *env);
 int		export(char **tokens, t_mini *mini);
 int		pwd(char **tokens, t_mini *mini);
+int		is_include_equal(const char *str);
+bool	is_env_format(char *str);
 
 #endif

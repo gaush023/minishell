@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/30 19:30:34 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:43:33 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	ft_strisnum(char *str)
 void	mini_exit(t_mini *mini, char **cmd)
 {
 	mini->flag = 1;
-  printf("cmd[1]: %s\n", cmd[1]);
-  printf("ret: %d\n", mini->ret);
 	if (cmd[1] && cmd[2])
 	{
 		mini->ret = 1;
@@ -40,7 +38,7 @@ void	mini_exit(t_mini *mini, char **cmd)
 	}
 	else if (cmd[1] && ft_strisnum(cmd[1]) == 0)
 	{
-		mini->ret = 2;
+		mini->ret = 255;
 		ft_putstr_fd("minishell: exit: ", STDERR);
 		ft_putstr_fd(cmd[1], STDERR);
 		ft_putstr_fd(": numeric argument required\n", STDERR);

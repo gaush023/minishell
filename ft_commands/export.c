@@ -3,53 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/27 18:51:17 by shuga            ###   ########.fr       */
+/*   Updated: 2024/08/27 19:20:49 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	is_include_equal(const char *str)
-{
-	if (*str == '=')
-		return (-1);
-	while (*str)
-	{
-		if (*str == '-' || *str == '+' || ft_isdigit(*str))
-			return (-1);
-		if (*str == '=')
-			break ;
-		str++;
-	}
-	if (*str == '\0')
-		return (1);
-	while (*str)
-	{
-		if (*str == '=')
-			return (0);
-		str++;
-	}
-	return (0);
-}
-
-bool	is_env_format(char *str)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '-')
-			return (false);
-		if (str[i] == '=')
-			break ;
-		i++;
-	}
-	return (true);
-}
 
 static int	print_export_declare(t_mini *mini)
 {
@@ -69,17 +30,16 @@ static int	print_export_declare(t_mini *mini)
 	return (0);
 }
 
+static bool	ft_eqaul_env(char *s1, char *s2)
+{
+	size_t	i;
 
-static bool ft_eqaul_env(char *s1, char *s2)
-{ 
-    size_t i;
-
-    i = 0;
-    while(s1[i] == s2[i] && s1[i] != '=')
-        i++;
-    if (s1[i] == '=' && s2[i] == '=')
-        return (true);
-    return (false);
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '=')
+		i++;
+	if (s1[i] == '=' && s2[i] == '=')
+		return (true);
+	return (false);
 }
 
 static void	insert_new_env(t_mini *mini, char **tokens)
@@ -89,23 +49,24 @@ static void	insert_new_env(t_mini *mini, char **tokens)
 	new_env = my_calloc(1, sizeof(t_env), mini->m_node);
 	new_env->value = my_calloc(ft_strlen(tokens[1]), 1, mini->m_node);
 	ft_memcpy(new_env->value, tokens[1], ft_strlen(tokens[1]));
-	while (mini->env->next->next != NULL && !ft_eqaul_env(mini->env->next->value, new_env->value))
+	while (mini->env->next->next != NULL
+		&& !ft_eqaul_env(mini->env->next->value, new_env->value))
 		mini->env = mini->env->next;
-    if (ft_eqaul_env(mini->env->next->value, new_env->value))
-    {
-        new_env->next = mini->env->next->next;
-        new_env->prev = mini->env;
-        mini->env->next->next->prev = new_env;
-        mini->env->next = new_env;
-        while (mini->env->prev)
-            mini->env = mini->env->prev;
-        return ;
-    }
-    mini->env->next->prev = new_env;
+	if (ft_eqaul_env(mini->env->next->value, new_env->value))
+	{
+		new_env->next = mini->env->next->next;
+		new_env->prev = mini->env;
+		mini->env->next->next->prev = new_env;
+		mini->env->next = new_env;
+		while (mini->env->prev)
+			mini->env = mini->env->prev;
+		return ;
+	}
+	mini->env->next->prev = new_env;
 	new_env->next = mini->env->next;
 	mini->env->next = new_env;
 	new_env->prev = mini->env;
-    while (mini->env->prev)
+	while (mini->env->prev)
 		mini->env = mini->env->prev;
 }
 

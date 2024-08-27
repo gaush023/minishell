@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:26:09 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/25 20:05:14 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:41:53 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ typedef struct s_mini
 	int				parent;
 	int				last;
 	int				no_exec;
-    int             is_printable;
-    int				exit;
+	int				is_printable;
+	int				exit;
 	int				heredoc_fd;
 	int				pos;
 	t_env			*env;
@@ -74,12 +74,12 @@ typedef struct s_mini
 
 typedef struct s_args
 {
-	char	*l;
-	int		*flag;
-	t_mini	*mini;
-	int		i;
-	t_token	*token;
-	t_token	*tmp_t;
-}			t_args;
+	char			*l;
+	int				*flag;
+	t_mini			*mini;
+	int				i;
+	t_token			*token;
+	t_token			*tmp_t;
+}					t_args;
 
 #endif

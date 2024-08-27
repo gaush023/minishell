@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expasions_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:27 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/30 03:30:35 by shuga            ###   ########.fr       */
+/*   Updated: 2024/08/27 19:39:46 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*copy_env_value(char *env, t_node *node);
+char		*copy_env_value(char *env, t_node *node);
 
 char	*get_env_value(char *var_name, t_mini *mini, t_env *env)
 {

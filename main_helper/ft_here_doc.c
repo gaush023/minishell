@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 19:49:32 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/30 19:18:51 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:37:55 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	here_doc_end(t_mini *mini)
 		mini->heredoc_fd = open("/dev/null", O_RDONLY);
 	if (mini->heredoc_fd == -1)
 		return ;
-  dup2(mini->heredoc_fd, STDIN);
+	dup2(mini->heredoc_fd, STDIN);
 	ft_close(mini->heredoc_fd);
 }
 

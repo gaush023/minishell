@@ -3,51 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_bin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/30 16:20:47 by shuga            ###   ########.fr       */
+/*   Updated: 2024/08/27 20:03:52 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static int	calc_ret(int ret)
-{
-	if (ret == 32256 || ret == 32512)
-		ret = ret / 256;
-	else
-		ret = !!ret;
-	if (g_sig == SIGNAL_INT || g_sig == SIGNAL_QUIT)
-		ret = g_sig;
-	return (ret);
-}
-
-int	magic_box(char *path, char **args, t_env *env, t_mini *mini)
-{
-	char	**env_array;
-	int		ret;
-	int		pid;
-
-
-  ret = SUCCESS;
-	g_sig = ON_PID;
-	pid = fork();
-	if (pid == 0)
-	{
-		g_sig = SIGNAL_OFF;
-		env_array = env_to_array(env, mini);
-		if (ft_strchr(path, '/') != NULL)
-			execve(path, args, env_array);
-		ret = error_msg(path, mini);
-    free_tab(env_array, mini->m_node);
-		free_token(mini->start, mini->flag, mini->m_node);
-		my_exit(ret, mini->m_node);
-	}
-	else
-		waitpid(pid, &ret, 0);
-	return (calc_ret(ret));
-}
 
 char	*path_join(const char *s1, char *s2, t_node *node)
 {
@@ -81,6 +44,14 @@ char	*check_dir(char *bin, char *cmd, t_mini *mini)
 	return (path);
 }
 
+static int	exec_bin_error_msg(char **args)
+{
+	write(2, "minishell: ", 11);
+	write(2, args[0], ft_strlen(args[0]));
+	write(2, ": No such file or directly\n", 27);
+	return (127);
+}
+
 int	exec_bin(char **args, t_env *env, t_mini *mini)
 {
 	int		i;
@@ -93,16 +64,10 @@ int	exec_bin(char **args, t_env *env, t_mini *mini)
 	while (env && env->value && ft_strncmp(env->value, "PATH=", 5) != 0)
 		env = env->next;
 	if (!env || !env->next)
-  {
-    write(2, "minishell: ", 11);
-    write(2, args[0], ft_strlen(args[0]));
-    write(2, ": No such file or directly\n", 27); 
-    return(127);
-  }
-  bin = my_split(env->value, ':', mini->m_node);
+		return (exec_bin_error_msg(args));
+	bin = my_split(env->value, ':', mini->m_node);
 	if (!args[0] || !bin[0])
 		return (ERR);
-	i = 0;
 	path = check_dir(bin[0] + 5, args[0], mini);
 	while (args[0] && bin[i] && path == NULL)
 		path = check_dir(bin[i++], args[0], mini);

@@ -6,11 +6,22 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/08/27 18:23:08 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:36:30 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static int	error_msg_helper(char *path, int fd, DIR *folder)
+{
+	int	ret;
+
+	if (ft_strchr(path, '/') == NULL || (fd == -1 && folder == NULL))
+		ret = UK_CMD;
+	else
+		ret = IS_DIR;
+	return (ret);
+}
 
 int	error_msg(char *path, t_mini *mini)
 {
@@ -33,10 +44,7 @@ int	error_msg(char *path, t_mini *mini)
 	else if (fd != -1 && folder == NULL)
 		ft_putstr_fd(": Permission denied", STDERR);
 	ft_putstr_fd("\n", STDERR);
-	if (ft_strchr(path, '/') == NULL || (fd == -1 && folder == NULL))
-		ret = UK_CMD;
-	else
-		ret = IS_DIR;
+	ret = error_msg_helper();
 	if (folder)
 		closedir(folder);
 	ft_close(fd);

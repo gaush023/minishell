@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:31:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/25 21:32:29 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:15:53 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ static int	nb_args(char **args)
 	return (size);
 }
 
-
 int	ft_echo(char **args)
 {
 	int	i;
 	int	n_option;
 
-    i = 1;
+	i = 1;
 	n_option = 0;
 	if (nb_args(args) > 1)
 	{

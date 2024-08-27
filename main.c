@@ -6,14 +6,14 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:18:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/08/27 18:21:58 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:22:49 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 #include <stdio.h>
 
-int		g_sig = 0;
+int			g_sig = 0;
 
 void	mini_init(t_mini *mini)
 {
@@ -30,6 +30,13 @@ void	mini_init(t_mini *mini)
 	mini->is_printable = 0;
 }
 
+static void	main_env(t_mini *mini, char **ev)
+{
+	env_init(mini, ev);
+	secret_env_init(mini, ev);
+	get_shlvl_plus(mini);
+}
+
 int	main(int ac, char **av, char **ev)
 {
 	t_mini	mini;
@@ -42,9 +49,7 @@ int	main(int ac, char **av, char **ev)
 		return (1);
 	}
 	malloc_startup(mini.m_node);
-	env_init(&mini, ev);
-	secret_env_init(&mini, ev);
-	get_shlvl_plus(&mini);
+	main_env(&mini, ev);
 	while (mini.flag == 0)
 	{
 		ini_sig();

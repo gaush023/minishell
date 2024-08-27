@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:24:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/07/30 16:24:45 by shuga            ###   ########.fr       */
+/*   Updated: 2024/08/27 19:38:05 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void	redir(t_mini *mini, t_token *token, int type)
 	if (mini->fdout == -1)
 	{
 		if (mini->is_printable == 0)
-        {
-		    ft_putstr_fd("minishell: ", STDERR);
-		    ft_putstr_fd(token->content, STDERR);
-            ft_putstr_fd(": No such file or directory", STDERR);
-            ft_putstr_fd("\n", STDERR);
-		    mini->is_printable = 1;
-        }
-        mini->ret = 1;
+		{
+			ft_putstr_fd("minishell: ", STDERR);
+			ft_putstr_fd(token->content, STDERR);
+			ft_putstr_fd(": No such file or directory", STDERR);
+			ft_putstr_fd("\n", STDERR);
+			mini->is_printable = 1;
+		}
+		mini->ret = 1;
 		mini->no_exec = 1;
 		return ;
 	}
