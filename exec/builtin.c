@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/06/25 21:13:01 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/08/31 19:43:22 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ bool	is_builtin(char *cmd)
 	if (ft_strcmp(cmd, "unset") == 0)
 		return (true);
 	if (ft_strcmp(cmd, "env") == 0)
+		return (true);
+	if (ft_strcmp(cmd, "exit") == 0)
 		return (true);
 	return (false);
 }
@@ -46,5 +48,7 @@ int	exec_builtin(char **arg, t_mini *mini)
 		ret = unset(arg, mini);
 	else if (ft_strcmp(arg[0], "env") == 0)
 		ret = env(arg, mini->env);
+	else if (ft_strcmp(arg[0], "exit") == 0)
+		mini_exit(mini, arg, 0);
 	return (ret);
 }

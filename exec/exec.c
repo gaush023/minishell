@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/08/31 16:27:57 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/08/31 19:47:40 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ int	ft_strisnum(char *str)
 	return (1);
 }
 
-void	mini_exit(t_mini *mini, char **cmd)
+void	mini_exit(t_mini *mini, char **cmd, int flag)
 {
-	mini->flag = 1;
+	if(flag == 1)
+		mini->flag = 1;
 	if (cmd[1] && cmd[2])
 	{
 		mini->ret = 1;
@@ -51,7 +52,9 @@ void	mini_exit(t_mini *mini, char **cmd)
 int	has_pipe(t_token *token)
 {
 	t_token	*tmp;
-
+	
+	while(token->prev)
+		token = token->prev;
 	tmp = token;
 	while (tmp)
 	{
@@ -91,7 +94,7 @@ void	exec_cmd(t_mini *mini, t_token *token)
 	}
 	cmd[i] = NULL;
 	if (cmd && ft_strcmp(cmd[0], "exit") == 0 && has_pipe(token) == 0)
-		mini_exit(mini, cmd);
+		mini_exit(mini, cmd, 1);
 	else if (cmd && is_builtin(cmd[0]))
 		mini->ret = exec_builtin(cmd, mini);
 	else if (cmd)

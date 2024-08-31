@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/08/27 20:01:44 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/08/31 19:42:56 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		error_msg(char *path, t_mini *mini);
 bool	is_builtin(char *cmd);
 int		exec_builtin(char **arg, t_mini *mini);
 int		magic_box(char *path, char **args, t_env *env, t_mini *mini);
+void	mini_exit(t_mini *mini, char **cmd, int flag);
 
 // parsing
 void	set_type(t_token *token);
