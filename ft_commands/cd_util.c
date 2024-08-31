@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 19:03:07 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/23 22:27:57 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/08/31 19:59:29 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_home(t_mini *mini);
 static int	go_to_path_helper(int opt)
 {
 	if (opt == 0)
-		ft_putstr_fd("cd: HOOME not set\n", STDERR);
+		ft_putstr_fd("cd: HOME not set\n", STDERR);
 	else
 		ft_putstr_fd("cd: OLDPWD not set\n", STDERR);
 	return (ERR);
