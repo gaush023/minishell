@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/08/27 19:36:30 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:06:01 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	error_msg(char *path, t_mini *mini)
 	else if (fd != -1 && folder == NULL)
 		ft_putstr_fd(": Permission denied", STDERR);
 	ft_putstr_fd("\n", STDERR);
-	ret = error_msg_helper();
+	ret = error_msg_helper(path, fd, folder);
 	if (folder)
 		closedir(folder);
 	ft_close(fd);
