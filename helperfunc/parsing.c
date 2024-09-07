@@ -49,13 +49,26 @@ int	quote_check(t_mini *mini, char *line)
 	return (0);
 }
 
-bool	check_line_helper(t_token *token)
+bool	check_line_helper(t_token *token, t_mini *mini)
 {
 	if (is_types(token, "HTAI"))
 	{
 		if (token->next == NULL || is_types(token->next, "HTAIPE"))
-			return (true);
-	}
+        {
+            if(token->type == HERE_DOC && token->next == NULL)
+            {
+                token->next = my_calloc(1, sizeof(t_token), mini->m_node);
+                token->next->type = ARG;
+                token->next->content = my_strdup("\0", mini->m_node);
+                token->next->prev = token;
+                while(token->prev)
+                    token = token->prev;
+                mini->start = token;
+                return (false);
+            }
+            return (true);
+	    }
+    }
 	return (false);
 }
 
@@ -75,7 +88,7 @@ int	check_line(t_mini *mini, t_token *token)
 {
 	while (token)
 	{
-		if (check_line_helper(token))
+		if (check_line_helper(token, mini))
 		{
 			ft_putstr_fd(SYNTAX_ERR, STDERR);
 			if (token->next)

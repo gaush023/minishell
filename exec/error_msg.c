@@ -32,8 +32,9 @@ int	error_msg(char *path, t_mini *mini)
 	fd = open(path, O_WRONLY);
 	folder = opendir(path);
 	ft_putstr_fd("minishell: ", STDERR);
+    ft_putstr_fd(path, STDERR);
 	if (ft_strchr(path, '/') == NULL)
-		ft_putstr_fd("command not found", STDERR);
+		ft_putstr_fd(" :command not found", STDERR);
 	else if (fd == -1 && folder == NULL && mini->is_printable == 0)
 	{
 		ft_putstr_fd(": No such file or directory", STDERR);
