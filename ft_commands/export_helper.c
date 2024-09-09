@@ -6,19 +6,34 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/08/27 19:52:28 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/09 23:35:24 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+static bool	is_only_number(const char *str)
+{
+	while (*str)
+	{
+		if (*str == '=')
+			break ;
+		if (!ft_isdigit(*str))
+			return (false);
+		str++;
+	}
+	return (true);
+}
+
 int	is_include_equal(const char *str)
 {
+	if (is_only_number(str))
+		return (-1);
 	if (*str == '=')
 		return (-1);
 	while (*str)
 	{
-		if (*str == '-' || *str == '+' || ft_isdigit(*str))
+		if (!ft_isalnum(*str) && *str != '=')
 			return (-1);
 		if (*str == '=')
 			break ;

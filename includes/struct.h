@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:26:09 by etakaham          #+#    #+#             */
-/*   Updated: 2024/08/27 19:41:53 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/09 23:38:44 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef struct s_token
 typedef struct s_expasion
 {
 	char			*str;
-	int				i;
-	int				j;
+	size_t			i;
+	size_t			j;
 }					t_expasion;
 
 typedef struct s_mini

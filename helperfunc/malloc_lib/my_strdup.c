@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:44:58 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/07 17:23:00 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/09/09 23:21:27 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ char	*my_strdup(const char *s1, t_node *node)
 		s2[i] = s1[i];
 		i++;
 	}
+	s2[i] = '\0';
 	return (s2);
 }

@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/08/31 16:09:37 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/09 23:31:06 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ int	export(char **tokens, t_mini *mini)
 	res = is_include_equal(tokens[1]);
 	if (res == -1)
 	{
-		write(2, " not a valid identifier", 23);
+		write(2, "minishell: export: `", 20);
+		write(2, tokens[1], ft_strlen(tokens[1]));
+		write(2, "': not a valid identifier\n", 26);
 		return (1);
 	}
 	else if (res == 1)

@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:24 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/09 19:57:50 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/09/09 23:36:58 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void	insert_var(t_expasion *ex, char *arg, t_mini *mini, t_env *env)
 	env_value = get_var_value(arg, ex->j, mini, env);
 	if (env_value)
 		ex->i += var_cpy(ex->str, env_value, ex->i);
-	else
-		ex->i += 0;
+	my_free(env_value, mini->m_node);
 	if (arg[ex->j] == '?')
 		ex->j++;
 	if (ft_isdigit(arg[ex->j]) == 0 && arg[ex->j - 1] != '?')
@@ -48,15 +47,15 @@ void	insert_var(t_expasion *ex, char *arg, t_mini *mini, t_env *env)
 char	*expasions(char *arg, t_mini *mini, t_env *env)
 {
 	t_expasion	ex;
-	int			len;
+	size_t		len;
 
 	len = malloc4expassion(arg, mini, env);
-	ex.str = my_calloc(len * 2 + 1, sizeof(char), mini->m_node);
+	ex.str = my_calloc(len + 1, sizeof(char), mini->m_node);
 	if (ex.str == NULL)
 		return (NULL);
 	ex.i = 0;
 	ex.j = 0;
-	while (ex.i < len && arg[ex.j])
+	while (ex.i < len && ex.j < ft_strlen(arg))
 	{
 		while (arg[ex.j] == EXPANSION)
 		{
@@ -69,6 +68,6 @@ char	*expasions(char *arg, t_mini *mini, t_env *env)
 		}
 		ex.str[ex.i++] = arg[ex.j++];
 	}
-	ex.str[ex.i] = '\0';
+	ex.str[ft_strlen(ex.str)] = '\0';
 	return (ex.str);
 }

@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:27 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/09 19:57:31 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/09/09 23:34:51 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,13 @@ int	malloc4expassion(char *arg, t_mini *mini, t_env *env)
 		{
 			i++;
 			if ((arg[i] == '\0' || ft_isalnum(arg[i]) == 0) && arg[i] != '?')
-			{
 				size++;
-			}
 			else
-			{
 				size += get_var_len(arg, i, mini, env);
-			}
 			if (ft_isdigit(arg[i]) == 0)
-			{
 				i += increment_i(i, arg);
-			}
 			else
-			{
 				size--;
-			}
 		}
 		if (arg[i] == '\0')
 			break ;

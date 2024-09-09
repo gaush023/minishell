@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_tab.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etakaham <etakaham@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:48:09 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/05 18:49:00 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/09/09 23:22:55 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ char	**cmd_tab(t_token *start, t_mini *mini)
 	i = 1;
 	while (token && token->type < TRUNC)
 	{
-		tab[i++] = token->content;
+		tab[i] = token->content;
 		token = token->next;
+		i++;
 	}
 	tab[i] = NULL;
 	return (tab);
