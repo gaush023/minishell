@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/08/27 20:06:01 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:32:52 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	error_msg(char *path, t_mini *mini)
 	fd = open(path, O_WRONLY);
 	folder = opendir(path);
 	ft_putstr_fd("minishell: ", STDERR);
-    ft_putstr_fd(path, STDERR);
+	ft_putstr_fd(path, STDERR);
 	if (ft_strchr(path, '/') == NULL)
 		ft_putstr_fd(" :command not found", STDERR);
 	else if (fd == -1 && folder == NULL && mini->is_printable == 0)

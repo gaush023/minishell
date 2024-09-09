@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 19:41:16 by etakaham          #+#    #+#             */
-/*   Updated: 2024/06/18 19:41:57 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:33:50 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,21 @@ bool	check_line_helper(t_token *token, t_mini *mini)
 	if (is_types(token, "HTAI"))
 	{
 		if (token->next == NULL || is_types(token->next, "HTAIPE"))
-        {
-            if(token->type == HERE_DOC && token->next == NULL)
-            {
-                token->next = my_calloc(1, sizeof(t_token), mini->m_node);
-                token->next->type = ARG;
-                token->next->content = my_strdup("\0", mini->m_node);
-                token->next->prev = token;
-                while(token->prev)
-                    token = token->prev;
-                mini->start = token;
-                return (false);
-            }
-            return (true);
-	    }
-    }
+		{
+			if (token->type == HERE_DOC && token->next == NULL)
+			{
+				token->next = my_calloc(1, sizeof(t_token), mini->m_node);
+				token->next->type = ARG;
+				token->next->content = my_strdup("\0", mini->m_node);
+				token->next->prev = token;
+				while (token->prev)
+					token = token->prev;
+				mini->start = token;
+				return (false);
+			}
+			return (true);
+		}
+	}
 	return (false);
 }
 
