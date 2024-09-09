@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:27 by etakaham          #+#    #+#             */
-/*   Updated: 2024/08/27 19:39:46 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:57:31 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static int	increment_i(int i, char *arg)
 	count = 0;
 	if (ft_isdigit(arg[i]) == 0)
 	{
+		if (arg[i] == '\0')
+			return (0);
 		while (arg[i + 1] && is_env_char(arg[i]) == 1)
 		{
 			i++;
@@ -85,14 +87,24 @@ int	malloc4expassion(char *arg, t_mini *mini, t_env *env)
 		{
 			i++;
 			if ((arg[i] == '\0' || ft_isalnum(arg[i]) == 0) && arg[i] != '?')
+			{
 				size++;
+			}
 			else
+			{
 				size += get_var_len(arg, i, mini, env);
+			}
 			if (ft_isdigit(arg[i]) == 0)
+			{
 				i += increment_i(i, arg);
+			}
 			else
+			{
 				size--;
+			}
 		}
+		if (arg[i] == '\0')
+			break ;
 		size++;
 	}
 	return (size);

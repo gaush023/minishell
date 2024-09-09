@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:22:49 by etakaham          #+#    #+#             */
-/*   Updated: 2024/08/27 18:53:19 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:58:01 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,8 @@ char		*get_home(t_mini *mini);
 static void	print_error(char **args)
 {
 	ft_putstr_fd("cd: ", STDERR);
-	if (args[2])
-		ft_putstr_fd("string not in pwd: ", STDERR);
-	else
-	{
-		ft_putstr_fd(strerror(errno), STDERR);
-		ft_putstr_fd(": ", STDERR);
-	}
+	ft_putstr_fd(strerror(errno), STDERR);
+	ft_putstr_fd(": ", STDERR);
 	ft_putstr_fd(args[1], STDERR);
 	ft_putstr_fd("\n", STDERR);
 }
