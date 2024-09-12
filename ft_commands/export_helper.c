@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/12 14:41:59 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:30:30 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	is_include_equal(const char *str)
 		if (!ft_isalnum(*str) && *str != '=')
 			return (-1);
 		if (*str == '=')
-			break ;
-		str++;
+			str++;
+		break ;
 	}
 	if (*str == '\0')
 		return (1);
