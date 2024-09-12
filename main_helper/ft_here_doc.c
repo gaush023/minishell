@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 19:49:32 by sagemura          #+#    #+#             */
-/*   Updated: 2024/08/31 15:36:05 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/12 23:34:58 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static void	here_doc_loop(t_mini *mini, t_token *token, char *delimiter)
 	{
 		ft_putstr_fd("here_doc> ", 1);
 		line = my_readline(" \b", mini->m_node, mini);
+		if (line && line[0] == '$')
+			line[0] = (char)(-line[0]);
 		if (g_sig == SIGNAL_INT)
 		{
 			token = stop_heredoc(token, line, mini);
@@ -71,7 +73,7 @@ static void	here_doc_loop(t_mini *mini, t_token *token, char *delimiter)
 			my_free(line, mini->m_node);
 			return ;
 		}
-		here_doc_write(mini, line);
+		here_doc_write(mini, expasions(line, mini, mini->env));
 	}
 }
 

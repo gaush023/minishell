@@ -6,12 +6,11 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:18:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/08/27 19:22:49 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/12 23:28:07 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-#include <stdio.h>
 
 int			g_sig = 0;
 
@@ -32,6 +31,11 @@ void	mini_init(t_mini *mini)
 
 static void	main_env(t_mini *mini, char **ev)
 {
+	if (*ev == NULL)
+	{
+		ft_putstr_fd("Error: env is NULL\n", 2);
+		my_exit(1, mini->m_node);
+	}
 	env_init(mini, ev);
 	secret_env_init(mini, ev);
 	get_shlvl_plus(mini);
