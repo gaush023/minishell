@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/09 23:35:24 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:41:59 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static bool	is_only_number(const char *str)
 {
+	if (ft_isdigit(*str))
+		return (true);
 	while (*str)
 	{
 		if (*str == '=')
