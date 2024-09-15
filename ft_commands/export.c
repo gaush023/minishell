@@ -6,12 +6,11 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/16 03:17:53 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 03:39:20 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 static bool	ft_eqaul_env(char *s1, char *s2)
 {
@@ -81,7 +80,16 @@ static int	export_helper(t_mini *mini, char *tokens)
 {
 	insert_export_list(mini, tokens);
 	if (!is_env_format(tokens))
+	{
+		while(tokens)
+		{
+			if (*tokens == '=')
+				return (0);
+			tokens++;
+		}
 		return (1);
+		
+	}
 	else
 		insert_new_env(mini, tokens);
 	return (0);
@@ -110,8 +118,8 @@ int	export(char **tokens, t_mini *mini)
 			flag = 1;
 		}
 		else if (res != 1)
-		   flag = export_helper(mini, tokens[i]);
+			flag = export_helper(mini, tokens[i]);
 		i++;
-	}
+	} 
 	return (flag);
 }

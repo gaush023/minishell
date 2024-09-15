@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:24:21 by sagemura          #+#    #+#             */
-/*   Updated: 2024/09/15 22:07:19 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 03:26:37 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_token	*next_run(t_token *token, int skip)
 {
-	if(token-> type == TRUNC)
-	   return (token->next);
+	if (token->type == TRUNC)
+		return (token->next);
 	if (token && skip)
 		token = token->next;
 	while (token && token->type != CMD)

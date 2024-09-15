@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/16 03:09:12 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 03:34:33 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ bool	is_env_format(char *str)
 	{
 		if (str[i] == '-')
 		{
-			ft_putstr_fd("minishell: export unsupoorted option\n", 2);
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd(str, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			return (false);
 		}
 		if (str[i] == '=')
