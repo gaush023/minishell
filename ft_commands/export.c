@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/16 03:39:20 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 03:42:20 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,23 +76,23 @@ static void	insert_export_list(t_mini *mini, char *str)
 	sort_env_list(mini->export);
 }
 
-static int	export_helper(t_mini *mini, char *tokens)
+static int	export_helper(t_mini *mini, char *tokens, int flag)
 {
+	
 	insert_export_list(mini, tokens);
 	if (!is_env_format(tokens))
 	{
-		while(tokens)
+		while (tokens)
 		{
 			if (*tokens == '=')
-				return (0);
+				return (flag);
 			tokens++;
 		}
 		return (1);
-		
 	}
 	else
 		insert_new_env(mini, tokens);
-	return (0);
+	return (flag);
 }
 
 int	export(char **tokens, t_mini *mini)
@@ -120,6 +120,6 @@ int	export(char **tokens, t_mini *mini)
 		else if (res != 1)
 			flag = export_helper(mini, tokens[i]);
 		i++;
-	} 
+	}
 	return (flag);
 }
