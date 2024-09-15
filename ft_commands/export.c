@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/16 03:45:50 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 03:48:33 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	export_helper(t_mini *mini, char *tokens, int flag)
 		while (tokens[i] != '\0')
 		{
 			if (tokens[i] == '=')
-				break ;
+				return (flag);
 			i++;
 		}
 		flag = 1;
