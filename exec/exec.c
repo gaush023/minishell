@@ -6,48 +6,11 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:11:03 by sagemura          #+#    #+#             */
-/*   Updated: 2024/09/15 22:09:39 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 04:37:02 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	ft_strisnum(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i])
-	{
-		if (ft_isdigit(str[i]) == 0)
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	mini_exit(t_mini *mini, char **cmd, int flag)
-{
-	if (flag == 1)
-		mini->flag = 1;
-	if (cmd[1] && cmd[2])
-	{
-		mini->ret = 1;
-		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR);
-		mini->flag = 0;
-	}
-	else if (cmd[1] && ft_strisnum(cmd[1]) == 0)
-	{
-		mini->ret = 255;
-		ft_putstr_fd("minishell: exit: ", STDERR);
-		ft_putstr_fd(cmd[1], STDERR);
-		ft_putstr_fd(": numeric argument required\n", STDERR);
-	}
-	else if (cmd[1])
-		mini->ret = ft_atoi(cmd[1]);
-}
 
 int	has_pipe(t_token *token)
 {
