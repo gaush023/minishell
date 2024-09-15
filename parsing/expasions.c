@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:24 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/12 23:33:50 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/14 00:53:58 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ char	*expasions(char *arg, t_mini *mini, t_env *env)
 				insert_var(&ex, arg, mini, env);
 		}
 		ex.str[ex.i++] = arg[ex.j++];
-		printf("ex.str: %s\n", ex.str);
 	}
 	ex.str[ft_strlen(ex.str)] = '\0';
-	printf("ex.str: %s\n", ex.str);
 	return (ex.str);
 }

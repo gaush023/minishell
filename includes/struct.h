@@ -68,7 +68,8 @@ typedef struct s_mini
 	int				pos;
 	t_env			*env;
 	t_env			*secret_env;
-	t_token			*start;
+    t_env          *export;
+    t_token			*start;
 	t_node			*m_node;
 }					t_mini;
 

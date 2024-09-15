@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:07:22 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/12 23:16:16 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/15 22:09:16 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,5 @@ t_token	*get_token_loops(char *line, int *str_flag, t_mini *mini)
 		if (str_flag[tmp_args.i] == 0)
 			get_token_loops_helper(&tmp_args);
 	}
-	// printf("tmp_args.token->content: %s\n", tmp_args.token->content);
 	return (tmp_args.token);
 }

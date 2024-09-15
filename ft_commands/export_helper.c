@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/12 16:30:30 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 03:09:12 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,33 @@ bool	is_env_format(char *str)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '-')
+		{
+			ft_putstr_fd("minishell: export unsupoorted option\n", 2);
 			return (false);
+		}
 		if (str[i] == '=')
 			break ;
 		i++;
 	}
+	if (str[i] == '\0')
+		return (false);
 	return (true);
+}
+
+int	print_export_declare(t_mini *mini)
+{
+	t_env	*tmp;
+
+	tmp = mini->export;
+	while (tmp->next)
+	{
+		if (tmp->value)
+		{
+			ft_putstr_fd("declare -x ", 1);
+			ft_putstr_fd(tmp->value, 1);
+			ft_putstr_fd("\n", 1);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
 }

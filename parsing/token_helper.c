@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:36 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/12 23:16:37 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/15 22:09:46 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	determine_flag_typea(int *quote_flag, int pos, t_token *token)
 		token->qute_flag = 1;
 	else
 		token->qute_flag = 0;
-	// printf("token->qute_flag: %d\n", token->qute_flag);
 }
 
 static void	determine_flag_typeb(int pos, t_token *token, int *quote_flag)
@@ -49,8 +48,6 @@ static void	determine_flag_typeb(int pos, t_token *token, int *quote_flag)
 		token->qute_flag = 1;
 	else
 		token->qute_flag = 0;
-	// printf("token->qute_flag: %d\n", token->qute_flag);
-	// printf("before token->content: %s\n", token->content);
 }
 
 t_token	*make_token(char *str, t_token *prev_token, int *quote_flag,
@@ -59,8 +56,6 @@ t_token	*make_token(char *str, t_token *prev_token, int *quote_flag,
 	int		pos;
 	t_token	*token;
 
-	// printf("make_token\n");
-	// printf("str: %s\n", str);
 	pos = mini->pos;
 	token = my_calloc(1, sizeof(t_token), mini->m_node);
 	token->prev = prev_token;
@@ -73,8 +68,6 @@ t_token	*make_token(char *str, t_token *prev_token, int *quote_flag,
 	else
 		token->qute_flag = 0;
 	token->content = my_strdup(str, mini->m_node);
-	// printf("token->content: %s\n", token->content);
-	// printf("token->qute_flag: %d\n", token->qute_flag);
 	token->next = NULL;
 	my_free(str, mini->m_node);
 	return (token);

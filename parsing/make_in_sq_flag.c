@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:36 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/12 23:16:24 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/15 22:09:53 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,5 @@ int	*make_in_sq_flag(char *line, t_mini *mini)
 		pos++;
 	}
 	str_flag[0] = -3;
-	// int i = 1;
-	// while(str_flag[i] != -3)
-	// {
-	// 	printf("%d ", str_flag[i]);
-	// 	i++;
-	// }
-	// printf("\n");
 	return (str_flag);
 }

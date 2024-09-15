@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:03:46 by etakaham          #+#    #+#             */
-/*   Updated: 2024/07/27 18:27:02 by shuga            ###   ########.fr       */
+/*   Updated: 2024/09/16 02:18:31 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	make_prev_node(t_mini *mini)
+static void	make_prev_node(t_env *env)
 {
-	t_env	*env;
 	t_env	*new;
 
-	env = mini->env;
 	new = NULL;
 	while (true)
 	{
@@ -51,7 +49,7 @@ int	env_init(t_mini *mini, char **env_ar)
 		env = new;
 		i++;
 	}
-	make_prev_node(mini);
+	make_prev_node(mini->env);
 	return (0);
 }
 
@@ -75,6 +73,33 @@ int	secret_env_init(t_mini *mini, char **env_ar)
 		env = new;
 		i++;
 	}
-	make_prev_node(mini);
+	make_prev_node(mini->secret_env);
 	return (0);
 }
+
+int env_for_export(t_mini *mini, char **env_ar)
+{
+	t_env	*env;
+	t_env	*new;
+	int		i;
+
+	env = my_calloc(1, sizeof(t_env), mini->m_node);
+	env->value = my_strdup(env_ar[0], mini->m_node);
+	env->next = NULL;
+	mini->export = env;
+	i = 1;
+	while (env_ar && env_ar[0] && env_ar[i])
+	{
+		new = my_calloc(1, sizeof(t_env), mini->m_node);
+		new->value = my_strdup(env_ar[i], mini->m_node);
+		new->next = NULL;
+		env->next = new;
+		env = new;
+		i++;
+	}
+	make_prev_node(mini->export);
+	sort_env_list(mini->export);
+	return (0);
+}
+
+

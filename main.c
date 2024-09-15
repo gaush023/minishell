@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:18:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/12 23:28:07 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 02:19:20 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static void	main_env(t_mini *mini, char **ev)
 	}
 	env_init(mini, ev);
 	secret_env_init(mini, ev);
-	get_shlvl_plus(mini);
+    env_for_export(mini, ev);
+    get_shlvl_plus(mini);
 }
 
 int	main(int ac, char **av, char **ev)
