@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shuga <shuga@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:03:46 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/16 19:43:53 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/07/27 18:27:02 by shuga            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	make_prev_node(t_env *env)
+static void	make_prev_node(t_mini *mini)
 {
+	t_env	*env;
 	t_env	*new;
 
+	env = mini->env;
 	new = NULL;
 	while (true)
 	{
@@ -49,7 +51,7 @@ int	env_init(t_mini *mini, char **env_ar)
 		env = new;
 		i++;
 	}
-	make_prev_node(mini->env);
+	make_prev_node(mini);
 	return (0);
 }
 
@@ -73,6 +75,6 @@ int	secret_env_init(t_mini *mini, char **env_ar)
 		env = new;
 		i++;
 	}
-	make_prev_node(mini->secret_env);
+	make_prev_node(mini);
 	return (0);
 }

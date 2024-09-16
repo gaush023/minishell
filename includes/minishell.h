@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:29:01 by sagemura          #+#    #+#             */
-/*   Updated: 2024/09/16 03:09:32 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 19:54:28 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	ft_panic(t_mini *mini, char *str, enum e_err err_type);
 // env
 int		env_init(t_mini *mini, char **env_ar);
 int		secret_env_init(t_mini *mini, char **env_ar);
-int		env_for_export(t_mini *mini, char **env_ar);
-void	sort_env_list(t_env *head);
 int		get_shlvl_plus(t_mini *mini);
 
 // exec
@@ -118,6 +116,8 @@ int		export(char **tokens, t_mini *mini);
 int		pwd(char **tokens, t_mini *mini);
 int		is_include_equal(const char *str);
 bool	is_env_format(char *str);
-int		print_export_declare(t_mini *mini);
+void	mini_exit(t_mini *mini, char **cmd, int flag);
+void	sort_env_list(t_env *head);
+int	print_export_declare(t_mini *mini);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:26:09 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/16 16:14:17 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/09 23:38:44 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_mini
 	int				pos;
 	t_env			*env;
 	t_env			*secret_env;
-	t_env			*export;
 	t_token			*start;
 	t_node			*m_node;
 }					t_mini;
