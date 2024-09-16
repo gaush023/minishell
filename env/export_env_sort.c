@@ -1,46 +1,66 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_env_sort.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/16 17:33:28 by sagemura          #+#    #+#             */
+/*   Updated: 2024/09/16 17:33:37 by sagemura         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
+static int	cmp_strings(const void *a, const void *b)
+{
+	char	*str_a;
+	char	*str_b;
+
+	str_a = *(char **)a;
+	str_b = *(char **)b;
+	return (strcmp(str_a, str_b));
+}
+
+void	print_declarre(char **values, unsigned int count)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(values[i], 1);
+		ft_putstr_fd("\n", 1);
+		i++;
+	}
+}
 
 void	sort_env_list(t_env *head)
 {
-	int swapped;
-	char *temp_value;
-	t_env *ptr;
-	t_env *lptr;
+	unsigned int	count;
+	t_env			*current;
+	char			**values;
+	unsigned int	i;
 
-	if (head == NULL)
+	current = head;
+	count = 0;
+	while (current)
+	{
+		count++;
+		current = current->next;
+	}
+	values = (char **)malloc(sizeof(char *) * count);
+	if (!values)
 		return ;
-	lptr = NULL;
-	swapped = 0;
-	ptr = head;
-	while (ptr->next != lptr)
+	current = head;
+	i = 0;
+	while (current)
 	{
-		if (ft_strcmp(ptr->value, ptr->next->value) > 0)
-		{
-			temp_value = ptr->value;
-			ptr->value = ptr->next->value;
-			ptr->next->value = temp_value;
-			swapped = 1;
-		}
-		ptr = ptr->next;
+		values[i++] = current->value;
+		current = current->next;
 	}
-	lptr = ptr;
-	while (swapped)
-	{
-		swapped = 0;
-		ptr = head;
-
-		while (ptr->next != lptr)
-		{
-			if (ft_strcmp(ptr->value, ptr->next->value) > 0)
-			{
-				temp_value = ptr->value;
-				ptr->value = ptr->next->value;
-				ptr->next->value = temp_value;
-				swapped = 1;
-			}
-			ptr = ptr->next;
-		}
-		lptr = ptr;
-	}
+	qsort(values, count, sizeof(char *), cmp_strings);
+	print_declarre(values, count);
+	free(values);
 }

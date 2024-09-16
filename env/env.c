@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:03:46 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/16 16:15:31 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:26:19 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,5 @@ int	env_for_export(t_mini *mini, char **env_ar)
 		i++;
 	}
 	make_prev_node(mini->export);
-	sort_env_list(mini->export);
 	return (0);
 }
