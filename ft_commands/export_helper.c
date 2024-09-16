@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/16 16:15:20 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:11:54 by etakaham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,20 +75,62 @@ bool	is_env_format(char *str)
 	return (true);
 }
 
+static int cmp_strings(const void *a, const void *b)
+{
+	char *str_a = *(char **)a;
+	char *str_b = *(char **)b;
+	return strcmp(str_a, str_b);
+}
+
+static void __sort_env_list(t_env *head)
+{
+	int		count = 0;
+	t_env	*current = head;
+	char	**values;
+	int		i;
+
+	while (current)
+	{
+		count++;
+		current = current->next;
+	}
+
+	values = (char **)malloc(sizeof(char *) * count);
+	if (!values)
+		return ;
+
+	current = head;
+	i = 0;
+	while (current)
+	{
+		values[i++] = current->value;
+		current = current->next;
+	}
+
+	qsort(values, count, sizeof(char *), cmp_strings);
+
+	for (i = 0; i < count; i++)
+	{
+		printf("declare -x %s\n", values[i]);
+	}
+
+	free(values);
+}
+
 int	print_export_declare(t_mini *mini)
 {
-	t_env	*tmp;
+	// t_env	*tmp;
 
-	tmp = mini->export;
-	while (tmp->next)
-	{
-		if (tmp->value)
-		{
-			ft_putstr_fd("declare -x ", 1);
-			ft_putstr_fd(tmp->value, 1);
-			ft_putstr_fd("\n", 1);
-		}
-		tmp = tmp->next;
-	}
+	__sort_env_list(mini->env);
+	// while (tmp->next)
+	// {
+	// 	if (tmp->value)
+	// 	{
+	// 		ft_putstr_fd("declare -x ", 1);
+	// 		ft_putstr_fd(tmp->value, 1);
+	// 		ft_putstr_fd("\n", 1);
+	// 	}
+	// 	tmp = tmp->next;
+	// }
 	return (0);
 }
