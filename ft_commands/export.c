@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/16 19:53:46 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/09/16 21:10:34 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,15 @@ static void	insert_new_env(t_mini *mini, char *tokens)
 		mini->env = mini->env->next;
 	if (ft_eqaul_env(mini->env->next->value, new_env->value))
 	{
-		new_env->next = mini->env->next->next;
-		new_env->prev = mini->env;
-		mini->env->next->next->prev = new_env;
-		mini->env->next = new_env;
-		while (mini->env->prev)
+		printf("mini->prev->value: %s\n", mini->env->prev->value);
+		printf("mini->env->value: %s\n", mini->env->value);
+		printf("mini->env->next->value: %s\n", mini->env->next->value);
+		printf("new_env->value: %s\n", new_env->value);
+		new_env->prev = mini->env->prev->prev->next;
+		mini->env->prev->next = new_env->prev;
+		mini->env->next->prev = new_env->next;
+		new_env->next = mini->env->next->prev;
+		while (mini->env->prev != NULL)
 			mini->env = mini->env->prev;
 		return ;
 	}
@@ -73,7 +77,6 @@ static void	insert_export_list(t_mini *mini, char *str)
 	new->prev = mini->env;
 	while (mini->env->prev)
 		mini->env = mini->env->prev;
-	sort_env_list(mini->env);
 }
 
 static int	export_helper(t_mini *mini, char *tokens, int flag)

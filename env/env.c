@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:03:46 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/16 19:43:53 by etakaham         ###   ########.fr       */
+/*   Updated: 2024/09/16 20:40:44 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	make_prev_node(t_env *env)
 	t_env	*new;
 
 	new = NULL;
+	env->prev = NULL;
 	while (true)
 	{
 		new = env;
