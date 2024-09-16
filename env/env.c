@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:03:46 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/16 02:18:31 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:15:31 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	secret_env_init(t_mini *mini, char **env_ar)
 	return (0);
 }
 
-int env_for_export(t_mini *mini, char **env_ar)
+int	env_for_export(t_mini *mini, char **env_ar)
 {
 	t_env	*env;
 	t_env	*new;
@@ -101,5 +101,3 @@ int env_for_export(t_mini *mini, char **env_ar)
 	sort_env_list(mini->export);
 	return (0);
 }
-
-

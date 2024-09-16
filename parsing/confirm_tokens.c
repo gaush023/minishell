@@ -6,7 +6,7 @@
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:17:20 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/12 23:18:32 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:14:35 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ t_token	*confrim_tokens_prepareation(t_token *token, t_mini *mini)
 
 	while (token->next != NULL)
 	{
-		// if (token->qute_flag == 1 && token->type == ARG
-		// && token->next->qute_flag == 1 && token->next->type == ARG)
 		if (token->qute_flag == 1 && token->next->qute_flag == 1)
 		{
 			tmp_str = my_strjoin(token->content, token->next->content,
