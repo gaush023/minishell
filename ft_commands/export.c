@@ -1,12 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sagemura <sagemura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:48:21 by etakaham          #+#    #+#             */
-/*   Updated: 2024/09/16 21:10:34 by sagemura         ###   ########.fr       */
+/*   Updated: 2024/09/16 03:48:33 by sagemura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,38 +39,18 @@ static void	insert_new_env(t_mini *mini, char *tokens)
 		mini->env = mini->env->next;
 	if (ft_eqaul_env(mini->env->next->value, new_env->value))
 	{
-        printf("already exists\n");
+		new_env->next = mini->env->next->next;
+		new_env->prev = mini->env;
+		mini->env->next->next->prev = new_env;
+		mini->env->next = new_env;
 		while (mini->env->prev)
 			mini->env = mini->env->prev;
-        return ;
-    }
-    new_env->next = mini->env;
-    new_env->prev = mini->env->prev->next;
-    mini->env->prev = new_env;
-    mini->env->prev->next = new_env;
-    while (mini->env->prev)
-		mini->env = mini->env->prev;
-}
-
-static void	insert_export_list(t_mini *mini, char *str)
-{
-	t_env	*new;
-
-	while (mini->env->next)
-	{
-		if (ft_strcmp(mini->env->value, str) == 0)
-		{
-			while (mini->env->prev)
-				mini->env = mini->env->prev;
-			return ;
-		}
-		mini->env = mini->env->next;
+		return ;
 	}
-	new = my_calloc(1, sizeof(t_env), mini->m_node);
-	new->value = my_strdup(str, mini->m_node);
-	new->next = NULL;
-	mini->env->next = new;
-	new->prev = mini->env;
+	mini->env->next->prev = new_env;
+	new_env->next = mini->env->next;
+	mini->env->next = new_env;
+	new_env->prev = mini->env;
 	while (mini->env->prev)
 		mini->env = mini->env->prev;
 }
@@ -77,7 +60,6 @@ static int	export_helper(t_mini *mini, char *tokens, int flag)
 	size_t	i;
 
 	i = 0;
-	insert_export_list(mini, tokens);
 	if (!is_env_format(tokens))
 	{
 		while (tokens[i] != '\0')
