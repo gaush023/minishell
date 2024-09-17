@@ -36,23 +36,18 @@ static void	insert_new_env(t_mini *mini, char *tokens)
 		mini->env = mini->env->next;
 	if (ft_eqaul_env(mini->env->next->value, new_env->value))
 	{
-		printf("mini->prev->value: %s\n", mini->env->prev->value);
-		printf("mini->env->value: %s\n", mini->env->value);
-		printf("mini->env->next->value: %s\n", mini->env->next->value);
-		printf("new_env->value: %s\n", new_env->value);
-		new_env->prev = mini->env->prev->prev->next;
-		mini->env->prev->next = new_env->prev;
-		mini->env->next->prev = new_env->next;
-		new_env->next = mini->env->next->prev;
-		while (mini->env->prev != NULL)
+        printf("already exists\n");
+		while (mini->env->prev)
+        {
 			mini->env = mini->env->prev;
-		return ;
-	}
-	mini->env->next->prev = new_env;
-	new_env->next = mini->env->next;
-	mini->env->next = new_env;
-	new_env->prev = mini->env;
-	while (mini->env->prev)
+        }
+        return ;
+    }
+    new_env->next = mini->env;
+    new_env->prev = mini->env->prev->next;
+    mini->env->prev = new_env;
+    mini->env->prev->next = new_env;
+    while (mini->env->prev)
 		mini->env = mini->env->prev;
 }
 

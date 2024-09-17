@@ -17,7 +17,6 @@ static void	make_prev_node(t_env *env)
 	t_env	*new;
 
 	new = NULL;
-	env->prev = NULL;
 	while (true)
 	{
 		new = env;
