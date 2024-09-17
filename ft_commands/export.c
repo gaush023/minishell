@@ -38,9 +38,7 @@ static void	insert_new_env(t_mini *mini, char *tokens)
 	{
         printf("already exists\n");
 		while (mini->env->prev)
-        {
 			mini->env = mini->env->prev;
-        }
         return ;
     }
     new_env->next = mini->env;
